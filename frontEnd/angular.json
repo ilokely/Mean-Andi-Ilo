@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "front-centre-commercial": {
+    "frontEnd": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/front-centre-commercial",
+            "outputPath": "dist/frontEnd",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -61,18 +61,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "front-centre-commercial:build"
+            "browserTarget": "frontEnd:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "front-centre-commercial:build:production"
+              "browserTarget": "frontEnd:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "front-centre-commercial:build"
+            "browserTarget": "frontEnd:build"
           }
         },
         "test": {
@@ -109,16 +109,16 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "front-centre-commercial:serve"
+            "devServerTarget": "frontEnd:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "front-centre-commercial:serve:production"
+              "devServerTarget": "frontEnd:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "front-centre-commercial"
+  "defaultProject": "frontEnd"
 }
