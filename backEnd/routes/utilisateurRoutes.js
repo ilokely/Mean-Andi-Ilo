@@ -11,6 +11,17 @@ router.get('/' , async(req,res)=> {
     }
 });
 
+router.post('/', async(req,res) => {
+    try{
+        const newUtilisateur = new Utilisateur(req.body);
+        await newUtilisateur.save();
+        res.status(201).json(newUtilisateur);
+    }
+    catch(error){
+        res.status(400).json({message: error.message});
+    }
+});
+
 //Connexion
 router.post('/login', async (req, res) => {
     const { email, motDePasse } = req.body;
