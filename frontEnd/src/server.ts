@@ -49,8 +49,8 @@ app.get('**', (req, res, next) => {
       publicPath: browserDistFolder,
       providers: [{ provide: APP_BASE_HREF, useValue: baseUrl }],
     })
-    .then((html) => res.send(html))
-    .catch((err) => next(err));
+    .then((html: string) => res.send(html))
+    .catch((err: Error) => next(err));
 });
 
 /**
