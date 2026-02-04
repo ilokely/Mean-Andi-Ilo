@@ -50,7 +50,7 @@ export class LoginComponent {
             this.router.navigate(['']);
             break;
           case 'Boutique':
-            this.router.navigate(['']);
+            this.router.navigate(['test']);
             break;
           case 'Admin':
             this.router.navigate(['/A_dashboard']);
