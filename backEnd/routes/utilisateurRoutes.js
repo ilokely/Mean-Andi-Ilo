@@ -24,11 +24,8 @@ router.post('/login', async (req, res) => {
 //getUserById
 router.get('/:id', async (req, res) => {
     try {
-        const utilisateur = await Utilisateur.findById(req.params.id);
-        if (!utilisateur) {
-            return res.status(404).json({ message: "Utilisateur non trouvé" });
-        }
-        res.json(utilisateur);
+        const user = await Utilisateur.findById(req.params.id);
+        res.json(user);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
