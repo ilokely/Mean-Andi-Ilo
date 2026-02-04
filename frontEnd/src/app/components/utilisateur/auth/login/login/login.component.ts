@@ -26,7 +26,7 @@ export class LoginComponent {
 
     }
     if (this.role === 'boutique') {
-      this.email = 'boutique@example.com';
+      this.email = 'boutique@gmail.com';
       this.motDePasse = '1234';
 
     }
