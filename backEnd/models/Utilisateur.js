@@ -6,6 +6,7 @@ const UtilisateurSchema = new mongoose.Schema({
     motDePasse: { type: String, required: true },
     role: {
         id: { type: mongoose.Schema.Types.ObjectId, required: true },
+        libelle: { type: String, required: true },
         valeur: { type: Number, required: true }
     }
 }, { timestamps: true });
