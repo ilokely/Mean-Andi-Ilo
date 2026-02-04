@@ -31,7 +31,7 @@ export class LoginComponent {
 
     }
     if (this.role === 'admin') {
-      this.email = 'Admin@gmail.com';
+      this.email = 'admin@gmail.com';
       this.motDePasse = '1234';
     }
   }
@@ -53,10 +53,10 @@ export class LoginComponent {
             this.router.navigate(['']);
             break;
           case 'Admin':
-            this.router.navigate(['']);
+            this.router.navigate(['/A_dashboard']);
             break;
           default:
-            this.router.navigate(['']);
+            this.router.navigate(['/login/client']);
         }
       },
       error: (err) => {

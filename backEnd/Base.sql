@@ -12,6 +12,7 @@ Utilisateur : {
   motDePasse: String,
   role: {
     id: ObjectId,
+    libelle: String,
     valeur: Number
   }
 }
