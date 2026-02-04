@@ -19,7 +19,7 @@ app.use('/utilisateur', require('./routes/utilisateurRoutes'));
 app.use('/box' , require('./routes/boxRoutes'));
 app.use('/typeabo' , require('./routes/typesAbonnementRoutes'));
 app.use('/abo' , require('./routes/abonnementRoutes'));
-
+app.use('/role' , require('./routes/RoleRoute'));
 app.use('/categorieProduit' , require('./routes/categorieProduitRoutes'));
 app.use('/produit' , require('./routes/produitRoutes'));
 app.use('/panier' , require('./routes/panierRoutes'));
