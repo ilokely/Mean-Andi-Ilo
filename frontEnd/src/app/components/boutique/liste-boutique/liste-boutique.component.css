@@ -1,0 +1,34 @@
+/* Enforce equal height for cards */
+.card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Fixed height for images and object-fit cover to prevent distortion */
+.card-img-top {
+    height: 200px;
+    /* Reduced height from what would be default */
+    object-fit: cover;
+    width: 100%;
+}
+
+/* Ensure card body consumes available space but keeps footer at bottom if added later */
+.card-body {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-text {
+    /* Optional: limit description lines */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Push price to bottom of card body */
+.card-text.fw-bold {
+    margin-top: auto;
+}

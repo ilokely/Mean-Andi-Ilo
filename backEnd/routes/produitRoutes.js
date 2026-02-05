@@ -55,6 +55,10 @@ router.post('/addProduit', async (req, res) => {
         const categorie = await CategorieProduit.findById(categorieId);
         const image = await Image.findById(imageId);
 
+        // if (!mongoose.Types.ObjectId.isValid(boutiqueId)) {
+        //     return res.status(400).json({ error: 'ID boutique invalide' });
+        // }
+
         if (!boutique || !categorie || !image) {
             return res.status(404).json({ error: 'Ressource non trouvée' });
         }
@@ -89,7 +93,7 @@ router.post('/addProduit', async (req, res) => {
                 nomUtilisateur: boutique.nomUtilisateur
             },
             quantite: quantiteInitiale,
-            prix: prixAchat,
+            prixAchat: prixAchat,
             date: new Date()
         });
 
