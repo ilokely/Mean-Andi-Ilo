@@ -2,6 +2,42 @@ const express = require('express');
 const router = express.Router();
 const Utilisateur = require('../models/Utilisateur');
 
+//getAllUsers except Admins
+router.get('/notAdmin', async (req, res) => {
+    try {
+        const utilisateurs = await Utilisateur.find({
+            role: { $ne: 'Admin' }
+        });
+        res.json(utilisateurs);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+//getAllBoutique
+router.get('/boutique', async (req, res) => {
+    try {
+        const utilisateurs = await Utilisateur.find({
+            'role.valeur': 20
+        });
+        res.json(utilisateurs);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+//getAllClient
+router.get('/client', async (req, res) => {
+    try {
+        const utilisateurs = await Utilisateur.find({
+            'role.valeur': 30
+        });
+        res.json(utilisateurs);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
 router.get('/' , async(req,res)=> {
     try {
         const utilisateurs = await Utilisateur.find();
