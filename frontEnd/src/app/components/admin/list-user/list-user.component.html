@@ -1,0 +1,62 @@
+<app-menuAdmin></app-menuAdmin>
+<main id="main" class="main">
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Boutiques</h5>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Nom</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Numero</th>
+                                    <th scope="col">Details</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                 @for(boutique of boutiques ; track boutique._id){
+                                <tr>
+                                    <td>{{boutique.nomUtilisateur}}</td>
+                                    <td>{{boutique.email}}</td>
+                                    <td>{{boutique.numero}}</td>
+                                    <td>Details</td>
+                                </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Clients</h5>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Nom</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Numero</th>
+                                    <th scope="col">Details</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                 @for(client of clients ; track client._id){
+                                <tr>
+                                    <td>{{client.nomUtilisateur}}</td>
+                                    <td>{{client.email}}</td>
+                                    <td>{{client.numero}}</td>
+                                    <td>Details</td>
+                                </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<app-footer></app-footer>
