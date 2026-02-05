@@ -15,8 +15,6 @@ export const routes: Routes = [
      { path: 'A_dashboard', component: DashboardComponent , data: { role: 'Admin' } },
      { path: 'A_listUser', component: ListUserComponent, data: { role: 'Admin' } },
 
-     { path: 'B_dashboard', component: DashboardBoutiqueComponent , data: { role: 'Boutique' } }
-
      {
           path: 'B_dashboard',
           component: MenuBoutiqueComponent, // Using Menu as the Layout 
