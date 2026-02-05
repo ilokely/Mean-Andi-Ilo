@@ -56,7 +56,7 @@ export class LoginComponent {
             this.router.navigate(['/A_dashboard']);
             break;
           default:
-            this.router.navigate(['/login/client']);
+            this.router.navigate(['/login']);
         }
       },
       error: (err) => {

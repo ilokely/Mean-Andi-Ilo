@@ -1,9 +1,8 @@
 const mongoose = require('mongoose');
 const UtilisateurSchema = new mongoose.Schema({
     role: {
-        id: { type: mongoose.Schema.Types.ObjectId, required: true },
+        id: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'Role' },
         libelle: { type: String, required: true },
-        valeur: { type: Number, required: true }
     },
     nomUtilisateur: { type: String, required: true },
     email: { type: String, required: true, unique: true },
