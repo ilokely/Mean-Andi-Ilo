@@ -30,3 +30,15 @@ export class UtilisateurService {
   }
 
 }
+  getAllUtilisateursNotAdmin(){
+    return this.http.get(`${this.apiUrl}/notAdmin`);
+  }
+
+  getAllBoutiques(){
+    return this.http.get(`${this.apiUrl}/boutique`);
+  }
+
+  getAllClients(){
+    return this.http.get(`${this.apiUrl}/client`);
+  }
+}
