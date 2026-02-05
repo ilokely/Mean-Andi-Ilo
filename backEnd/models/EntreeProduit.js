@@ -15,11 +15,10 @@ const EntreeProduitSchema = new mongoose.Schema({
     montantTotal: { type: Number },
 }, { timestamps: true });
 
-EntreeProduitSchema.pre('save', function(next) {
+EntreeProduitSchema.pre('save', function() {
     if (this.prixAchat && this.quantite) {
         this.montantTotal = this.quantite * this.prixAchat;
     }
-    next(); 
 });
 
 module.exports = mongoose.model('EntreeProduit', EntreeProduitSchema, 'entreeProduit');

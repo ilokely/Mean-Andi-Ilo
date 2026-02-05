@@ -1,0 +1,23 @@
+/* Active state for sidebar links */
+.sidebar-nav .nav-link.active {
+    background: #f6f9ff;
+    color: #4154f1;
+}
+
+.sidebar-nav .nav-link.active i {
+    color: #4154f1;
+}
+
+/* Ensure collapsed state styling doesn't override active if both are present (though usually exclusive) */
+.sidebar-nav .nav-link.collapsed {
+    color: #012970;
+    background: #fff;
+}
+
+.sidebar-nav .nav-content a.active i {
+    background-color: #4154f1;
+}
+
+.sidebar-nav .nav-content a.active {
+    color: #4154f1;
+}

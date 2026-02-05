@@ -23,6 +23,7 @@ app.use('/role' , require('./routes/RoleRoute'));
 app.use('/categorieProduit' , require('./routes/categorieProduitRoutes'));
 app.use('/produit' , require('./routes/produitRoutes'));
 app.use('/panier' , require('./routes/panierRoutes'));
+app.use('/image' , require('./routes/imageRoutes'));
 
 
 
