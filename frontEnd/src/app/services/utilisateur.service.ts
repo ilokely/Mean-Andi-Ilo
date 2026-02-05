@@ -23,4 +23,15 @@ export class UtilisateurService {
     return this.http.get(`${this.apiUrl}/${id}/role`);
   }
 
+  getAllUtilisateursNotAdmin(){
+    return this.http.get(`${this.apiUrl}/notAdmin`);
+  }
+
+  getAllBoutiques(){
+    return this.http.get(`${this.apiUrl}/boutique`);
+  }
+
+  getAllClients(){
+    return this.http.get(`${this.apiUrl}/client`);
+  }
 }
