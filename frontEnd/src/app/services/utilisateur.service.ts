@@ -23,4 +23,10 @@ export class UtilisateurService {
     return this.http.get(`${this.apiUrl}/${id}/role`);
   }
 
+  logout(): void{
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+    this.router.navigate(['/login']);
+  }
+
 }

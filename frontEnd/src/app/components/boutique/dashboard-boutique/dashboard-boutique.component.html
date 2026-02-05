@@ -1,1 +1,94 @@
-<p>dashboard-boutique works!</p>
+<app-menu-boutique></app-menu-boutique>
+
+<main id="main" class="main">
+  <section class="section dashboard">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="row">
+          <!-- Sales Card -->
+          <div class="col-xxl-3 col-md-6">
+            <div class="card info-card sales-card">
+              <div class="card-body">
+                <h5 class="card-title">Nombre de Boxes libres   </h5>
+
+                <div class="d-flex align-items-center">
+                  <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                    <i class="ri-user-3-line"></i>
+                  </div>
+                  <div class="ps-3">
+                    <h6><!-- {{ nClient }} --> 1</h6>
+                    <span class="text-muted small pt-2 ps-1">Boxes</span>
+
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div><!-- End Sales Card -->
+          <div class="col-xxl-3 col-xl-12">
+
+            <div class="card info-card customers-card">
+              <div class="card-body">
+                <h5 class="card-title"> Nombre de Boxes occupée</h5>
+
+                <div class="d-flex align-items-center">
+                  <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                    <i class="ri-user-settings-line"></i>
+                  </div>
+                  <div class="ps-3">
+                    <h6><!-- {{ nMecanicien }} -->2 </h6>
+                    <span class="text-muted small pt-2 ps-1">Boxes</span>
+
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <!-- Revenue Card -->
+          <div class="col-xxl-3 col-md-6">
+            <div class="card info-card revenue-card">
+              <div class="card-body">
+                <h5 class="card-title">Abonnements expirés</h5>
+
+                <div class="d-flex align-items-center">
+                  <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                    <i class="ri-calendar-2-line"></i>
+                  </div>
+                  <div class="ps-3">
+                    <h6><!-- {{ nRdvEnCours }} --> 3</h6>
+                    <span class="text-muted small pt-2 ps-1">Abonnements</span>
+
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div><!-- End Revenue Card -->
+
+          <!-- Customers Card -->
+          <div class="col-xxl-3 col-xl-12">
+
+            <div class="card info-card revenue-card">
+              <div class="card-body">
+                <h5 class="card-title">Chiffre d'affaire</h5>
+
+                <div class="d-flex align-items-center">
+                  <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                    <i class="ri-calendar-check-line"></i>
+                  </div>
+                  <div class="ps-3">
+                    <h6><!-- {{ nRdvTermine }} --> 1000000</h6>
+                    <span class="text-muted small pt-2 ps-1">Ariary</span>
+
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

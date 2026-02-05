@@ -5,6 +5,7 @@ import { DashboardBoutiqueComponent } from './components/boutique/dashboard-bout
 
 export const routes: Routes = [
      { path: '', redirectTo: 'login/client', pathMatch: 'full' }, 
+     { path: 'login' , component: LoginComponent },
      { path: 'login/:role' , component: LoginComponent },
 
      { path: 'A_dashboard', component: DashboardComponent , data: { role: 'Admin' } },
