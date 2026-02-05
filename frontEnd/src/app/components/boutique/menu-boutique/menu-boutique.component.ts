@@ -1,5 +1,5 @@
-import { isPlatformBrowser } from '@angular/common';
-import { Component, inject, PLATFORM_ID } from '@angular/core';
+import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { Component, inject, PLATFORM_ID, HostListener } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { UtilisateurService } from '../../../services/utilisateur.service';
 
@@ -13,6 +13,7 @@ import { UtilisateurService } from '../../../services/utilisateur.service';
 export class MenuBoutiqueComponent {
   user: any = {};
   private platformId = inject(PLATFORM_ID);
+  private document = inject(DOCUMENT);
 
   constructor(private utilisateurService: UtilisateurService) { }
 
@@ -33,5 +34,25 @@ export class MenuBoutiqueComponent {
 
   logout(): void {
     this.utilisateurService.logout();
+  }
+
+  toggleSearchBar(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      this.document.querySelector('.search-bar')?.classList.toggle('search-bar-show');
+    }
+  }
+
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    if (isPlatformBrowser(this.platformId)) {
+      const selectHeader = this.document.querySelector('#header');
+      if (selectHeader) {
+        if (window.scrollY > 100) {
+          selectHeader.classList.add('header-scrolled');
+        } else {
+          selectHeader.classList.remove('header-scrolled');
+        }
+      }
+    }
   }
 }
