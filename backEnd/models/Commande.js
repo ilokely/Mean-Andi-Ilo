@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const CommandeSchema = new mongoose.Schema({
     panier: [{
         produit: {
-            id: { type: mongoose.Schema.Types.ObjectId, required: true },
+            id: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'Produit' },
             nom: { type: String, required: true }
         },
         quantite: { type: Number, required: true },
