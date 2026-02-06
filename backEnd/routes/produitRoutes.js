@@ -53,14 +53,22 @@ router.post('/addProduit', async (req, res) => {
 
         const boutique = await Boutique.findById(boutiqueId);
         const categorie = await CategorieProduit.findById(categorieId);
-        const image = await Image.findById(imageId);
+        // const image = await Image.findById(imageId);
 
         // if (!mongoose.Types.ObjectId.isValid(boutiqueId)) {
         //     return res.status(400).json({ error: 'ID boutique invalide' });
         // }
 
-        if (!boutique || !categorie || !image) {
+        if (!boutique || !categorie) {
             return res.status(404).json({ error: 'Ressource non trouvée' });
+        }
+
+        let image = null;
+        if(imageId){
+            image = await Image.findById(imageId);
+            if(!image){
+                return res.status(404).json({ error: 'Image non trouvée' });
+            }
         }
 
         const nouveauProduit = await Produit.create({
@@ -77,10 +85,12 @@ router.post('/addProduit', async (req, res) => {
                 id: categorie._id,
                 libelle: categorie.libelle
             },
-            imageProduit: {
-                id: image._id,
-                path: image.path
-            }
+            ...(image && {
+                imageProduit: {
+                    id: image._id,
+                    path: image.path
+                }
+            })
         });
 
         const entreeStock = await EntreeProduit.create({

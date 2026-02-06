@@ -1,8 +1,13 @@
+<button mat-raised-button color="primary" (click)="openAddDialog()">
+    <mat-icon>add</mat-icon>
+    Ajouter un produit
+</button> <br> <br>
+@if (produits.length > 0) {
 <div class="row">
-    <div class="col-xxl-3 col-md-4" *ngFor="let produit of produits">
+    @for (produit of produits; track produit._id) {
+    <div class="col-xxl-3 col-md-4">
         <div class="card">
-            <img [src]="produit.imageProduit?.path || 'img/not-found.svg'" class="card-img-top"
-                alt="{{ produit.nom }}">
+            <img [src]="produit.imageProduit?.path || 'img/not-found.svg'" class="card-img-top" alt="{{ produit.nom }}">
             <div class="card-body">
                 <h5 class="card-title">{{ produit.nom }}</h5>
                 <h6 class="card-subtitle mb-2 text-muted">{{ produit.marque }}</h6>
@@ -11,4 +16,8 @@
             </div>
         </div>
     </div>
+    }
 </div>
+} @else {
+<p>Aucun produit trouvé</p>
+}
