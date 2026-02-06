@@ -25,7 +25,6 @@ export class UtilisateurService {
 
   logout(): void{
     localStorage.removeItem('user');
-    localStorage.removeItem('token');
     this.router.navigate(['/login']);
   }
 

@@ -42,7 +42,8 @@ export class LoginComponent {
         console.log('Connexion réussie !', res);
         // Exemple : enregistrer le token ou l'utilisateur dans le localStorage
         if(res.user._id) {
-          localStorage.setItem('user', res.user._id);
+          localStorage.setItem('user', JSON.stringify(res.user));
+          localStorage.setItem('userId', res.user._id);
         }
         const role = res.user.role.libelle;
         switch(role){

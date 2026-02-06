@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const CategorieProduit = require('../models/CategorieProduit');
 
-router.get('/', async (req, res) => {
+router.get('/getCategories', async (req, res) => {
     try {
         const categories = await CategorieProduit.find();
         res.json(categories);

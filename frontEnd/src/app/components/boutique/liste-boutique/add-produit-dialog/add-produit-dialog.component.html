@@ -1,81 +1,167 @@
 <h2 mat-dialog-title>Ajouter un produit</h2>
+
 <mat-dialog-content>
-    <form class="form-add-produit">
+    <form [formGroup]="produitForm" class="form-add-produit">
         <table class="table-add-produit-full-width" cellspacing="0">
             <tr>
                 <td>
                     <mat-form-field>
                         <mat-label>Nom du produit</mat-label>
-                        <input matInput placeholder="Nom du produit">
+                        <input matInput 
+                               placeholder="Nom du produit"
+                               formControlName="nom"
+                               required>
+                        @if (produitForm.get('nom')?.hasError('required')) {
+                            <mat-error>Le nom est requis</mat-error>
+                        }
                     </mat-form-field> 
                 </td>
                 <td>
                     <mat-form-field>
                         <mat-label>Marque du produit</mat-label>
-                        <input matInput placeholder="Marque du produit">
+                        <input matInput 
+                               placeholder="Marque du produit"
+                               formControlName="marque">
                     </mat-form-field>
                 </td>
             </tr>
+            
             <tr>
                 <td>
                     <mat-form-field>
-                        <mat-label>Categorie du produit</mat-label>
-                        <mat-select>
-                            <mat-option value="one">Electronique</mat-option>
-                            <mat-option value="two">Vetement</mat-option>
+                        <mat-label>Catégorie du produit</mat-label>
+                        <mat-select formControlName="categorieId" required>
+                            @for (categorie of categories; track categorie._id) {
+                                <mat-option [value]="categorie._id">
+                                    {{ categorie.libelle }}
+                                </mat-option>
+                            }
                         </mat-select>
+                        @if (produitForm.get('categorieId')?.hasError('required')) {
+                            <mat-error>Le nom est requis</mat-error>
+                        }
                     </mat-form-field> 
                 </td>
                 <td>
                     <mat-form-field>
-                        <mat-label>Quantite initiale</mat-label>
-                        <input matInput placeholder="Quantite initiale">
+                        <mat-label>Quantité initiale</mat-label>
+                        <input matInput 
+                               type="number"
+                               placeholder="Quantité initiale"
+                               formControlName="quantiteInitiale"
+                               required
+                               min="0">
+                        @if (produitForm.get('quantiteInitiale')?.hasError('required')) {
+                            <mat-error>Le nom est requis</mat-error>
+                        }
+                        @if (produitForm.get('quantiteInitiale')?.hasError('min')) {
+                            <mat-error>Le nom est requis</mat-error>
+                        }
                     </mat-form-field> 
                 </td>
             </tr>
+            
             <tr>
                 <td>
                     <mat-form-field>
                         <mat-label>Description du produit</mat-label>
-                        <textarea matInput placeholder="Description du produit"></textarea>
+                        <textarea matInput 
+                                  placeholder="Description du produit"
+                                  formControlName="description"
+                                  rows="3"></textarea>
                     </mat-form-field>
                 </td>
                 <td>    
                     <mat-form-field class="table-add-produit-full-width">
-                        <mat-label>Prix Achat</mat-label>
-                        <input matInput placeholder="Prix Achat">
+                        <mat-label>Prix Achat (unitaire)</mat-label>
+                        <input matInput 
+                               type="number"
+                               placeholder="Prix Achat"
+                               formControlName="prixAchat"
+                               required
+                               min="0"
+                               step="0.01">
+                        @if (produitForm.get('prixAchat')?.hasError('required')) {
+                            <mat-error>Le nom est requis</mat-error>
+                        }
                     </mat-form-field>
                 </td>
             </tr>
+            
             <tr>
-                
                 <td>
                     <mat-form-field class="table-add-produit-full-width">
-                        <mat-label>Prix Vente</mat-label>
-                        <input matInput placeholder="Prix Vente">
+                        <mat-label>Prix Vente (unitaire)</mat-label>
+                        <input matInput 
+                               type="number"
+                               placeholder="Prix Vente"
+                               formControlName="prix"
+                               required
+                               min="0"
+                               step="0.01">
+                        @if (produitForm.get('prix')?.hasError('required')) {
+                            <mat-error>Le nom est requis</mat-error>
+                        }
                     </mat-form-field>
                 </td>
                 <td>
                     <mat-form-field class="table-add-produit-full-width">
                         <mat-label>Devise</mat-label>
-                        <mat-select>
-                            <mat-option value="one">Dollar</mat-option>
-                            <mat-option value="two">Euro</mat-option>
-                            <mat-option value="three">Yen</mat-option>
+                        <mat-select formControlName="devise" required>
+                            <mat-option value="USD">Dollar (USD)</mat-option>
+                            <mat-option value="EUR">Euro (EUR)</mat-option>
+                            <mat-option value="JPY">Yen (JPY)</mat-option>
+                            <mat-option value="MGA">Ariary (MGA)</mat-option>
                         </mat-select>
                     </mat-form-field>
                 </td>
             </tr>
+            
             <tr>
-                
-                <td>
-                        <button mat-button mat-dialog-close>Choose Image</button>
+                <td colspan="2">
+                    <input type="file" 
+                           #fileInput
+                           accept="image/*"
+                           (change)="onFileSelected($event)"
+                           style="display: none">
+                    
+                    <button mat-stroked-button 
+                            type="button"
+                            (click)="fileInput.click()">
+                        <mat-icon>image</mat-icon>
+                        Choisir une image
+                    </button>
+                    
+                    <!-- Afficher le nom du fichier sélectionné -->
+                    @if (selectedFileName) {
+                        <span class="file-name">
+                            {{ selectedFileName }}
+                        </span>
+                    }
                 </td>
             </tr>
         </table>
     </form>
 </mat-dialog-content>
-<mat-dialog-actions>
-  <button mat-flat-button mat-dialog-close>Close</button>
-  <button mat-flat-button [mat-dialog-close]="true">Save</button>
+
+<mat-dialog-actions align="end">
+    <button mat-stroked-button 
+            type="button"
+            (click)="onCancel()">
+        Annuler
+    </button>
+    
+    <button mat-flat-button 
+            color="primary"
+            type="button"
+            (click)="onSubmit()"
+            [disabled]="produitForm.invalid || isLoading">
+
+        @if (isLoading) {
+            <mat-spinner diameter="20"></mat-spinner>
+        }
+        @if (!isLoading) {
+            <span>Enregistrer</span>
+        }
+    </button>
 </mat-dialog-actions>
