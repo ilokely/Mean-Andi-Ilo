@@ -1,5 +1,81 @@
 <h2 mat-dialog-title>Ajouter un produit</h2>
-<mat-dialog-content>This dialog showcases the title, close, content and actions elements.</mat-dialog-content>
+<mat-dialog-content>
+    <form class="form-add-produit">
+        <table class="table-add-produit-full-width" cellspacing="0">
+            <tr>
+                <td>
+                    <mat-form-field>
+                        <mat-label>Nom du produit</mat-label>
+                        <input matInput placeholder="Nom du produit">
+                    </mat-form-field> 
+                </td>
+                <td>
+                    <mat-form-field>
+                        <mat-label>Marque du produit</mat-label>
+                        <input matInput placeholder="Marque du produit">
+                    </mat-form-field>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <mat-form-field>
+                        <mat-label>Categorie du produit</mat-label>
+                        <mat-select>
+                            <mat-option value="one">Electronique</mat-option>
+                            <mat-option value="two">Vetement</mat-option>
+                        </mat-select>
+                    </mat-form-field> 
+                </td>
+                <td>
+                    <mat-form-field>
+                        <mat-label>Quantite initiale</mat-label>
+                        <input matInput placeholder="Quantite initiale">
+                    </mat-form-field> 
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <mat-form-field>
+                        <mat-label>Description du produit</mat-label>
+                        <textarea matInput placeholder="Description du produit"></textarea>
+                    </mat-form-field>
+                </td>
+                <td>    
+                    <mat-form-field class="table-add-produit-full-width">
+                        <mat-label>Prix Achat</mat-label>
+                        <input matInput placeholder="Prix Achat">
+                    </mat-form-field>
+                </td>
+            </tr>
+            <tr>
+                
+                <td>
+                    <mat-form-field class="table-add-produit-full-width">
+                        <mat-label>Prix Vente</mat-label>
+                        <input matInput placeholder="Prix Vente">
+                    </mat-form-field>
+                </td>
+                <td>
+                    <mat-form-field class="table-add-produit-full-width">
+                        <mat-label>Devise</mat-label>
+                        <mat-select>
+                            <mat-option value="one">Dollar</mat-option>
+                            <mat-option value="two">Euro</mat-option>
+                            <mat-option value="three">Yen</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </td>
+            </tr>
+            <tr>
+                
+                <td>
+                        <button mat-button mat-dialog-close>Choose Image</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</mat-dialog-content>
 <mat-dialog-actions>
   <button mat-flat-button mat-dialog-close>Close</button>
+  <button mat-flat-button [mat-dialog-close]="true">Save</button>
 </mat-dialog-actions>

@@ -26,6 +26,7 @@ export class ListeBoutiqueComponent implements OnInit {
     this.produitService.getProduits().subscribe({
       next: (data) => {
         this.produits = data;
+        // console.log(data);
       },
       error: (e) => console.error(e)
     });
