@@ -16,25 +16,6 @@ router.get('/getProduits', async (req, res) => {
     }
 });
 
-router.get('/getEntreeProduits', async(req,res) => {
-    try{
-        const entreeProduits = await EntreeProduit.find();
-        res.json(entreeProduits);
-    }
-    catch(error){
-        res.status(500).json({message: error.message});
-    }
-});
-
-router.get('/getSortieProduits', async(req,res) => {
-    try{
-        const sortieProduits = await SortieProduit.find();
-        res.json(sortieProduits);
-    }
-    catch(error){ 
-        res.status(500).json({message: error.message});
-    }
-});
 
 router.post('/addProduit', async (req, res) => {
     try {

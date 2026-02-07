@@ -7,13 +7,13 @@ import { MatDialog } from '@angular/material/dialog';
 import { AddProduitDialogComponent } from './add-produit-dialog/add-produit-dialog.component';
 
 @Component({
-  selector: 'app-liste-boutique',
+  selector: 'app-liste-produit',
   standalone: true,
   imports: [CommonModule, MatButtonModule, MatIconModule],
-  templateUrl: './liste-boutique.component.html',
-  styleUrl: './liste-boutique.component.css'
+  templateUrl: './liste-produit.component.html',
+  styleUrl: './liste-produit.component.css'
 })
-export class ListeBoutiqueComponent implements OnInit {
+export class ListeProduitComponent implements OnInit {
   produits: any[] = [];
   readonly dialog = inject(MatDialog);
 
