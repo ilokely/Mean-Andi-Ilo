@@ -16,6 +16,15 @@ router.get('/getProduits', async (req, res) => {
     }
 });
 
+router.get('/getProduitsByBoutique/:boutiqueId', async (req, res) => {
+    try {
+        const produits = await Produit.find({ 'boutique.id': req.params.boutiqueId });
+        res.json(produits);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
 
 router.post('/addProduit', async (req, res) => {
     try {

@@ -12,4 +12,14 @@ router.get('/getEntreeProduits', async(req,res) => {
     }
 });
 
+router.get('/getStockByBoutique/:boutiqueId', async(req,res) => {
+    try{
+        const entreeProduit = await EntreeProduit.find({ 'boutique.id': req.params.boutiqueId });
+        res.json(entreeProduit);
+    }
+    catch(error){
+        res.status(500).json({message: error.message});
+    }
+});
+
 module.exports = router;

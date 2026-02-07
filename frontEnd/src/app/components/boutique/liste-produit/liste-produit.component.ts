@@ -5,6 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 import { AddProduitDialogComponent } from './add-produit-dialog/add-produit-dialog.component';
+import { StorageService } from '../../../services/storage.service';
 
 @Component({
   selector: 'app-liste-produit',
@@ -15,6 +16,7 @@ import { AddProduitDialogComponent } from './add-produit-dialog/add-produit-dial
 })
 export class ListeProduitComponent implements OnInit {
   produits: any[] = [];
+  private storageService = inject(StorageService);
   readonly dialog = inject(MatDialog);
 
   constructor(private produitService: ProduitService) { }
@@ -45,7 +47,12 @@ export class ListeProduitComponent implements OnInit {
   }
 
   loadProduits(): void {
-    this.produitService.getProduits().subscribe({
+    const boutiqueId = this.storageService.getItem('userId');
+    if (!boutiqueId) {
+      console.error('Boutique ID not found');
+      return;
+    }
+    this.produitService.getProduitsByBoutique(boutiqueId).subscribe({
       next: (data) => {
         this.produits = data;
       },

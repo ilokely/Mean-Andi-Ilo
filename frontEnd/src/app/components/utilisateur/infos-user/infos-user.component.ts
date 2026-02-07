@@ -85,7 +85,7 @@ export class InfosUserComponent implements OnInit {
           this.user = response;
           this.isLoading = false;
           // Optionnel : Recharger les données complètes ou afficher un message de succès
-          alert('Informations mises à jour avec succès');
+          // alert('Informations mises à jour avec succès');
         },
         error: (error) => {
           console.error(error);
