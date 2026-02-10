@@ -91,4 +91,21 @@ router.get('/:id/role', async (req, res) => {
     }
 });
 
+//update infos utilisateur
+router.put('/updateUserInfo/:id' , async(req,res)=> {
+    try {
+        const utilisateur = await Utilisateur.findById(req.params.id);
+        if (!utilisateur) {
+            return res.status(404).json({ message: "Utilisateur non trouvé" });
+        }
+        utilisateur.nomUtilisateur = req.body.nomUtilisateur;
+        utilisateur.email = req.body.email;
+        utilisateur.numero = req.body.numero;
+        await utilisateur.save();
+        res.json(utilisateur);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
 module.exports = router;

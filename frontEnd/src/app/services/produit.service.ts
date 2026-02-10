@@ -11,8 +11,13 @@ export class ProduitService {
 
     constructor(private http: HttpClient) { }
 
+
     getProduits(): Observable<any[]> {
         return this.http.get<any[]>(`${this.apiUrl}/getProduits`);
+    }
+
+    getProduitsByBoutique(boutiqueId: string): Observable<any[]> {
+        return this.http.get<any[]>(`${this.apiUrl}/getProduitsByBoutique/${boutiqueId}`);
     }
 
     addProduit(produitData: any): Observable<any> {
@@ -34,4 +39,5 @@ export class ProduitService {
   deleteProduit(id: string): Observable<any> {
     return this.http.delete<any>(`${this.apiUrl}/deleteProduit/${id}`);
   }
+  
 }

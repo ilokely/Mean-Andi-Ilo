@@ -23,20 +23,26 @@ export class UtilisateurService {
     return this.http.get(`${this.apiUrl}/${id}/role`);
   }
 
-  logout(): void{
-    localStorage.removeItem('user');
-    this.router.navigate(['/login']);
-  }
-
+  
   getAllUtilisateursNotAdmin(){
     return this.http.get(`${this.apiUrl}/notAdmin`);
   }
-
+  
   getAllBoutiques(){
     return this.http.get(`${this.apiUrl}/boutique`);
   }
-
+  
   getAllClients(){
     return this.http.get(`${this.apiUrl}/client`);
+  }
+
+  updateInfosUtilisateur(id : string , user : any){
+    return this.http.put(`${this.apiUrl}/updateUserInfo/${id}` , user);
+  }
+
+  logout(): void{
+    localStorage.removeItem('user');
+    localStorage.removeItem('userId');
+    this.router.navigate(['/login']);
   }
 }

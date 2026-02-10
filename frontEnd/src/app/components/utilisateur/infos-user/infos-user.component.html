@@ -1,0 +1,47 @@
+<div class="contenu-infos-user">
+    <div class="card">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card-body">
+                    <h5 class="card-title"><strong>Informations sur l'utilisateur</strong></h5>
+                    <p class="card-text"><strong>Nom:</strong> {{ user.nomUtilisateur }}</p>
+                    <p class="card-text"><strong>Email:</strong> {{ user.email }}</p>
+                    <p class="card-text"><strong>Téléphone:</strong> {{ user.numero }}</p>
+                    <p class="card-text"><strong>Rôle:</strong> {{ user.role?.libelle }}</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card-body"> <br>
+                    <form [formGroup]="userForm">
+                        <mat-form-field>
+                            <mat-label>Nom</mat-label>
+                            <input matInput formControlName="nom">
+                        </mat-form-field>
+                        <mat-form-field class="inp-inf-usr">
+                            <mat-label>Email</mat-label>
+                            <input matInput formControlName="email">
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Téléphone</mat-label>
+                            <input matInput formControlName="telephone">
+                        </mat-form-field>
+                        <mat-form-field class="inp-inf-usr">
+                            <mat-label>Rôle</mat-label>
+                            <input matInput formControlName="role">
+                        </mat-form-field> <br>
+                        <button mat-flat-button color="primary" type="button" (click)="onSubmit()"
+                            [disabled]="userForm.invalid || isLoading">
+
+                            @if (isLoading) {
+                            <mat-spinner diameter="20"></mat-spinner>
+                            }
+                            @if (!isLoading) {
+                            <span>Enregistrer</span>
+                            }
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

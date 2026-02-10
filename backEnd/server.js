@@ -21,6 +21,8 @@ app.use('/typeabo' , require('./routes/typesAbonnementRoutes'));
 app.use('/abo' , require('./routes/abonnementRoutes'));
 app.use('/role' , require('./routes/RoleRoute'));
 app.use('/categorieProduit' , require('./routes/categorieProduitRoutes'));
+app.use('/entreeProduit' , require('./routes/entreeProduitRoutes'));
+app.use('/sortieProduit' , require('./routes/sortieProduitRoutes'));
 app.use('/produit' , require('./routes/produitRoutes'));
 app.use('/panier' , require('./routes/panierRoutes'));
 app.use('/image' , require('./routes/imageRoutes'));
