@@ -1,5 +1,5 @@
-import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { Component, inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { ProduitService } from '../../../services/produit.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -18,6 +18,8 @@ export class ListeProduitComponent implements OnInit {
   produits: any[] = [];
   private storageService = inject(StorageService);
   readonly dialog = inject(MatDialog);
+
+  private platformId = inject(PLATFORM_ID);
 
   constructor(private produitService: ProduitService) { }
 
@@ -43,7 +45,9 @@ export class ListeProduitComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadProduits();
+    if (isPlatformBrowser(this.platformId)) {
+      this.loadProduits();
+    }
   }
 
   loadProduits(): void {

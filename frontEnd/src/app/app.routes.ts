@@ -6,6 +6,8 @@ import { ListeProduitComponent } from './components/boutique/liste-produit/liste
 import { MenuBoutiqueComponent } from './components/boutique/menu-boutique/menu-boutique.component';
 import { ListUserComponent } from './components/admin/list-user/list-user.component';
 import { InfosUserComponent } from './components/utilisateur/infos-user/infos-user.component';
+import { EntreeProduitComponent } from './components/boutique/entree-produit/entree-produit.component';
+import { SortieProduitComponent } from './components/boutique/sortie-produit/sortie-produit.component';
 
 export const routes: Routes = [
      { path: '', redirectTo: 'login/client', pathMatch: 'full' },
@@ -23,7 +25,9 @@ export const routes: Routes = [
           children: [
                { path: '', component: DashboardBoutiqueComponent }, // Default view: Dashboard content
                { path: 'liste_produit', component: ListeProduitComponent },
-               { path: 'infos_user', component: InfosUserComponent }
+               { path: 'infos_user', component: InfosUserComponent } , 
+               { path: 'entreeProduit', component: EntreeProduitComponent },
+               { path: 'sortieProduit', component: SortieProduitComponent }
           ]
      }
 

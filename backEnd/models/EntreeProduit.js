@@ -21,4 +21,19 @@ EntreeProduitSchema.pre('save', function() {
     }
 });
 
+EntreeProduitSchema.post('save', async function(doc) {
+    try {
+        const Produit = mongoose.model('Produit');
+        const produit = await Produit.findById(doc.produit.id);
+        
+        if (produit) {
+            // Recalculer le stock
+            await produit.calculerStock();
+            console.log(`Stock mis à jour pour ${produit.nom}: ${produit.stockActuel}`);
+        }
+    } catch (error) {
+        console.error('Erreur mise à jour stock:', error);
+    }
+});
+
 module.exports = mongoose.model('EntreeProduit', EntreeProduitSchema, 'entreeProduit');

@@ -28,8 +28,8 @@ export class InfosUserComponent implements OnInit {
   constructor(private utilisateurService: UtilisateurService) { }
 
   ngOnInit(): void {
+    this.initForm();
     if (isPlatformBrowser(this.platformId)) {
-      this.initForm();
       this.loadUser();
     }
   }
