@@ -86,7 +86,8 @@ router.post('/addProduit', async (req, res) => {
         const entreeStock = await EntreeProduit.create({
             produit: {
                 id: nouveauProduit._id,
-                nom: nouveauProduit.nom
+                nom: nouveauProduit.nom,
+                devise: nouveauProduit.devise
             },
             boutique: {
                 id: boutique._id,

@@ -39,4 +39,5 @@ export class ProduitService {
   deleteProduit(id: string): Observable<any> {
     return this.http.delete<any>(`${this.apiUrl}/deleteProduit/${id}`);
   }
+  
 }

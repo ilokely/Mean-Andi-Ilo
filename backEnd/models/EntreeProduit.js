@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 const EntreeProduitSchema = new mongoose.Schema({
     produit: {
         id: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'Produit' },
-        nom: { type: String, required: true }
+        nom: { type: String, required: true },
+        devise: { type: String, default: 'EUR' },
     },
     boutique: {
         id: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'Utilisateur' },
