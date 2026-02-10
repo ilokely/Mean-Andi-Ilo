@@ -24,7 +24,7 @@ export class MenuComponent {
   }
 
   loadUser(): void {
-    const idUser = localStorage.getItem('user');
+    const idUser = localStorage.getItem('userId');
 
     if (idUser) {
       this.utilisateurService.getUtilisateurById(idUser).subscribe(data => this.user = data);
