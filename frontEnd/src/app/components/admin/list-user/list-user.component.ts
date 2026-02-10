@@ -22,11 +22,13 @@ export class ListUserComponent {
 
   loadBoutiques(): void {
     this.utilisateurService.getAllBoutiques().subscribe(data => {
+      console.log(data);
       this.boutiques = data as any[];
     }); 
   }
   loadClients(): void {
     this.utilisateurService.getAllClients().subscribe(data => {
+      console.log(data);
       this.clients = data as any[];
     });
   }

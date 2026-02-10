@@ -24,7 +24,7 @@ router.post('/', async (req, res) => {
 router.get('/available', async (req, res) => { 
     try { 
         const availableBox = await Box.find({ isAvailable: true });
-        res.status(200).json({ success: true, count: availableBox.length, data: availableBox }); 
+        res.status(200).json( availableBox ); 
     } catch (error) { 
         console.error('Erreur lors de la récupération des box disponibles:', error);
         res.status(500).json({ success: false, message: 'Erreur serveur lors de la récupération des box disponibles' });
@@ -34,11 +34,35 @@ router.get('/available', async (req, res) => {
 router.get('/unAvailable', async (req, res) => { 
     try { 
         const unAvailableBoxes = await Box.find({ isAvailable: false });
-        res.status(200).json({ success: true, count: unAvailableBoxes.length, data: unAvailableBoxes }); 
+        res.status(200).json( unAvailableBoxes); 
     } catch (error) { 
         console.error('Erreur lors de la récupération des box indisponibles:', error);
         res.status(500).json({ success: false, message: 'Erreur serveur lors de la récupération des box indisponibles' });
     } 
+});
+
+router.put('/:id', async (req, res) => {
+    try {
+        const updatedBox = await Box.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        if (!updatedBox) {
+            return res.status(404).json({ message: 'Box non trouvé' });
+        }
+        res.json(updatedBox);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+});
+
+router.delete('/:id', async (req, res) => {
+    try {
+        const deletedBox = await Box.findByIdAndDelete(req.params.id);  
+        if (!deletedBox) {
+            return res.status(404).json({ message: 'Box non trouvé' });
+        }
+        res.json({ message: 'Box supprimé avec succès' });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
 });
 
 module.exports = router;

@@ -1,7 +1,7 @@
 <header id="header" class="header fixed-top d-flex align-items-center">
 
   <div class="d-flex align-items-center justify-content-between">
-    <a href="index.html" class="logo d-flex align-items-center">
+    <a routerLink="/A_dashboard" class="logo d-flex align-items-center">
       <!-- <img src="assets/img/logo.png" alt=""> -->
       <span class="d-none d-lg-block">m1p13mean-Irina-Ilo</span>
     </a>
@@ -27,7 +27,7 @@
       <li class="nav-item dropdown pe-3">
 
         <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-          <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+         <i class="bi bi-person-circle" style="font-size: 24px; color: #333;"></i>
           <span class="d-none d-md-block dropdown-toggle ps-2">{{ user.nomUtilisateur }}</span>
         </a><!-- End Profile Iamge Icon -->
 
@@ -57,12 +57,12 @@
       </a>
       <ul id="tables-nav" class="nav-content collapse show" data-bs-parent="#sidebar-nav">
         <li>
-          <a href="tables-general.html" class="active" routerLink="/A_listUser">
+          <a href="tables-general.html" class="" routerLink="/A_listUser">
             <i class="bi bi-circle"></i><span>Utilisateurs</span>
           </a>
         </li>
         <li>
-          <a href="tables-data.html">
+          <a href="tables-data.html" routerLink="/A_listBoxes">
             <i class="bi bi-circle"></i><span>Boxes</span>
           </a>
         </li>
