@@ -1,0 +1,251 @@
+<app-menuAdmin></app-menuAdmin>
+<main id="main" class="main">
+    <section class="section">
+        <!-- Bouton d'ajout -->
+        <div class="row mb-3">
+            <div class="col-12 d-flex justify-content-between align-items-center">
+                <h3>Gestion des Boxes</h3>
+
+                <!-- Bouton d'ajout -->
+                <button #btnAjouterBox type="button" class="btn btn-primary" data-bs-toggle="modal"
+                    data-bs-target="#verticalycentered">
+                    <i class="bi bi-plus-circle me-2"></i>Ajouter Box
+                </button>
+
+                <!-- Modal Bootstrap -->
+                <div class="modal fade" id="verticalycentered" tabindex="-1" aria-labelledby="verticalycenteredLabel">
+
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+
+                            <!-- Header -->
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="verticalycenteredLabel">
+                                    Ajouter une Box
+                                </h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer">
+                                </button>
+                            </div>
+
+                            <!-- Body -->
+                            <div class="modal-body">
+                                <form (ngSubmit)="addBox()" novalidate>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Nom</label>
+                                        <input type="text" class="form-control" name="nom" [(ngModel)]="newBox.nom"
+                                            required>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Surface (m²)</label>
+                                        <input type="number" class="form-control" name="surface"
+                                            [(ngModel)]="newBox.surface" required>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Étage</label>
+                                        <input type="number" class="form-control" name="etage"
+                                            [(ngModel)]="newBox.etage" required>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Prix</label>
+                                        <input type="number" class="form-control" name="prix" [(ngModel)]="newBox.prix"
+                                            required>
+                                    </div>
+
+                                    <div class="d-flex justify-content-end">
+                                        <button type="submit" class="btn btn-primary">
+                                            Créer Box
+                                        </button>
+                                    </div>
+
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Box Occupées</h5>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Nom</th>
+                                    <th scope="col">Etage</th>
+                                    <th scope="col">Surface</th>
+                                    <th scope="col">Prix</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for(box of busyBoxes ; track box._id){
+                                <tr>
+                                    <td>{{box.nom}}</td>
+                                    <td>{{box.etage}}</td>
+                                    <td>{{box.surface}}</td>
+                                    <td>{{box.prix}}</td>
+                                    <td>
+                                        <!-- Modifier -->
+                                        <i class="bi bi-pencil text-primary me-2" style="cursor:pointer;"
+                                            (click)="editBox(box)"></i>
+
+                                        <!-- Supprimer -->
+                                        <i class="bi bi-trash text-danger" style="cursor:pointer;"
+                                            (click)="deleteBox(box)"></i>
+                                    </td>
+                                </tr>
+                                }
+                                @empty { <tr>
+                                    <td colspan="5">Aucune box occupée </td>
+                                </tr> }
+                            </tbody>
+                        </table>
+
+                        <!-- Modal Modifier Box -->
+                        <div class="modal fade" id="editBoxModal" tabindex="-1" aria-labelledby="editBoxLabel">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+
+                                    <!-- Header -->
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="editBoxLabel">Modifier une Box</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Fermer"></button>
+                                    </div>
+
+                                    <!-- Body -->
+                                    <div class="modal-body">
+                                        <form (ngSubmit)="updateBox()" novalidate>
+
+                                            <div class="mb-3">
+                                                <label class="form-label">Nom</label>
+                                                <input type="text" class="form-control" name="nom"
+                                                    [(ngModel)]="editBoxData.nom" required>
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label class="form-label">Étage</label>
+                                                <input type="number" class="form-control" name="etage"
+                                                    [(ngModel)]="editBoxData.etage" required>
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label class="form-label">Surface</label>
+                                                <input type="number" class="form-control" name="surface"
+                                                    [(ngModel)]="editBoxData.surface" required>
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label class="form-label">Prix</label>
+                                                <input type="number" class="form-control" name="prix"
+                                                    [(ngModel)]="editBoxData.prix" required>
+                                            </div>
+
+                                            <div class="form-check mb-3">
+                                                <input class="form-check-input" type="checkbox" name="isAvailable"
+                                                    [(ngModel)]="editBoxData.isAvailable">
+                                                <label class="form-check-label">
+                                                    Disponible
+                                                </label>
+                                            </div>
+
+                                            <div class="d-flex justify-content-end">
+                                                <button type="submit" class="btn btn-primary">
+                                                    Enregistrer
+                                                </button>
+                                            </div>
+
+                                        </form>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Modal Supprimer Box -->
+                        <div class="modal fade" id="deleteBoxModal" tabindex="-1" aria-labelledby="deleteBoxLabel">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+
+                                    <!-- Header -->
+                                    <div class="modal-header">
+                                        <h5 class="modal-title text-danger" id="deleteBoxLabel">
+                                            Supprimer une Box
+                                        </h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Fermer"></button>
+                                    </div>
+
+                                    <!-- Body -->
+                                    <div class="modal-body">
+                                        <p>
+                                            Voulez-vous vraiment supprimer la box
+                                            <strong>{{ selectedBox?.nom }}</strong> ?
+                                        </p>
+                                    </div>
+
+                                    <!-- Footer -->
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                            Annuler
+                                        </button>
+                                        <button type="button" class="btn btn-danger" (click)="confirmDelete()">
+                                            Supprimer
+                                        </button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Box Libres</h5>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Nom</th>
+                                    <th scope="col">Etage</th>
+                                    <th scope="col">Surface</th>
+                                    <th scope="col">Prix</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for(box of freeBoxes ; track box._id){
+                                <tr>
+                                    <td>{{box.nom}}</td>
+                                    <td>{{box.etage}}</td>
+                                    <td>{{box.surface}}</td>
+                                    <td>{{box.prix}}</td>
+                                    <td>
+                                        <!-- Modifier -->
+                                        <i class="bi bi-pencil text-primary me-2" style="cursor:pointer;"
+                                            (click)="editBox(box)"></i>
+
+                                        <!-- Supprimer -->
+                                        <i class="bi bi-trash text-danger" style="cursor:pointer;"
+                                            (click)="deleteBox(box)"></i>
+                                    </td>
+                                </tr>
+                                }
+                                @empty { <tr>
+                                    <td colspan="5">Aucune box libre</td>
+                                </tr> }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<app-footer></app-footer>
