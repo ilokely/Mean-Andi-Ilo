@@ -18,7 +18,7 @@ router.get('/notAdmin', async (req, res) => {
 router.get('/boutique', async (req, res) => {
     try {
         const utilisateurs = await Utilisateur.find({
-            'role.valeur': 20
+             'role.libelle': 'Boutique'
         });
         res.json(utilisateurs);
     } catch (error) {
@@ -30,7 +30,7 @@ router.get('/boutique', async (req, res) => {
 router.get('/client', async (req, res) => {
     try {
         const utilisateurs = await Utilisateur.find({
-            'role.valeur': 30
+            'role.libelle': 'Client'
         });
         res.json(utilisateurs);
     } catch (error) {

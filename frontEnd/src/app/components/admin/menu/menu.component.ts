@@ -30,4 +30,8 @@ export class MenuComponent {
       this.utilisateurService.getUtilisateurById(idUser).subscribe(data => this.user = data);
     }
   }
+
+  toggleSidebar() {
+  document.body.classList.toggle('toggle-sidebar');
+}
 }
