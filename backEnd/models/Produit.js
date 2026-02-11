@@ -6,11 +6,11 @@ const ProduitSchema = new mongoose.Schema({
         nomUtilisateur: { type: String, required: true }
     },
     categorieProduit: {
-        id: { type: mongoose.Schema.Types.ObjectId, required: true },
+        id: { type: mongoose.Schema.Types.ObjectId, required: true , ref: 'CategorieProduit'},
         libelle: { type: String, required: true }
     },
     imageProduit: {
-        id: { type: mongoose.Schema.Types.ObjectId },
+        id: { type: mongoose.Schema.Types.ObjectId , ref: 'ImageProduit'},
         path: { type: String }
     },
     nom: { type: String, required: true },
@@ -27,6 +27,7 @@ const ProduitSchema = new mongoose.Schema({
     },
     nombreVentes: { type: Number, default: 0 },
 }, { timestamps: true });
+
 
 ProduitSchema.methods.updateStatut = async function() {
     if (this.stockActuel === 0) {

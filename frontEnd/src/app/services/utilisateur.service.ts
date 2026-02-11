@@ -40,9 +40,34 @@ export class UtilisateurService {
     return this.http.put(`${this.apiUrl}/updateUserInfo/${id}` , user);
   }
 
-  logout(): void{
-    localStorage.removeItem('user');
-    localStorage.removeItem('userId');
-    this.router.navigate(['/login']);
+  logout(): void {
+
+  const userInfo = localStorage.getItem('user');
+  let role = '';
+
+  if (userInfo) {
+    const user = JSON.parse(userInfo);
+    role = user?.role?.libelle;
   }
+
+  localStorage.removeItem('user');
+  localStorage.removeItem('userId');
+
+  switch (role) {
+    case 'Admin':
+      this.router.navigate(['/login/admin']);
+      break;
+
+    case 'Boutique':
+      this.router.navigate(['/login/boutique']);
+      break;
+
+    case 'Client':
+      this.router.navigate(['/login/client']);
+      break;
+
+    default:
+      this.router.navigate(['/login/client']);
+  }
+}
 }

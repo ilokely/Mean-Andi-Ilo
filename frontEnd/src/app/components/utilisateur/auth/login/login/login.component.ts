@@ -21,7 +21,7 @@ export class LoginComponent {
   ngOnInit(): void {
     this.role = this.route.snapshot.params['role'];
     if (this.role === 'client') {
-      this.email = 'client@example.com';
+      this.email = 'client@gmail.com';
       this.motDePasse = '1234';
 
     }
@@ -50,7 +50,7 @@ export class LoginComponent {
         
         switch(role){
           case 'Client':
-            this.router.navigate(['']);
+            this.router.navigate(['/C_accueil']);
             break;
           case 'Boutique':
             this.router.navigate(['/B_dashboard']);

@@ -1,16 +1,21 @@
-import { inject } from '@angular/core';
+import { inject, PLATFORM_ID } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 import { UtilisateurService } from '../services/utilisateur.service';
+import { isPlatformBrowser } from '@angular/common';
 
 export const authGuard: CanActivateFn = async (route, state) => {
-
   const router = inject(Router);
   const utilisateurService = inject(UtilisateurService);
+  const platformId = inject(PLATFORM_ID);
+
+  if (!isPlatformBrowser(platformId)) {
+    // On est côté serveur → on bloque l'accès ou retourne true pour SSR
+    return false;
+  }
 
   const userId = localStorage.getItem('userId');
 
-  // Pas connecté
   if (!userId) {
     router.navigate(['/login/client']);
     return false;
@@ -20,17 +25,13 @@ export const authGuard: CanActivateFn = async (route, state) => {
     const role = await firstValueFrom(
       utilisateurService.getUtilisateurRole(userId)
     );
-    console.log('Rôle récupéré :', role);
 
     const expectedRole = route.data?.['role'];
-    console.log('Rôle attendu :', expectedRole);
 
-    // Si le rôle correspond à celui attendu dans la route
     if (!expectedRole || role === expectedRole) {
       return true;
     }
 
-    // Mauvais rôle → redirection selon ton switch
     switch (role) {
       case 'Client':
         router.navigate(['']);

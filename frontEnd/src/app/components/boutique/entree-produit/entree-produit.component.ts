@@ -9,7 +9,6 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { CurrencyPipe } from '@angular/common';
  
 @Component({
   selector: 'app-entree-produit',
@@ -21,7 +20,6 @@ import { CurrencyPipe } from '@angular/common';
     MatCardModule,
     MatIconModule,
     MatButtonModule,
-    CurrencyPipe
   ],
   templateUrl: './entree-produit.component.html',
   styleUrl: './entree-produit.component.css'
