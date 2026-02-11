@@ -26,9 +26,9 @@
 
             <li class="nav-item dropdown pe-3">
 
-                <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#">
                     <img src="img/profile-img.jpg" alt="Profile" class="rounded-circle">
-                    <span class="d-none d-md-block dropdown-toggle ps-2">{{ user.nomUtilisateur }}</span>
+                    <span class="d-none d-md-block ps-2">{{ user.nomUtilisateur }}</span>
                 </a><!-- End Profile Iamge Icon -->
 
             </li><!-- End Profile Nav -->
@@ -59,7 +59,7 @@
             </a>
             <ul id="tables-nav" class="nav-content collapse show" data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="tables-general.html">
+                    <a routerLink="infos_user" routerLinkActive="active">
                         <i class="bi bi-circle"></i><span>Vos informations</span>
                     </a>
                 </li>
@@ -69,13 +69,13 @@
                     </a>
                 </li>
                 <li>
-                    <a routerLink="stock" routerLinkActive="active">
-                        <i class="bi bi-circle"></i><span>Stock</span>
+                    <a routerLink="entreeProduit" routerLinkActive="active">
+                        <i class="bi bi-circle"></i><span>Votre stock</span>
                     </a>
                 </li>
                 <li>
-                    <a routerLink="sorties" routerLinkActive="active">
-                        <i class="bi bi-circle"></i><span>Sortie Produits</span>
+                    <a routerLink="sortieProduit" routerLinkActive="active">
+                        <i class="bi bi-circle"></i><span>Vos sorties produits</span>
                     </a>
                 </li>
                 <li>

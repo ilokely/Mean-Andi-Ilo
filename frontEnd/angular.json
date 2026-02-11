@@ -69,8 +69,7 @@
               "src/assets/vendor/bootstrap/js/bootstrap.bundle.min.js",
               "src/assets/vendor/quill/quill.min.js",
               "src/assets/vendor/simple-datatables/simple-datatables.js",
-              "src/assets/vendor/apexcharts/apexcharts.min.js",
-              "src/assets/js/main.js"
+              "src/assets/vendor/apexcharts/apexcharts.min.js"
             ],
             "server": "src/main.server.ts",
             "prerender": true,
