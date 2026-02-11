@@ -85,7 +85,7 @@ router.get('/:id/role', async (req, res) => {
         if (!utilisateur) {
             return res.status(404).json({ message: "Utilisateur non trouvé" });
         }
-        res.json(utilisateur.role);
+        res.json(utilisateur.role.libelle);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }

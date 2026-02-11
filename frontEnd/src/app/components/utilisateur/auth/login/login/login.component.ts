@@ -46,6 +46,8 @@ export class LoginComponent {
           localStorage.setItem('userId', res.user._id);
         }
         const role = res.user.role.libelle;
+        console.log(role);
+        
         switch(role){
           case 'Client':
             this.router.navigate(['']);
@@ -57,7 +59,7 @@ export class LoginComponent {
             this.router.navigate(['/A_dashboard']);
             break;
           default:
-            this.router.navigate(['/login']);
+            this.router.navigate(['/login/client']);
         }
       },
       error: (err) => {
