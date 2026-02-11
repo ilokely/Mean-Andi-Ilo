@@ -1,0 +1,37 @@
+/* Titre vert avec ligne décorative */
+.accueil-titre {
+  font-size: 3rem;                 
+  font-weight: 700;                 
+  color: #198754;                   /* couleur btn-success */
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.15); 
+  position: relative;
+  display: inline-block;
+  margin-bottom: 1rem;
+}
+
+.accueil-titre::after {
+  content: '';
+  display: block;
+  width: 60px;                      
+  height: 4px;
+  background-color: #198754;        
+  margin: 0.5rem auto 0;            
+  border-radius: 2px;
+}
+
+/* Barre de recherche stylée */
+.recherche-produit {
+  height: 45px;
+  font-size: 1rem;
+  border-radius: 50px;              /* arrondi comme un pill */
+  padding-left: 20px;
+  padding-right: 20px;
+  border: 2px solid #198754;
+  transition: all 0.3s ease;
+}
+
+.recherche-produit:focus {
+  box-shadow: 0 0 8px rgba(25, 135, 84, 0.5);
+  border-color: #198754;
+  outline: none;
+}

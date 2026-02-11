@@ -1,0 +1,105 @@
+<app-menu-client></app-menu-client>
+
+<main id="main" class="main">
+    <section class="section dashboard">
+        <!-- Titre -->
+        <div class="row mb-4">
+            <div class="col-12 text-center">
+                <h1 class="accueil-titre">Bienvenue !</h1>
+            </div>
+        </div>
+
+        <!-- Barre de recherche -->
+        <div class="row mb-4">
+            <div class="col-md-6 offset-md-3">
+                <input type="text" class="form-control" placeholder="Rechercher un produit..."
+                    [(ngModel)]="rechercheTexte">
+            </div>
+        </div>
+
+        <!--  Liste Produits -->
+        <div class="row">
+            @for(produit of produitsFiltres ; track produit._id){
+            <div class="col-lg-3 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <img src="{{ produit.imageProduit?.path }}" class="card-img-top" alt="Card image">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ produit.nom }}</h5>
+                        <p class="card-text">
+                            <strong>Prix :</strong> {{ produit.prix }} Ar<br>
+                            <strong>Boutique :</strong> {{ produit.boutique.nomUtilisateur }}
+                        </p>
+                    </div>
+                    <div class="card-footer text-center">
+                        <button class="btn btn-primary btn-sm me-2">
+                            <i class="bi bi-eye"></i>
+                        </button>
+                        <button class="btn btn-success btn-sm" (click)="ajouterAuPanier(produit)">
+                            <i class="bi bi-cart-plus"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            }
+        </div>
+
+        <!-- Bouton voir panier flottant -->
+        <button class="btn btn-success rounded-circle shadow-lg"
+            style="position: fixed; bottom: 20px; right: 20px; width: 60px; height: 60px;" (click)="voirPanier()">
+            <i class="bi bi-cart"></i>
+            <!-- Badge pour le nombre d'articles -->
+            <span *ngIf="nombreArticlesPanier > 0"
+                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                {{ nombreArticlesPanier }}
+                <span class="visually-hidden">articles dans le panier</span>
+            </span>
+        </button>
+
+        <!-- Modal Panier -->
+        <div class="modal fade" id="panierModal" tabindex="-1" aria-labelledby="panierModalLabel">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="panierModalLabel">Mon Panier</h5>
+                        <button type="button" class="btn-close" (click)="fermerPanier()" aria-label="Fermer"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div *ngIf="panier.length === 0" class="text-center">
+                            <p>Votre panier est vide.</p>
+                        </div>
+
+                        <ul class="list-group" *ngIf="panier.length > 0">
+                            <li class="list-group-item d-flex justify-content-between align-items-center"
+                                *ngFor="let produit of panier; index as i">
+                                <div class="d-flex align-items-center">
+                                    <img [src]="produit.imageProduit?.path" alt="{{produit.nom}}"
+                                        style="width:50px; height:50px; object-fit:cover;" class="me-3 rounded">
+                                    <div>
+                                        <strong>{{produit.nom}}</strong><br>
+                                        <small>{{produit.boutique.nomUtilisateur}}</small>
+                                    </div>
+                                </div>
+                                <div>
+                                    <span class="me-3">{{produit.prix | number}} Ar</span>
+                                    <button class="btn btn-sm btn-danger" (click)="supprimerDuPanier(i)">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="modal-footer d-flex justify-content-between">
+                        <span><strong>Total :</strong> {{ totalPanier() | number }} Ar</span>
+                        <div>
+                            <button class="btn btn-secondary" (click)="fermerPanier()">Fermer</button>
+                            <button class="btn btn-primary" [disabled]="panier.length === 0">Passer à la
+                                commande</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<app-footer></app-footer>
