@@ -1,23 +1,100 @@
-<button mat-raised-button color="primary" (click)="openAddDialog()">
+<div class="container-produits">
+  <!-- Bouton Ajouter -->
+  <button mat-raised-button 
+          color="primary" 
+          (click)="openAddDialog()"
+          class="btn-add-produit">
     <mat-icon>add</mat-icon>
     Ajouter un produit
-</button> <br> <br>
-@if (produits.length > 0) {
-<div class="row">
-    @for (produit of produits; track produit._id) {
-    <div class="col-xxl-3 col-md-4">
-        <div class="card">
-            <img [src]="produit.imageProduit?.path || 'img/not-found.svg'" class="card-img-top" alt="{{ produit.nom }}">
-            <div class="card-body">
-                <h5 class="card-title">{{ produit.nom }}</h5>
-                <h6 class="card-subtitle mb-2 text-muted">{{ produit.marque }}</h6>
-                <p class="card-text">{{ produit.description }}</p>
-                <p class="card-text fw-bold">{{ produit.prix }} {{ produit.devise }}</p>
-            </div>
-        </div>
+  </button>
+
+  <!-- Spinner de chargement -->
+  @if (isLoading) {
+    <div class="loading-container">
+      <p>Chargement des produits...</p>
     </div>
-    }
+  }
+
+  <!-- Liste des produits -->
+  @if (!isLoading && produits.length > 0) {
+    <div class="row">
+      @for (produit of produits; track produit._id) {
+        <div class="col-xxl-3 col-md-4 col-sm-6 mb-4">
+          <div class="card product-card">
+            <!-- Image du produit -->
+            <div class="image-container">
+    <img [src]="produit.imageProduit?.path || 'img/not-found.svg'" 
+         class="card-img-top" 
+         [alt]="produit.nom">
+    
+    <div class="image-actions">
+      <button mat-icon-button 
+              color="primary"
+              class="action-btn"
+              (click)="openEditDialog(produit)"
+              matTooltip="Modifier">
+        <mat-icon>edit</mat-icon>
+      </button>
+
+      <button mat-icon-button 
+              color="warn"
+              class="action-btn"
+              (click)="deleteProduit(produit)"
+              matTooltip="Supprimer">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </div>
+
+            <!-- Corps de la card -->
+            <div class="card-body">
+              <h5 class="card-title">{{ produit.nom }}</h5>
+              
+              @if (produit.marque) {
+                <h6 class="card-subtitle mb-2 text-muted">{{ produit.marque }}</h6>
+              }
+              
+              @if (produit.description) {
+                <p class="card-text description">{{ produit.description }}</p>
+              }
+              
+              <p class="card-text price">
+                <strong>{{ produit.prix }} {{ produit.devise }}</strong>
+              </p>
+              
+              <!-- <div class="card-actions">
+                <button mat-icon-button 
+                        color="primary"
+                        (click)="openEditDialog(produit)"
+                        matTooltip="Modifier le produit">
+                  <mat-icon>edit</mat-icon>
+                </button>
+
+                <button mat-icon-button 
+                        color="warn"
+                        (click)="deleteProduit(produit)"
+                        matTooltip="Supprimer le produit">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>  -->
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  }
+
+  <!-- Message si aucun produit -->
+  @if (!isLoading && produits.length === 0) {
+    <div class="no-products">
+      <mat-icon class="no-products-icon">inventory_2</mat-icon>
+      <p>Aucun produit trouvé</p>
+      <button mat-raised-button 
+              color="primary" 
+              (click)="openAddDialog()">
+        <mat-icon>add</mat-icon>
+        Ajouter votre premier produit
+      </button>
+    </div>
+  }
 </div>
-} @else {
-<p>Aucun produit trouvé</p>
-}
