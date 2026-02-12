@@ -4,14 +4,13 @@ import { UtilisateurService } from '../../../services/utilisateur.service';
 import { isPlatformBrowser } from '@angular/common';
 
 @Component({
-  selector: 'app-menuAdmin',
-  standalone: true,
+  selector: 'app-menu-client',
   imports: [RouterModule],
-  templateUrl: './menu.component.html',
-  styleUrl: './menu.component.scss'
+  templateUrl: './menu-client.component.html',
+  styleUrl: './menu-client.component.css'
 })
-export class MenuComponent {
-  user: any = {};
+export class MenuClientComponent {
+   user: any = {};
   private platformId = inject(PLATFORM_ID);
 
   constructor(private utilisateurService: UtilisateurService) { }
@@ -19,7 +18,6 @@ export class MenuComponent {
   ngOnInit(): void {
     if(isPlatformBrowser(this.platformId)){
       this.loadUser();
-
     }
   }
 
@@ -30,8 +28,4 @@ export class MenuComponent {
       this.utilisateurService.getUtilisateurById(idUser).subscribe(data => this.user = data);
     }
   }
-
-  toggleSidebar() {
-  document.body.classList.toggle('toggle-sidebar');
-}
 }

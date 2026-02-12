@@ -9,20 +9,29 @@ import { InfosUserComponent } from './components/utilisateur/infos-user/infos-us
 import { EntreeProduitComponent } from './components/boutique/entree-produit/entree-produit.component';
 import { SortieProduitComponent } from './components/boutique/sortie-produit/sortie-produit.component';
 import { ListBoxesComponent } from './components/admin/list-boxes/list-boxes.component';
+import { authGuard } from './guards/auth.guard';
+import { AccueilComponent } from './components/client/accueil/accueil.component';
+import { LogoutComponent } from './components/common/logout/logout.component';
+import { ListSubscriptionComponent } from './components/admin/list-subscription/list-subscription.component';
 
 export const routes: Routes = [
      { path: '', redirectTo: 'login/client', pathMatch: 'full' },
      { path: 'login/:role', component: LoginComponent },
      { path: 'login', component:LoginComponent },
+     { path: 'logout', component: LogoutComponent },
 
-     { path: 'A_dashboard', component: DashboardComponent, data: { role: 'Admin' } },
-     { path: 'A_listUser', component: ListUserComponent, data: { role: 'Admin' } },
-     { path: 'A_listUser', component: ListUserComponent, data: { role: 'Admin' } },
-     { path: 'A_listBoxes', component: ListBoxesComponent, data: { role: 'Admin' } },
+     { path: 'A_dashboard', component: DashboardComponent, canActivate: [authGuard], data: { role: 'Admin' } },
+     { path: 'A_listUser', component: ListUserComponent, canActivate: [authGuard], data: { role: 'Admin' } },
+     { path: 'A_listUser', component: ListUserComponent, canActivate: [authGuard], data: { role: 'Admin' } },
+     { path: 'A_listBoxes', component: ListBoxesComponent, canActivate: [authGuard], data: { role: 'Admin' } },
+     { path: 'A_listSubscription', component: ListSubscriptionComponent, canActivate: [authGuard], data: { role: 'Admin' } },
+
+     { path: 'C_accueil' , component: AccueilComponent, canActivate: [authGuard], data: { role: 'Client' } },
 
      {
           path: 'B_dashboard',
-          component: MenuBoutiqueComponent, // Using Menu as the Layout 
+          component: MenuBoutiqueComponent,
+          canActivate: [authGuard],
           data: { role: 'Boutique' },
           children: [
                { path: '', component: DashboardBoutiqueComponent }, // Default view: Dashboard content

@@ -85,4 +85,8 @@ export class MenuBoutiqueComponent {
       }
     }
   }
+
+  toggleSidebar() {
+  document.body.classList.toggle('toggle-sidebar');
+}
 }

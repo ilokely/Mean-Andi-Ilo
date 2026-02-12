@@ -18,7 +18,7 @@ router.get('/notAdmin', async (req, res) => {
 router.get('/boutique', async (req, res) => {
     try {
         const utilisateurs = await Utilisateur.find({
-            'role.valeur': 20
+             'role.libelle': 'Boutique'
         });
         res.json(utilisateurs);
     } catch (error) {
@@ -30,7 +30,7 @@ router.get('/boutique', async (req, res) => {
 router.get('/client', async (req, res) => {
     try {
         const utilisateurs = await Utilisateur.find({
-            'role.valeur': 30
+            'role.libelle': 'Client'
         });
         res.json(utilisateurs);
     } catch (error) {
@@ -85,7 +85,7 @@ router.get('/:id/role', async (req, res) => {
         if (!utilisateur) {
             return res.status(404).json({ message: "Utilisateur non trouvé" });
         }
-        res.json(utilisateur.role);
+        res.json(utilisateur.role.libelle);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }

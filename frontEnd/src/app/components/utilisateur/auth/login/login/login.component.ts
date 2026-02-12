@@ -21,7 +21,7 @@ export class LoginComponent {
   ngOnInit(): void {
     this.role = this.route.snapshot.params['role'];
     if (this.role === 'client') {
-      this.email = 'client@example.com';
+      this.email = 'client@gmail.com';
       this.motDePasse = '1234';
 
     }
@@ -46,9 +46,11 @@ export class LoginComponent {
           localStorage.setItem('userId', res.user._id);
         }
         const role = res.user.role.libelle;
+        console.log(role);
+        
         switch(role){
           case 'Client':
-            this.router.navigate(['']);
+            this.router.navigate(['/C_accueil']);
             break;
           case 'Boutique':
             this.router.navigate(['/B_dashboard']);
@@ -57,7 +59,7 @@ export class LoginComponent {
             this.router.navigate(['/A_dashboard']);
             break;
           default:
-            this.router.navigate(['/login']);
+            this.router.navigate(['/login/client']);
         }
       },
       error: (err) => {
