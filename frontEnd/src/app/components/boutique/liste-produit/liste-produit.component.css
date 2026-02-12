@@ -1,34 +1,179 @@
-/* Enforce equal height for cards */
-.card {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
+/* Container principal */
+.container-produits {
+  padding: 20px;
 }
 
-/* Fixed height for images and object-fit cover to prevent distortion */
-.card-img-top {
-    height: 200px;
-    /* Reduced height from what would be default */
-    object-fit: cover;
-    width: 100%;
+/* Bouton Ajouter */
+.btn-add-produit {
+  margin-bottom: 30px;
 }
 
-/* Ensure card body consumes available space but keeps footer at bottom if added later */
-.card-body {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
+/* Loading */
+.loading-container {
+  text-align: center;
+  padding: 60px 20px;
+  color: #666;
 }
 
-.card-text {
-    /* Optional: limit description lines */
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+/* Card produit */
+.product-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
-/* Push price to bottom of card body */
-.card-text.fw-bold {
-    margin-top: auto;
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Image */
+.product-card .card-img-top {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  background-color: #f5f5f5;
+}
+
+/* Corps de la card */
+.product-card .card-body {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 14px;
+  gap: 6px; /* 🔥 contrôle spacing global */
+}
+
+/* Titre */
+.card-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+/* Marque plus serrée */
+.card-subtitle {
+  font-size: 0.85rem;
+  margin-bottom: 6px;
+}
+
+/* Bloc meta infos */
+.product-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+}
+
+.meta-item {
+  background: #f5f5f5;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 0.82rem;
+}
+
+/* Description */
+.description {
+  font-size: 0.95rem;
+  color: #555;
+  margin-bottom: 10px;
+  
+  /* Limiter à 3 lignes */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Prix */
+.price {
+  font-size: 1.15rem;
+  color: #2e7d32;
+  margin-top: auto; /* au lieu de auto */
+  font-weight: 600;
+}
+
+/* ✅ BOUTONS D'ACTION EN BAS À DROITE */
+.card-actions {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  display: flex;
+  gap: 5px;
+  z-index: 10;
+}
+
+/* Style des boutons icônes */
+.card-actions button {
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card-actions button:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Message aucun produit */
+.no-products {
+  text-align: center;
+  padding: 80px 20px;
+  color: #999;
+}
+
+.no-products-icon {
+  font-size: 64px;
+  width: 64px;
+  height: 64px;
+  color: #ccc;
+  margin-bottom: 20px;
+}
+
+.no-products p {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .product-card .card-img-top {
+    height: 150px;
+  }
+
+  .card-title {
+    font-size: 1rem;
+  }
+
+  .price {
+    font-size: 1rem;
+  }
+}
+
+/* Container image */
+.image-container {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Boutons sur l'image */
+.image-actions {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  gap: 5px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+/* Afficher au survol */
+.product-card:hover .image-actions {
+  opacity: 1;
+}
+
+/* Style des boutons sur image */
+.action-btn {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  backdrop-filter: blur(5px);
 }

@@ -17,6 +17,7 @@ import { ListSubscriptionComponent } from './components/admin/list-subscription/
 export const routes: Routes = [
      { path: '', redirectTo: 'login/client', pathMatch: 'full' },
      { path: 'login/:role', component: LoginComponent },
+     { path: 'login', component:LoginComponent },
      { path: 'logout', component: LogoutComponent },
 
      { path: 'A_dashboard', component: DashboardComponent, canActivate: [authGuard], data: { role: 'Admin' } },

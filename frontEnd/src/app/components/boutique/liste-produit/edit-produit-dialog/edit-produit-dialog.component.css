@@ -1,0 +1,15 @@
+.form-edit-produit {
+  padding: 10px 0;
+}
+
+.table-full-width {
+  width: 100%;
+}
+
+.table-full-width td {
+  padding: 10px;
+}
+
+mat-form-field {
+  width: 100%;
+}

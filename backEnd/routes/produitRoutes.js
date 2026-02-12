@@ -109,4 +109,72 @@ router.post('/addProduit', async (req, res) => {
     }
 });
 
+
+router.put('/updateProduit/:id', async(req,res) => {
+    try{
+        const id = req.params.id;
+        const {
+            nom,
+            categorieId,
+            marque,
+            description,
+            prix,
+            devise
+        } = req.body;
+
+        const produit = await Produit.findById(id);
+        if(!produit){
+            return res.status(404).json({error: 'Produit non trouvé'});
+        }
+
+        let categorie = null;
+        if(categorieId && categorieId !== produit.categorieProduit.id.toString()) {
+            categorie = await CategorieProduit.findById(categorieId);
+            if(!categorie){
+                return res.status(404).json({error: 'Catégorie non trouvée'});
+            }
+        }
+
+        const updateData = {
+            nom,
+            marque,
+            description,
+            prix,
+            devise
+        };
+
+        if(categorie){
+            updateData['categorieProduit.id'] = categorie._id;
+            updateData['categorieProduit.libelle'] = categorie.libelle;
+        }
+
+        const produitMisAJour = await Produit.findByIdAndUpdate(
+            id,
+            { $set: updateData },
+            { new: true, runValidators: true }
+        );
+
+        res.status(200).json({
+            message: 'Produit mis à jour avec succès',
+            produit: produitMisAJour
+        });
+    } catch (error) {
+        console.error('Erreur mise à jour produit:', error);
+        res.status(500).json({ error: error.message });
+    }
+});
+
+router.delete('/deleteProduit/:id', async (req, res) => {
+    try {
+        const produit = await Produit.findByIdAndDelete(req.params.id);
+
+        res.status(200).json({
+            message: 'Produit supprimé avec succès',
+            produit: produit
+        });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
 module.exports = router;

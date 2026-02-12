@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../environments/environments';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,17 @@ import { Router } from '@angular/router';
 export class UtilisateurService {
   private apiUrl = `${environment.apiUrl}/utilisateur`;
 
+  // pour partager les donnees utilisateurs
+  private currentUserSubject = new BehaviorSubject<any>(null);
+
+  //Observable public pour que les composants s'abonnent
+  public currentUser$ = this.currentUserSubject.asObservable();
+
   constructor(private http: HttpClient , private router: Router) { }
+
+  get currentUserValue(): any{
+    return this.currentUserSubject.value;
+  }
 
   login(email: string, motDePasse: string){
     return this.http.post(`${this.apiUrl}/login` , {email,motDePasse});
@@ -17,6 +28,14 @@ export class UtilisateurService {
 
   getUtilisateurById(id : string){
     return this.http.get(`${this.apiUrl}/${id}`);
+  }
+
+  getUserByIdObservable(id: string): Observable<any>{
+    return this.http.get<any>(`${this.apiUrl}/${id}`).pipe(
+      tap(user => {
+        this.currentUserSubject.next(user);
+      })
+    );
   }
 
   getUtilisateurRole(id : string){
@@ -37,7 +56,15 @@ export class UtilisateurService {
   }
 
   updateInfosUtilisateur(id : string , user : any){
-    return this.http.put(`${this.apiUrl}/updateUserInfo/${id}` , user);
+    return this.http.put(`${this.apiUrl}/updateUserInfo/${id}`, user).pipe(
+      tap(updatedUser => {
+        this.currentUserSubject.next(updatedUser);
+      })
+    );
+  }
+
+  updateCurrentUser(user: any): void {
+    this.currentUserSubject.next(user);
   }
 
   logout(): void {
