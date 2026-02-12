@@ -12,6 +12,7 @@ import { ListBoxesComponent } from './components/admin/list-boxes/list-boxes.com
 import { authGuard } from './guards/auth.guard';
 import { AccueilComponent } from './components/client/accueil/accueil.component';
 import { LogoutComponent } from './components/common/logout/logout.component';
+import { ListSubscriptionComponent } from './components/admin/list-subscription/list-subscription.component';
 
 export const routes: Routes = [
      { path: '', redirectTo: 'login/client', pathMatch: 'full' },
@@ -22,6 +23,7 @@ export const routes: Routes = [
      { path: 'A_listUser', component: ListUserComponent, canActivate: [authGuard], data: { role: 'Admin' } },
      { path: 'A_listUser', component: ListUserComponent, canActivate: [authGuard], data: { role: 'Admin' } },
      { path: 'A_listBoxes', component: ListBoxesComponent, canActivate: [authGuard], data: { role: 'Admin' } },
+     { path: 'A_listSubscription', component: ListSubscriptionComponent, canActivate: [authGuard], data: { role: 'Admin' } },
 
      { path: 'C_accueil' , component: AccueilComponent, canActivate: [authGuard], data: { role: 'Client' } },
 
