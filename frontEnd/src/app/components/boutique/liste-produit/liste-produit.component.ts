@@ -3,8 +3,8 @@ import { Component, inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { ProduitService } from '../../../services/produit.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { AddProduitDialogComponent } from './add-produit-dialog/add-produit-dialog.component';
 import { StorageService } from '../../../services/storage.service';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
@@ -14,7 +14,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 @Component({
   selector: 'app-liste-produit',
   standalone: true,
-  imports: [CommonModule, MatButtonModule, MatIconModule,MatTooltipModule],
+  imports: [CommonModule, MatButtonModule, MatIconModule,MatTooltipModule, MatDialogModule,MatSnackBarModule],
   templateUrl: './liste-produit.component.html',
   styleUrl: './liste-produit.component.css'
 })

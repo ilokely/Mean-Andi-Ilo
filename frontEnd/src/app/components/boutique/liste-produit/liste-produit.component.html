@@ -51,15 +51,35 @@
               <h5 class="card-title">{{ produit.nom }}</h5>
               
               @if (produit.marque) {
-                <h6 class="card-subtitle mb-2 text-muted">{{ produit.marque }}</h6>
+                <h6 class="card-subtitle mb-2 text-muted"><strong>{{ produit.marque }}</strong></h6>
               }
               
               @if (produit.description) {
                 <p class="card-text description">{{ produit.description }}</p>
               }
+
+              <div class="product-meta">
+                    @if (produit.stockActuel !== undefined) {
+                        <p class="meta-item">
+                        <strong>Stock :</strong> {{ produit.stockActuel }}
+                        </p>
+                    }
+
+                    @if (produit.nombreVentes !== undefined) {
+                        <p class="meta-item">
+                        <strong>Ventes :</strong> {{ produit.nombreVentes }}
+                        </p>
+                    }
+
+                    @if (produit.statut) {
+                        <p class="meta-item">
+                        <strong>Statut :</strong> {{ produit.statut }}
+                        </p>
+                    }
+              </div>
               
               <p class="card-text price">
-                <strong>{{ produit.prix }} {{ produit.devise }}</strong>
+                {{ produit.prix }} {{ produit.devise }}
               </p>
               
               <!-- <div class="card-actions">
