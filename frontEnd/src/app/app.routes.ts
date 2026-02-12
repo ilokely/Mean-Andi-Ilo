@@ -13,6 +13,7 @@ import { ListBoxesComponent } from './components/admin/list-boxes/list-boxes.com
 export const routes: Routes = [
      { path: '', redirectTo: 'login/client', pathMatch: 'full' },
      { path: 'login/:role', component: LoginComponent },
+     { path: 'login', component:LoginComponent },
 
      { path: 'A_dashboard', component: DashboardComponent, data: { role: 'Admin' } },
      { path: 'A_listUser', component: ListUserComponent, data: { role: 'Admin' } },
