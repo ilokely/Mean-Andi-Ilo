@@ -1,9 +1,96 @@
-/* Structure */
+/* ===== GLOBAL CONTAINER ===== */
+
+.table-container {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* ===== TOOLBAR ===== */
+
+.table-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.table-toolbar h3 {
+  margin: 0;
+  font-weight: 600;
+  color: #333;
+}
+
+/* ===== FILTER FIELD ===== */
+
+.filter-field {
+  width: 260px;
+}
+
+/* ===== TABLE CARD ===== */
+
+.table-card {
+  border-radius: 14px;
+  overflow: hidden;
+  background: white;
+}
+
+/* ===== TABLE ===== */
+
 table {
   width: 100%;
 }
 
-.mat-mdc-form-field {
-  font-size: 14px;
-  width: 100%;
+/* Header */
+.mat-mdc-header-row {
+  background: #fafafa;
+}
+
+.mat-mdc-header-cell {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #444;
+  padding: 16px 14px;
+}
+
+/* Cells */
+.mat-mdc-cell {
+  padding: 14px;
+  font-size: 0.92rem;
+}
+
+/* Hover row */
+.data-row {
+  transition: background 0.2s;
+}
+
+.data-row:hover {
+  background: #f7f9fc;
+}
+
+/* Strong text (Nom produit) */
+.cell-strong {
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+/* Numbers align right */
+.cell-number {
+  text-align: right;
+  font-weight: 500;
+}
+
+/* Total highlight */
+.cell-total {
+  text-align: right;
+  font-weight: 600;
+  color: #2e7d32;
+}
+
+/* ===== EMPTY ROW ===== */
+
+.empty-row td {
+  text-align: center;
+  padding: 40px;
+  color: #999;
+  font-style: italic;
 }
