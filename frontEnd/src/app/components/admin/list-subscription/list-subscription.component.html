@@ -1,0 +1,132 @@
+<app-menuAdmin></app-menuAdmin>
+<main id="main" class="main">
+    <section class="section">
+        <!-- Bouton d'ajout -->
+        <div class="row mb-3">
+            <div class="col-12 d-flex justify-content-between align-items-center">
+                <h3>Gestion des Abonnements</h3>
+
+                <!-- Bouton Ouvrir Modal Types d'Abonnement -->
+                <button type="button" class="btn btn-success d-flex align-items-center" data-bs-toggle="modal"
+                    data-bs-target="#typeAbonnementModal">
+                    <i class="bi bi-card-list me-2"></i>Gérer les Types d'Abonnement
+                </button>
+
+                <!-- Modal Liste & Création Type d'Abonnement -->
+                <div class="modal fade" id="typeAbonnementModal" tabindex="-1" aria-labelledby="typeAbonnementLabel">
+                    <div class="modal-dialog modal-dialog-centered modal-lg">
+                        <div class="modal-content">
+
+                            <!-- Header -->
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="typeAbonnementLabel">Types d'Abonnement</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Fermer"></button>
+                            </div>
+
+                            <!-- Body -->
+                            <div class="modal-body">
+
+                                <!-- Formulaire Ajouter Type -->
+                                <form (ngSubmit)="addTypeAbonnement()" #typeForm="ngForm" class="mb-4">
+                                    <div class="row g-3 align-items-end">
+                                        <div class="col-md-6">
+                                            <label class="form-label">Nom du type</label>
+                                            <input type="text" class="form-control" [(ngModel)]="newType.type"
+                                                name="type" required>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="form-label">Réduction (%)</label>
+                                            <input type="number" class="form-control" [(ngModel)]="newType.reduction"
+                                                name="reduction" min="0" max="100">
+                                        </div>
+                                        <div class="col-md-2">
+                                            <button type="submit" class="btn btn-success w-100">Ajouter</button>
+                                        </div>
+                                    </div>
+                                </form>
+
+                                <!-- Tableau des types existants -->
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Type</th>
+                                            <th>Réduction (%)</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let type of typeAbonnements">
+                                            <td>{{ type.type }}</td>
+                                            <td>{{ type.reduction }}</td>
+                                            <td>
+                                                <i class="bi bi-pencil text-primary me-2" style="cursor:pointer;"
+                                                    (click)="editTypeAbonnement(type)"></i>
+                                                <i class="bi bi-trash text-danger" style="cursor:pointer;"
+                                                    (click)="deleteTypeAbonnement(type)"></i>
+                                            </td>
+                                        </tr>
+                                        <tr *ngIf="typeAbonnements.length === 0">
+                                            <td colspan="3" class="text-center">Aucun type d'abonnement disponible</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+
+                            <!-- Footer -->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tableau des Abonnements -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Liste des Abonnements</h5>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Utilisateur</th>
+                                    <th>Box</th>
+                                    <th>Type</th>
+                                    <th>Date Début</th>
+                                    <th>Prix</th>
+                                    <th>Statut</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let abo of abonnements">
+                                    <td>{{ abo.utilisateur.nomUtilisateur || abo.utilisateur.email }}</td>
+                                    <td>{{ abo.box.nom }}</td>
+                                    <td>{{ abo.typeAbonnement.type }}</td>
+                                    <td>{{ abo.dateDebut | date:'dd/MM/yyyy' }}</td>
+                                    <td>{{ abo.prix | currency:'MGA':'symbol':'1.0-0' }}</td>
+                                    <td>{{ abo.statut }}</td>
+                                    <td>
+                                        <i class="bi bi-pencil text-primary me-2"
+                                            style="cursor:pointer;"></i><!--  (click)="editAbonnement(abo)" -->
+                                        <i class="bi bi-trash text-danger" style="cursor:pointer;"></i>
+                                        <!-- (click)="deleteAbonnement(abo)" -->
+                                    </td>
+                                </tr>
+                                <tr *ngIf="abonnements.length === 0">
+                                    <td colspan="7" class="text-center">Aucun abonnement trouvé</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+</main>
+<app-footer></app-footer>

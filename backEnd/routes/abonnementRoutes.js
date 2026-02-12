@@ -4,7 +4,11 @@ const Abonnement = require('../models/Abonnement');
 
 router.get('/', async (req, res) => {
     try {
-        const abonnements = await Abonnement.find();
+        const abonnements = await Abonnement.find()
+            .populate('utilisateur')       // récupère toutes les infos de l'utilisateur
+            .populate('box')               // récupère toutes les infos de la box
+            .populate('typeAbonnement');   // récupère toutes les infos du type d'abonnement
+
         res.json(abonnements);
     } catch (error) {
         res.status(500).json({ message: error.message });

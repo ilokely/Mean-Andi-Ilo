@@ -2,6 +2,8 @@
 <main id="main" class="main">
     <section class="section">
         <div class="row">
+            <h3>Gestion des Utilisateurs</h3>
+
             <div class="col-lg-6">
                 <div class="card">
                     <div class="card-body">
@@ -16,7 +18,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                 @for(boutique of boutiques ; track boutique._id){
+                                @for(boutique of boutiques ; track boutique._id){
                                 <tr>
                                     <td>{{boutique.nomUtilisateur}}</td>
                                     <td>{{boutique.email}}</td>
@@ -43,7 +45,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                 @for(client of clients ; track client._id){
+                                @for(client of clients ; track client._id){
                                 <tr>
                                     <td>{{client.nomUtilisateur}}</td>
                                     <td>{{client.email}}</td>

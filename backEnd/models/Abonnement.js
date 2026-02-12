@@ -2,20 +2,27 @@ const mongoose = require('mongoose');
 
 const AbonnementSchema = new mongoose.Schema({
     utilisateur: {
-        id: { type: mongoose.Schema.Types.ObjectId, required: true },
-        nomUtilisateur: { type: String, required: true }
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Utilisateur',  
+        required: true
     },
     box: {
-        id: { type: mongoose.Schema.Types.ObjectId, required: true },
-        nom: { type: String, required: true }
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Box', 
+        required: true
     },
     typeAbonnement: {
-        id: { type: mongoose.Schema.Types.ObjectId, required: true },
-        type: { type: String, required: true }
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'TypeAbonnement',  
+        required: true
     },
     dateDebut: { type: Date, required: true },
     prix: { type: Number, required: true },
-    statut: { type: String, default: 'En cours' }
+    statut: {
+        type: String,
+        enum: ['En cours', 'Terminé'],
+        default: 'En cours'
+    }
 }, { timestamps: true });
 
-module.exports = mongoose.model('Abonnement', AbonnementSchema, 'abonnement');
+module.exports = mongoose.model('Abonnement', AbonnementSchema, 'abonnement');                                                                                                                                                      
