@@ -13,12 +13,17 @@ import { authGuard } from './guards/auth.guard';
 import { AccueilComponent } from './components/client/accueil/accueil.component';
 import { LogoutComponent } from './components/common/logout/logout.component';
 import { ListSubscriptionComponent } from './components/admin/list-subscription/list-subscription.component';
+import { StoreRegistrationComponent } from './components/utilisateur/auth/registration/store-registration/store-registration.component';
+import { CustomerRegistrationComponent } from './components/utilisateur/auth/registration/customer-registration/customer-registration.component';
 
 export const routes: Routes = [
      { path: '', redirectTo: 'login/client', pathMatch: 'full' },
      { path: 'login/:role', component: LoginComponent },
      { path: 'login', component:LoginComponent },
+     { path: 'creer_compte_boutique' , component: StoreRegistrationComponent },
+     { path : 'creer_compte_client' , component: CustomerRegistrationComponent },
      { path: 'logout', component: LogoutComponent },
+
 
      { path: 'A_dashboard', component: DashboardComponent, canActivate: [authGuard], data: { role: 'Admin' } },
      { path: 'A_listUser', component: ListUserComponent, canActivate: [authGuard], data: { role: 'Admin' } },

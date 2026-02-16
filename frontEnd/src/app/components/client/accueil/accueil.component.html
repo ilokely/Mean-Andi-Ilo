@@ -64,38 +64,108 @@
                         <button type="button" class="btn-close" (click)="fermerPanier()" aria-label="Fermer"></button>
                     </div>
                     <div class="modal-body">
+
                         <div *ngIf="panier.length === 0" class="text-center">
                             <p>Votre panier est vide.</p>
                         </div>
 
-                        <ul class="list-group" *ngIf="panier.length > 0">
-                            <li class="list-group-item d-flex justify-content-between align-items-center"
-                                *ngFor="let produit of panier; index as i">
-                                <div class="d-flex align-items-center">
-                                    <img [src]="produit.imageProduit?.path" alt="{{produit.nom}}"
-                                        style="width:50px; height:50px; object-fit:cover;" class="me-3 rounded">
-                                    <div>
-                                        <strong>{{produit.nom}}</strong><br>
-                                        <small>{{produit.boutique.nomUtilisateur}}</small>
-                                    </div>
-                                </div>
-                                <div>
-                                    <span class="me-3">{{produit.prix | number}} Ar</span>
-                                    <button class="btn btn-sm btn-danger" (click)="supprimerDuPanier(i)">
-                                        <i class="bi bi-trash"></i>
-                                    </button>
-                                </div>
-                            </li>
-                        </ul>
+                        <div *ngIf="panier.length > 0" class="table-responsive">
+                            <table class="table align-middle">
+                                <thead>
+                                    <tr>
+                                        <th>Produit</th>
+                                        <th class="text-center">Prix</th>
+                                        <th class="text-center">Quantité</th>
+                                        <th class="text-center">Total</th>
+                                        <th class="text-center">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let produit of panier; index as i">
+
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <img [src]="produit.imageProduit?.path" alt="{{produit.nom}}"
+                                                    style="width:50px; height:50px; object-fit:cover;"
+                                                    class="me-3 rounded">
+                                                <div>
+                                                    <strong>{{produit.nom}}</strong><br>
+                                                    <small>{{produit.boutique.nomUtilisateur}}</small>
+                                                </div>
+                                            </div>
+                                        </td>
+
+                                        <td class="text-center">
+                                            {{ produit.prix | number }} Ar
+                                        </td>
+
+                                        <td class="text-center">
+                                            <div class="d-flex justify-content-center align-items-center">
+                                                <button class="btn btn-sm btn-outline-secondary"
+                                                    (click)="diminuerQuantite(i)">-</button>
+
+                                                <span class="mx-2">{{ produit.quantite }}</span>
+
+                                                <button class="btn btn-sm btn-outline-secondary"
+                                                    (click)="augmenterQuantite(i)">+</button>
+                                            </div>
+                                        </td>
+
+                                        <td class="text-center">
+                                            {{ produit.prix * produit.quantite | number }} Ar
+                                        </td>
+
+                                        <td class="text-center">
+                                            <button class="btn btn-sm btn-danger" (click)="supprimerDuPanier(i)">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                     <div class="modal-footer d-flex justify-content-between">
                         <span><strong>Total :</strong> {{ totalPanier() | number }} Ar</span>
                         <div>
                             <button class="btn btn-secondary" (click)="fermerPanier()">Fermer</button>
-                            <button class="btn btn-primary" [disabled]="panier.length === 0">Passer à la
-                                commande</button>
+                            <button class="btn btn-primary" [disabled]="panier.length === 0"
+                                (click)="ouvrirConfirmation()">
+                                Passer à la commande
+                            </button>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="confirmationModal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <h5 class="modal-title">Confirmation de commande</h5>
+                        <button type="button" class="btn-close" (click)="fermerConfirmation()"></button>
+                    </div>
+
+                    <div class="modal-body text-center">
+                        <p>Voulez-vous confirmer votre paiement ?</p>
+
+                        <h4 class="mt-3 text-primary">
+                            Total à payer : {{ totalPanier() | number }} Ar
+                        </h4>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" (click)="fermerConfirmation()">
+                            Annuler
+                        </button>
+
+                        <button class="btn btn-success" (click)="confirmerCommande()">
+                            Confirmer paiement
+                        </button>
+                    </div>
+
                 </div>
             </div>
         </div>

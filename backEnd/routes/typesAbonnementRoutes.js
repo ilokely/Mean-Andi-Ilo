@@ -42,5 +42,15 @@ router.delete('/:id', async (req, res) => {
     }
 });
 
+router.get('/:id', async (req, res) => {
+    try {
+        const typeAbonnement = await TypeAbonnement.findById(req.params.id);
+        if (!typeAbonnement) return res.status(404).json({ message: 'Type d\'abonnement non trouvé' });
+        res.json(typeAbonnement);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
 
 module.exports = router;

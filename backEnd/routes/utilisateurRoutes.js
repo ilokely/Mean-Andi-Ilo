@@ -47,15 +47,37 @@ router.get('/' , async(req,res)=> {
     }
 });
 
-router.post('/', async(req,res) => {
-    try{
-        const newUtilisateur = new Utilisateur(req.body);
-        await newUtilisateur.save();
-        res.status(201).json(newUtilisateur);
+router.post('/boutique', async (req, res) => {
+  try {
+    const { nomUtilisateur, email, numero, motDePasse } = req.body;
+
+    const exist = await Utilisateur.findOne({ email });
+    if (exist) {
+      return res.status(400).json({ message: 'Email déjà utilisé' });
     }
-    catch(error){
-        res.status(400).json({message: error.message});
-    }
+
+    const bcrypt = require('bcrypt');  // pour Node.js CommonJS
+    // Hasher le mot de passe
+    const hashedPassword = await bcrypt.hash(motDePasse, 10);
+
+    const nouvelUtilisateur = new Utilisateur({
+      role: {
+        id: '697b267ae1026e1be6bb16b2',
+        libelle: 'Boutique'
+      },
+      nomUtilisateur,
+      email,
+      numero,
+      motDePasse: hashedPassword
+    });
+
+    await nouvelUtilisateur.save();
+
+    res.status(201).json( nouvelUtilisateur );
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Erreur serveur' });
+  }
 });
 
 //Connexion
