@@ -28,42 +28,96 @@ export class AccueilComponent {
     });
   }
 
-  ajouterAuPanier(produit: any) {
-    this.panier.push(produit);
+ ajouterAuPanier(produit: any): void {
+
+    const produitExistant = this.panier.find(p => p._id === produit._id);
+
+    if (produitExistant) {
+      produitExistant.quantite += 1;
+    } else {
+      this.panier.push({
+        ...produit,
+        quantite: 1
+      });
+    }
   }
 
-  supprimerDuPanier(index: number) {
+  supprimerDuPanier(index: number): void {
     this.panier.splice(index, 1);
   }
 
-  totalPanier(): number {
-    return this.panier.reduce((total, p) => total + p.prix, 0);
+  augmenterQuantite(index: number): void {
+    this.panier[index].quantite++;
   }
 
-  voirPanier() {
+  diminuerQuantite(index: number): void {
+    if (this.panier[index].quantite > 1) {
+      this.panier[index].quantite--;
+    } else {
+      this.supprimerDuPanier(index);
+    }
+  }
+
+  totalPanier(): number {
+    return this.panier.reduce((total, item) =>
+      total + (item.prix * item.quantite), 0);
+  }
+
+  voirPanier(): void {
     const modal = new (window as any).bootstrap.Modal(
       document.getElementById('panierModal')
     );
     modal.show();
   }
 
-  fermerPanier() {
+  fermerPanier(): void {
     const modalEl = document.getElementById('panierModal');
     const modal = (window as any).bootstrap.Modal.getInstance(modalEl);
     modal.hide();
   }
 
+  // ✅ NOMBRE TOTAL D'ARTICLES (avec quantités)
   get nombreArticlesPanier(): number {
-  return this.panier.length;
+    return this.panier.reduce((total, item) =>
+      total + item.quantite, 0);
   }
 
-  // Getter pour les produits filtrés
+  // ✅ PRODUITS FILTRÉS
   get produitsFiltres(): any[] {
     if (!this.rechercheTexte) return this.produits;
+
     const texte = this.rechercheTexte.toLowerCase();
+
     return this.produits.filter(prod =>
-      prod.nom.toLowerCase().includes(texte) || 
+      prod.nom.toLowerCase().includes(texte) ||
       prod.boutique.nomUtilisateur.toLowerCase().includes(texte)
     );
   }
+
+  ouvrirConfirmation(): void {
+
+  this.fermerPanier();
+
+  const modal = new (window as any).bootstrap.Modal(
+    document.getElementById('confirmationModal')
+  );
+
+  modal.show();
+}
+
+fermerConfirmation(): void {
+  const modalEl = document.getElementById('confirmationModal');
+  const modal = (window as any).bootstrap.Modal.getInstance(modalEl);
+  modal.hide();
+}
+
+confirmerCommande(): void {
+
+  alert("Paiement effectué avec succès !");
+
+  // Vider le panier après paiement
+  this.panier = [];
+
+  this.fermerConfirmation();
+}
 }
