@@ -16,21 +16,21 @@ export class UtilisateurService {
   //Observable public pour que les composants s'abonnent
   public currentUser$ = this.currentUserSubject.asObservable();
 
-  constructor(private http: HttpClient , private router: Router) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
-  get currentUserValue(): any{
+  get currentUserValue(): any {
     return this.currentUserSubject.value;
   }
 
-  login(email: string, motDePasse: string){
-    return this.http.post(`${this.apiUrl}/login` , {email,motDePasse});
+  login(email: string, motDePasse: string) {
+    return this.http.post(`${this.apiUrl}/login`, { email, motDePasse });
   }
 
-  getUtilisateurById(id : string){
+  getUtilisateurById(id: string) {
     return this.http.get(`${this.apiUrl}/${id}`);
   }
 
-  getUserByIdObservable(id: string): Observable<any>{
+  getUserByIdObservable(id: string): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/${id}`).pipe(
       tap(user => {
         this.currentUserSubject.next(user);
@@ -38,24 +38,24 @@ export class UtilisateurService {
     );
   }
 
-  getUtilisateurRole(id : string){
+  getUtilisateurRole(id: string) {
     return this.http.get(`${this.apiUrl}/${id}/role`);
   }
 
-  
-  getAllUtilisateursNotAdmin(){
+
+  getAllUtilisateursNotAdmin() {
     return this.http.get(`${this.apiUrl}/notAdmin`);
   }
-  
-  getAllBoutiques(){
+
+  getAllBoutiques() {
     return this.http.get(`${this.apiUrl}/boutique`);
   }
-  
-  getAllClients(){
+
+  getAllClients() {
     return this.http.get(`${this.apiUrl}/client`);
   }
 
-  updateInfosUtilisateur(id : string , user : any){
+  updateInfosUtilisateur(id: string, user: any) {
     return this.http.put(`${this.apiUrl}/updateUserInfo/${id}`, user).pipe(
       tap(updatedUser => {
         this.currentUserSubject.next(updatedUser);
@@ -95,5 +95,10 @@ export class UtilisateurService {
       default:
         this.router.navigate(['/login/client']);
     }
-}
+  }
+
+  addBoutiqueUser(user: any) {
+    return this.http.post(`${this.apiUrl}/boutique`, user);
+  }
+
 }

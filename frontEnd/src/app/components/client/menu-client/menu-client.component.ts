@@ -10,13 +10,13 @@ import { isPlatformBrowser } from '@angular/common';
   styleUrl: './menu-client.component.css'
 })
 export class MenuClientComponent {
-   user: any = {};
+  user: any = {};
   private platformId = inject(PLATFORM_ID);
 
   constructor(private utilisateurService: UtilisateurService) { }
 
   ngOnInit(): void {
-    if(isPlatformBrowser(this.platformId)){
+    if (isPlatformBrowser(this.platformId)) {
       this.loadUser();
     }
   }
@@ -27,5 +27,9 @@ export class MenuClientComponent {
     if (idUser) {
       this.utilisateurService.getUtilisateurById(idUser).subscribe(data => this.user = data);
     }
+  }
+
+  toggleSidebar() {
+    document.body.classList.toggle('toggle-sidebar');
   }
 }
