@@ -71,7 +71,6 @@
                                         </tr>
                                     </tbody>
                                 </table>
-
                             </div>
 
                             <!-- Footer -->
@@ -97,6 +96,7 @@
                                     <th>Box</th>
                                     <th>Type</th>
                                     <th>Date Début</th>
+                                    <th>Date Fin</th>
                                     <th>Prix</th>
                                     <th>Statut</th>
                                     <th>Actions</th>
@@ -108,6 +108,7 @@
                                     <td>{{ abo.box.nom }}</td>
                                     <td>{{ abo.typeAbonnement.type }}</td>
                                     <td>{{ abo.dateDebut | date:'dd/MM/yyyy' }}</td>
+                                    <td>{{ abo.dateFin | date:'dd/MM/yyyy' }}</td>
                                     <td>{{ abo.prix | currency:'MGA':'symbol':'1.0-0' }}</td>
                                     <td>{{ abo.statut }}</td>
                                     <td>
