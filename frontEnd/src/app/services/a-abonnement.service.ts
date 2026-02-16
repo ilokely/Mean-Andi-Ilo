@@ -14,4 +14,8 @@ export class AAbonnementService {
   getAbonnements(){
     return this.http.get(`${this.apiUrl}`);
   }
+
+  addAbonnement(abonnement: any) {
+    return this.http.post(`${this.apiUrl}/add`, abonnement);
+  }
 }

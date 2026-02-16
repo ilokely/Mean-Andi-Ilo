@@ -1,0 +1,109 @@
+<main>
+  <div class="container">
+
+    <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-5 col-md-6 d-flex flex-column align-items-center justify-content-center">
+
+            <div class="d-flex justify-content-center py-4">
+              <a href="index.html" class="logo d-flex align-items-center w-auto">
+                <img src="img/logo.png" alt="">
+                <span class="d-none d-lg-block">m1p13mean-Irina-Ilo</span>
+              </a>
+            </div><!-- End Logo -->
+
+            <div class="card mb-3">
+
+              <div class="card-body">
+
+                <div class="pt-4 pb-2">
+                  <h5 class="card-title text-center pb-0 fs-4">Inscription Boutique</h5>
+                </div>
+
+                <form class="row g-3 needs-validation" (submit)="inscrireBoutique()">
+
+                  <!-- Nom utilisateur -->
+                  <div class="col-12">
+                    <label for="nomUtilisateur" class="form-label">Nom d'utilisateur</label>
+                    <input type="text" name="nomUtilisateur" [(ngModel)]="nomUtilisateur" class="form-control"
+                      id="nomUtilisateur" required>
+                    <div class="invalid-feedback">Veuillez entrer le nom d'utilisateur.</div>
+                  </div>
+
+                  <!-- Email -->
+                  <div class="col-12">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" name="email" [(ngModel)]="email" class="form-control" id="email" required>
+                    <div class="invalid-feedback">Veuillez entrer votre email.</div>
+                  </div>
+
+                  <!-- Numéro de téléphone -->
+                  <div class="col-12">
+                    <label for="numero" class="form-label">Numéro de téléphone</label>
+                    <input type="tel" name="numero" [(ngModel)]="numero" class="form-control" id="numero" required>
+                    <div class="invalid-feedback">Veuillez entrer votre numéro.</div>
+                  </div>
+
+                  <!-- Mot de passe -->
+                  <div class="col-12">
+                    <label for="mdp" class="form-label">Mot de passe</label>
+                    <input type="password" name="mdp" [(ngModel)]="mdp" class="form-control" id="mdp" required>
+                    <div class="invalid-feedback">Veuillez entrer votre mot de passe.</div>
+                  </div>
+
+                  <!-- Sélection Box -->
+                  <div class="col-12">
+                    <label for="box" class="form-label">Choisir un box</label>
+                    <select name="box" [(ngModel)]="boxSelectionne" class="form-select" id="box" required>
+                      <option *ngFor="let box of boxes" [ngValue]="box._id">
+                        {{box.nom}} - {{box.surface}} m² - {{box.prix}} Ar
+                      </option>
+                    </select>
+                    <div class="invalid-feedback">Veuillez choisir un box.</div>
+                  </div>
+
+                  <!-- Sélection type d'abonnement -->
+                  <div class="col-12">
+                    <label for="abonnement" class="form-label">Type d'abonnement</label>
+                    <select name="abonnement" [(ngModel)]="abonnementSelectionne" class="form-select" id="abonnement"
+                      required>
+                      <option *ngFor="let type of typesAbonnement" [ngValue]="type._id">
+                        {{type.type}} - {{type.reduction}} %
+                      </option>
+                    </select>
+                    <div class="invalid-feedback">Veuillez choisir un type d'abonnement.</div>
+                  </div>
+
+                  <!-- Date de début -->
+                  <div class="col-12">
+                    <label for="dateDebut" class="form-label">Date de début</label>
+                    <input type="date" name="dateDebut" [(ngModel)]="dateDebut" [min]="dateDebutMin"
+                      class="form-control" id="dateDebut" required>
+                    <div class="invalid-feedback">Veuillez choisir une date de début.</div>
+                  </div>
+
+                  <!-- Bouton d'inscription -->
+                  <div class="col-12">
+                    <button class="btn btn-success w-100" type="submit">S'inscrire</button>
+                  </div>
+
+                </form>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="credits text-center">
+        <a href="#">
+          Andriakotoharison Irina
+          <br>
+          Rasoanaivo Ilo Ny Aina
+        </a>
+      </div>
+    </section>
+
+  </div>
+</main>
