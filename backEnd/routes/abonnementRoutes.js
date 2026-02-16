@@ -15,13 +15,31 @@ router.get('/', async (req, res) => {
     }
 });
 
-router.post('/', async (req, res) => {
+router.post('/add', async (req, res) => {
     try {
-        const newAbo = new Abonnement(req.body);
-        await newAbo.save();
-        res.status(201).json(newAbo);
+        const { utilisateur, box, typeAbonnement, dateDebut, prix } = req.body;
+
+        // Vérifications simples
+        if (!utilisateur || !box || !typeAbonnement || !dateDebut || !prix) {
+            return res.status(400).json({ message: 'Tous les champs obligatoires doivent être remplis' });
+        }
+
+        // Créer l’inscription
+        const nouvelleAbo = new Abonnement({
+            utilisateur,
+            box,
+            typeAbonnement,
+            dateDebut,
+            prix,
+            statut:'En cours'
+        });
+
+        await nouvelleAbo.save();
+
+        res.status(201).json(nouvelleAbo);
     } catch (error) {
-        res.status(400).json({ message: error.message });
+        console.error(error);
+        res.status(500).json({ message: 'Erreur serveur' });
     }
 });
 

@@ -25,4 +25,8 @@ export class ATypeAbonnementService {
   deleteTypeAbonnement(id: string){
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
+
+  getById(id: string){
+    return this.http.get(`${this.apiUrl}/${id}`);
+  }
 }
