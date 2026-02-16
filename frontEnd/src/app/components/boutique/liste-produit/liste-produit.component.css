@@ -43,7 +43,8 @@
   display: flex;
   flex-direction: column;
   padding: 14px;
-  gap: 6px; /* 🔥 contrôle spacing global */
+  gap: 6px;
+  /* 🔥 contrôle spacing global */
 }
 
 /* Titre */
@@ -78,7 +79,7 @@
   font-size: 0.95rem;
   color: #555;
   margin-bottom: 10px;
-  
+
   /* Limiter à 3 lignes */
   display: -webkit-box;
   -webkit-line-clamp: 3;
@@ -91,7 +92,8 @@
 .price {
   font-size: 1.15rem;
   color: #2e7d32;
-  margin-top: auto; /* au lieu de auto */
+  margin-top: auto;
+  /* au lieu de auto */
   font-weight: 600;
 }
 

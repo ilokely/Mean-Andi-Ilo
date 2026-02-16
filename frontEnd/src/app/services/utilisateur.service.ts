@@ -68,6 +68,8 @@ export class UtilisateurService {
   }
 
   logout(): void {
+    const userInfo = localStorage.getItem('user');
+    let role = '';
 
     const userInfo = localStorage.getItem('user');
     let role = '';
