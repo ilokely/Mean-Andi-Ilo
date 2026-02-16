@@ -97,6 +97,7 @@ export class AccueilComponent {
   ouvrirConfirmation(): void {
 
   this.fermerPanier();
+  console.log("Commande confirmée :", this.panier);
 
   const modal = new (window as any).bootstrap.Modal(
     document.getElementById('confirmationModal')
