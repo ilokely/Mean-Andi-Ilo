@@ -179,3 +179,18 @@
   background-color: rgba(255, 255, 255, 0.9) !important;
   backdrop-filter: blur(5px);
 }
+
+/* ===== TOOLBAR ===== */
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.toolbar h3 {
+  margin: 0;
+  font-weight: 600;
+  color: #333;
+}
