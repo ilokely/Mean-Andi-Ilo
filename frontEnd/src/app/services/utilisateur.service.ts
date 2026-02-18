@@ -101,4 +101,11 @@ export class UtilisateurService {
     return this.http.post(`${this.apiUrl}/boutique`, user);
   }
 
+  addClientUser(user: any) {
+    return this.http.post(`${this.apiUrl}/client`, user);
+  }
+
+  deleteUser(id: string) {
+    return this.http.delete(`${this.apiUrl}/${id}`);
+  }
 }

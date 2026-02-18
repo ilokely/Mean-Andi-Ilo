@@ -36,7 +36,6 @@ export class ListSubscriptionComponent {
     });
   }
 
-  // Ajouter un nouveau type
   addTypeAbonnement(): void {
     if (!this.newType.type) return;
 
@@ -46,13 +45,10 @@ export class ListSubscriptionComponent {
     });
   }
 
-    // Modifier un type existant
   editTypeAbonnement(type: any): void {
-  // Modifier le nom
   const newName = prompt('Modifier le nom du type', type.type);
   if (newName === null || newName.trim() === '') return;
 
-  // Modifier la réduction
   const newReductionStr = prompt('Modifier la réduction (%)', type.reduction.toString());
   if (newReductionStr === null) return;
   const newReduction = parseInt(newReductionStr, 10);
@@ -61,7 +57,6 @@ export class ListSubscriptionComponent {
     return;
   }
 
-  // Mise à jour
   type.type = newName.trim();
   type.reduction = newReduction;
 
@@ -71,7 +66,6 @@ export class ListSubscriptionComponent {
   });
 }
 
-   // Supprimer un type
   deleteTypeAbonnement(type: any): void {
     if (confirm(`Voulez-vous vraiment supprimer le type "${type.type}" ?`)) {
       this.typeAboService.deleteTypeAbonnement(type._id).subscribe(() => {

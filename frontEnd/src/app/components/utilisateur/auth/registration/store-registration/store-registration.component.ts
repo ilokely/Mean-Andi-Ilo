@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { UtilisateurService } from '../../../../../services/utilisateur.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ABoxService } from '../../../../../services/a-box.service';
 import { ATypeAbonnementService } from '../../../../../services/a-type-abonnement.service';
 import { AAbonnementService } from '../../../../../services/a-abonnement.service';
@@ -32,7 +32,7 @@ export class StoreRegistrationComponent {
 
 
 
-  constructor(private utilisateurService: UtilisateurService, private boxService: ABoxService, private typeAbonnementService: ATypeAbonnementService, private aboService: AAbonnementService, private route: ActivatedRoute) { }
+  constructor(private utilisateurService: UtilisateurService, private boxService: ABoxService, private typeAbonnementService: ATypeAbonnementService, private aboService: AAbonnementService, private route: ActivatedRoute , private router: Router) { }
 
   ngOnInit(): void {
     this.loadBoxes();
@@ -58,21 +58,20 @@ export class StoreRegistrationComponent {
 
   loadBoxes(): void {
     this.boxService.getFreeBoxes().subscribe(data => {
-      console.log(data);
       this.boxes = data as any[];
     });
   }
 
   loadTypesAbonnement(): void {
     this.typeAbonnementService.getTypeAbonnements().subscribe(data => {
-      console.log(data);
       this.typesAbonnement = data as any[];
     });
   }
 
   inscrireBoutique(): void {
+
     if (!this.boxSelectionne || !this.abonnementSelectionne || !this.dateDebut) {
-      alert('Veuillez sélectionner une box, un type d\'abonnement et une date de début.');
+      alert("Veuillez sélectionner une box, un type d'abonnement et une date de début.");
       return;
     }
 
@@ -82,54 +81,82 @@ export class StoreRegistrationComponent {
       numero: this.numero,
       motDePasse: this.mdp
     }).subscribe({
+
       next: (userData: any) => {
 
-        this.boxService.getById(this.boxSelectionne).subscribe((boxData: any) => {
+        const userId = userData._id;
 
-          this.typeAbonnementService.getById(this.abonnementSelectionne).subscribe((typeData: any) => {
+        this.boxService.getById(this.boxSelectionne).subscribe({
 
-            const prixFinal = boxData.prix - (boxData.prix * typeData.reduction / 100);
+          next: (boxData: any) => {
 
-            const abonnement = {
-              utilisateur: userData._id,
-              box: this.boxSelectionne,
-              typeAbonnement: this.abonnementSelectionne,
-              dateDebut: this.dateDebut,
-              prix: prixFinal
-            };
+            this.typeAbonnementService.getById(this.abonnementSelectionne).subscribe({
 
-            console.log('Abonnement à créer :', abonnement);
+              next: (typeData: any) => {
 
-            this.aboService.addAbonnement(abonnement).subscribe({
-              next: () => {
-                alert('Inscription boutique réussie !');
+                const prixFinal =
+                  boxData.prix - (boxData.prix * typeData.reduction / 100);
 
-                this.nomUtilisateur = '';
-                this.email = '';
-                this.numero = '';
-                this.mdp = '';
+                const abonnement = {
+                  utilisateur: userId,
+                  box: this.boxSelectionne,
+                  typeAbonnement: this.abonnementSelectionne,
+                  dateDebut: this.dateDebut,
+                  prix: prixFinal
+                };
 
-                this.boxSelectionne = null;
-                this.abonnementSelectionne = null;
-                this.typeAbonnementSelectionne = null;
+                this.aboService.addAbonnement(abonnement).subscribe({
 
-                this.dateDebut = null;
+                  next: () => {
+                    alert("Inscription boutique réussie !");
+                    this.resetForm();
+                    this.router.navigate(['/login']);
+                  },
 
-                this.loadBoxes();
-                this.loadTypesAbonnement();
+                  error: (err) => {
+                    this.utilisateurService.deleteUser(userId).subscribe(() => {
+                      alert("Erreur abonnement. Création utilisateur annulée.");
+                    });
+                  }
 
+                });
               },
-              error: (err) => alert('Erreur création abonnement')
-            });
-          });
-        });
-      }
-    });
 
+              error: () => {
+                this.utilisateurService.deleteUser(userId).subscribe();
+                alert("Erreur récupération type abonnement");
+              }
+
+            });
+          },
+
+          error: () => {
+            this.utilisateurService.deleteUser(userId).subscribe();
+            alert("Erreur récupération box");
+          }
+
+        });
+      },
+
+      error: (err) => {
+        alert(err.error?.message || "Erreur serveur");
+      }
+
+    });
   }
 
   getBoxById(id: string): any {
     this.boxService.getById(id).subscribe(data => this.dataBoxSelectionne = data);
+  }
+
+  resetForm() {
+    this.nomUtilisateur = '';
+    this.email = '';
+    this.numero = '';
+    this.mdp = '';
+    this.boxSelectionne = null;
+    this.abonnementSelectionne = null;
+    this.dateDebut = null;
   }
 
 }
