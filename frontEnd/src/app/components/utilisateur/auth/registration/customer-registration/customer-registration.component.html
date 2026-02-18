@@ -1,1 +1,78 @@
-<p>customer-registration works!</p>
+<main>
+  <div class="container">
+
+    <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-5 col-md-6 d-flex flex-column align-items-center justify-content-center">
+
+            <div class="d-flex justify-content-center py-4">
+              <a href="index.html" class="logo d-flex align-items-center w-auto">
+                <img src="img/logo.png" alt="">
+                <span class="d-none d-lg-block">m1p13mean-Irina-Ilo</span>
+              </a>
+            </div><!-- End Logo -->
+
+            <div class="card mb-3">
+
+              <div class="card-body">
+
+                <div class="pt-4 pb-2">
+                  <h5 class="card-title text-center pb-0 fs-4">Inscription Boutique</h5>
+                </div>
+
+                <form class="row g-3 needs-validation" (submit)="inscrireClient()">
+
+                  <!-- Nom utilisateur -->
+                  <div class="col-12">
+                    <label for="nomUtilisateur" class="form-label">Nom d'utilisateur</label>
+                    <input type="text" name="nomUtilisateur" [(ngModel)]="newUser.nomUtilisateur" class="form-control"
+                      id="nomUtilisateur" required>
+                    <div class="invalid-feedback">Veuillez entrer le nom d'utilisateur.</div>
+                  </div>
+
+                  <!-- Email -->
+                  <div class="col-12">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" name="email" [(ngModel)]="newUser.email" class="form-control" id="email" required>
+                    <div class="invalid-feedback">Veuillez entrer votre email.</div>
+                  </div>
+
+                  <!-- Numéro de téléphone -->
+                  <div class="col-12">
+                    <label for="numero" class="form-label">Numéro de téléphone</label>
+                    <input type="tel" name="numero" [(ngModel)]="newUser.numero" class="form-control" id="numero" required>
+                    <div class="invalid-feedback">Veuillez entrer votre numéro.</div>
+                  </div>
+
+                  <!-- Mot de passe -->
+                  <div class="col-12">
+                    <label for="mdp" class="form-label">Mot de passe</label>
+                    <input type="password" name="mdp" [(ngModel)]="newUser.motDePasse" class="form-control" id="mdp" required>
+                    <div class="invalid-feedback">Veuillez entrer votre mot de passe.</div>
+                  </div>
+
+                  <!-- Bouton d'inscription -->
+                  <div class="col-12">
+                    <button class="btn btn-success w-100" type="submit">S'inscrire</button>
+                  </div>
+
+                </form>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="credits text-center">
+        <a href="#">
+          Andriakotoharison Irina
+          <br>
+          Rasoanaivo Ilo Ny Aina
+        </a>
+      </div>
+    </section>
+
+  </div>
+</main>
