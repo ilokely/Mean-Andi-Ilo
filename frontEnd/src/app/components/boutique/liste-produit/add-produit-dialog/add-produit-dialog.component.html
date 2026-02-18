@@ -95,11 +95,11 @@
                         <input matInput 
                                type="number"
                                placeholder="Prix Vente"
-                               formControlName="prix"
+                               formControlName="prixVente"
                                required
                                min="0"
                                step="0.01">
-                        @if (produitForm.get('prix')?.hasError('required')) {
+                        @if (produitForm.get('prixVente')?.hasError('required')) {
                             <mat-error>Le nom est requis</mat-error>
                         }
                     </mat-form-field>

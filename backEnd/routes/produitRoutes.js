@@ -35,10 +35,10 @@ router.post('/addProduit', async (req, res) => {
             nom,
             marque,
             description,
-            prix,
+            prixAchat,
+            prixVente,
             devise,
-            quantiteInitiale,
-            prixAchat
+            quantiteInitiale
         } = req.body;
 
         const boutique = await Boutique.findById(boutiqueId);
@@ -69,7 +69,8 @@ router.post('/addProduit', async (req, res) => {
             nom,
             marque,
             description,
-            prix,
+            prixAchat,
+            prixVente,
             devise,
             categorieProduit: {
                 id: categorie._id,
@@ -118,7 +119,7 @@ router.put('/updateProduit/:id', async(req,res) => {
             categorieId,
             marque,
             description,
-            prix,
+            prixVente,
             devise
         } = req.body;
 
@@ -139,7 +140,7 @@ router.put('/updateProduit/:id', async(req,res) => {
             nom,
             marque,
             description,
-            prix,
+            prixVente,
             devise
         };
 

@@ -25,7 +25,7 @@ import { MatButtonModule } from '@angular/material/button';
   styleUrl: './entree-produit.component.css'
 })
 export class EntreeProduitComponent {
-  displayedColumns: string[] = ['nom', 'date', 'quantite', 'prixAchat', 'montantTotal','devise'];
+  displayedColumns: string[] = ['date', 'nom', 'quantite', 'prixAchat', 'montantTotal','devise'];
   dataSource = new MatTableDataSource<any>([]);
 
   private storageService = inject(StorageService)

@@ -1,5 +1,12 @@
 <div class="container-produits">
   <!-- Bouton Ajouter -->
+
+  <div class="toolbar">
+      <h3>La liste de vos produits</h3>
+  </div>
+
+  @if (!isLoading && produits.length > 0) {
+
   <button mat-raised-button 
           color="primary" 
           (click)="openAddDialog()"
@@ -16,35 +23,34 @@
   }
 
   <!-- Liste des produits -->
-  @if (!isLoading && produits.length > 0) {
     <div class="row">
       @for (produit of produits; track produit._id) {
         <div class="col-xxl-3 col-md-4 col-sm-6 mb-4">
           <div class="card product-card">
             <!-- Image du produit -->
             <div class="image-container">
-    <img [src]="produit.imageProduit?.path || 'img/not-found.svg'" 
-         class="card-img-top" 
-         [alt]="produit.nom">
+              <img [src]="produit.imageProduit?.path || 'img/not-found.svg'" 
+                  class="card-img-top" 
+                  [alt]="produit.nom">
     
-    <div class="image-actions">
-      <button mat-icon-button 
-              color="primary"
-              class="action-btn"
-              (click)="openEditDialog(produit)"
-              matTooltip="Modifier">
-        <mat-icon>edit</mat-icon>
-      </button>
+              <div class="image-actions">
+                <button mat-icon-button 
+                        color="primary"
+                        class="action-btn"
+                        (click)="openEditDialog(produit)"
+                        matTooltip="Modifier">
+                  <mat-icon>edit</mat-icon>
+                </button>
 
-      <button mat-icon-button 
-              color="warn"
-              class="action-btn"
-              (click)="deleteProduit(produit)"
-              matTooltip="Supprimer">
-        <mat-icon>delete</mat-icon>
-      </button>
-    </div>
-  </div>
+                <button mat-icon-button 
+                        color="warn"
+                        class="action-btn"
+                        (click)="deleteProduit(produit)"
+                        matTooltip="Supprimer">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </div>
 
             <!-- Corps de la card -->
             <div class="card-body">
@@ -77,10 +83,16 @@
                         </p>
                     }
               </div>
-              
-              <p class="card-text price">
-                {{ produit.prix }} {{ produit.devise }}
-              </p>
+
+              <div class="price-box">
+                <div class="price-achat">
+                  Achat : {{ produit.prixAchat }} {{ produit.devise }}
+                </div>
+
+                <div class="price-vente">
+                  {{ produit.prixVente }} {{ produit.devise }}
+                </div>
+              </div>
               
               <!-- <div class="card-actions">
                 <button mat-icon-button 
