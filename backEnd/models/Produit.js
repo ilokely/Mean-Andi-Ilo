@@ -53,7 +53,7 @@ ProduitSchema.methods.calculerStock = async function() {
         ]),
         SortieProduit.aggregate([
             { $match: { 'produit.id': this._id } },
-            { $group: { _id: null, total: { $sum: '$quantite' } } }
+            { $group: { _id: null, total: { $sum: '$quantiteVente' } } }
         ])
     ]);
     

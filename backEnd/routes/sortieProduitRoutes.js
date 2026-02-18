@@ -30,7 +30,7 @@ router.post('/addSortieProduit', async(req,res) => {
         const {
             produitId,
             boutiqueId,
-            quantite
+            quantiteVente
         } = req.body;
 
         const boutique = await Boutique.findById(boutiqueId);
@@ -50,7 +50,7 @@ router.post('/addSortieProduit', async(req,res) => {
                 id: boutique._id,
                 nomUtilisateur: boutique.nomUtilisateur
             },
-            quantiteVente: quantite,
+            quantiteVente: quantiteVente,
             prixVente: produit.prixVente,
             date: new Date()
         });

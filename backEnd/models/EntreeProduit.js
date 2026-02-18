@@ -29,11 +29,30 @@ EntreeProduitSchema.post('save', async function(doc) {
         
         if (produit) {
             // Recalculer le stock
-            await produit.calculerStock();
+            produit.stockActuel += doc.quantite;
+            // await produit.calculerStock();
+            await produit.updateStatut();
             console.log(`Stock mis à jour pour ${produit.nom}: ${produit.stockActuel}`);
         }
     } catch (error) {
         console.error('Erreur mise à jour stock:', error);
+    }
+});
+
+EntreeProduitSchema.post('findOneAndDelete', async function(doc) {
+    if (doc) {
+        try {
+            const Produit = mongoose.model('Produit');
+            const produit = await Produit.findById(doc.produit.id);
+            
+            if (produit) {
+                // Recalculer pour être sûr
+                await produit.calculerStock();
+                console.log(`Stock recalculé après suppression: ${produit.stockActuel}`);
+            }
+        } catch (error) {
+            console.error('Erreur recalcul stock:', error);
+        }
     }
 });
 
