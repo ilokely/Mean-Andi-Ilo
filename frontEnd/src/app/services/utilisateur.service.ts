@@ -71,9 +71,6 @@ export class UtilisateurService {
     const userInfo = localStorage.getItem('user');
     let role = '';
 
-    const userInfo = localStorage.getItem('user');
-    let role = '';
-
     if (userInfo) {
       const user = JSON.parse(userInfo);
       role = user?.role?.libelle;

@@ -58,14 +58,12 @@ export class StoreRegistrationComponent {
 
   loadBoxes(): void {
     this.boxService.getFreeBoxes().subscribe(data => {
-      console.log(data);
       this.boxes = data as any[];
     });
   }
 
   loadTypesAbonnement(): void {
     this.typeAbonnementService.getTypeAbonnements().subscribe(data => {
-      console.log(data);
       this.typesAbonnement = data as any[];
     });
   }
@@ -113,7 +111,6 @@ export class StoreRegistrationComponent {
                     alert("Inscription boutique réussie !");
                     this.resetForm();
                     this.router.navigate(['/login']);
-
                   },
 
                   error: (err) => {
