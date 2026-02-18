@@ -42,7 +42,7 @@
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  padding: 14px;
+  padding: 15px;
   gap: 6px;
   /* 🔥 contrôle spacing global */
 }
@@ -52,11 +52,13 @@
   font-size: 1.05rem;
   font-weight: 600;
   margin-bottom: 4px;
+  margin-left: 4px;
 }
 
 /* Marque plus serrée */
 .card-subtitle {
   font-size: 0.85rem;
+  margin-left: 4px;
   margin-bottom: 6px;
 }
 
@@ -72,6 +74,7 @@
   padding: 2px 8px;
   border-radius: 6px;
   font-size: 0.82rem;
+  
 }
 
 /* Description */
@@ -79,6 +82,7 @@
   font-size: 0.95rem;
   color: #555;
   margin-bottom: 10px;
+  margin-left: 4px;
 
   /* Limiter à 3 lignes */
   display: -webkit-box;
@@ -88,13 +92,26 @@
   text-overflow: ellipsis;
 }
 
-/* Prix */
-.price {
-  font-size: 1.15rem;
-  color: #2e7d32;
-  margin-top: auto;
-  /* au lieu de auto */
-  font-weight: 600;
+/* Bloc prix global */
+.price-box {
+  display: inline-flex;
+  flex-direction: column;
+  background: linear-gradient(135deg, #e8f5e9, #f1f8f4);
+  padding: 6px 12px;
+  border-radius: 10px;
+  margin-top: 6px;
+  border: 1px solid rgba(46,125,50,0.15);
+}
+
+.price-achat {
+  font-size: 0.7rem;
+  color: #6b8e72;
+}
+
+.price-vente {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1b5e20;
 }
 
 /* ✅ BOUTONS D'ACTION EN BAS À DROITE */

@@ -41,7 +41,7 @@ export class AddProduitDialogComponent implements OnInit {
       marque: [''],
       description: [''],
       categorieId: ['', Validators.required],
-      prix: [0, [Validators.required, Validators.min(0)]],
+      prixVente: [0, [Validators.required, Validators.min(0)]],
       prixAchat: [0, [Validators.required, Validators.min(0)]],
       quantiteInitiale: [0, [Validators.required, Validators.min(0)]],
       devise: ['EUR', Validators.required]

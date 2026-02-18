@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const SortieProduit = require('../models/SortieProduit');
+const Boutique = require("../models/Utilisateur")
+const Produit = require("../models/Produit")
 
 router.get('/getAllSortieProduits', async(req,res) => {
     try{
@@ -28,8 +30,7 @@ router.post('/addSortieProduit', async(req,res) => {
         const {
             produitId,
             boutiqueId,
-            quantite,
-            prixVente
+            quantite
         } = req.body;
 
         const boutique = await Boutique.findById(boutiqueId);
@@ -49,8 +50,8 @@ router.post('/addSortieProduit', async(req,res) => {
                 id: boutique._id,
                 nomUtilisateur: boutique.nomUtilisateur
             },
-            quantite,
-            prixVente,
+            quantiteVente: quantite,
+            prixVente: produit.prixVente,
             date: new Date()
         });
 

@@ -16,11 +16,13 @@ const ProduitSchema = new mongoose.Schema({
     nom: { type: String, required: true },
     marque: {type: String },
     description: { type: String },
-    prix: { type: Number, required: true },
+    prixAchat: { type: Number, required: true },
+    prixVente: { type: Number, required: true },
     devise: {type: String, default: 'EUR' },
     stockActuel: { type: Number, default: 0 },
     stockMinimum: { type: Number, default: 5 },
     statut: {
+        
         type: String,
         enum: ['disponible', 'rupture', 'stock_bas', 'indisponible'],
         default: 'disponible'

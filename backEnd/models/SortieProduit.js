@@ -11,7 +11,7 @@ const SortieProduitSchema = new mongoose.Schema({
         nomUtilisateur: { type: String, required: true }
     },
     date: { type: Date, default: Date.now },
-    quantite: { type: Number, required: true },
+    quantiteVente: { type: Number, required: true },
     prixVente : { type: Number, required: true }, // UNITAIRE
     montantTotal: { type: Number },
 }, { timestamps: true });

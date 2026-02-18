@@ -55,7 +55,7 @@ export class EditProduitDialogComponent {
       marque: [this.data.marque || ''],
       description: [this.data.description || ''],
       categorieId: [this.data.categorieProduit?.id || '', Validators.required],
-      prix: [this.data.prix || 0, [Validators.required, Validators.min(0)]],
+      prixVente: [this.data.prixVente || 0, [Validators.required, Validators.min(0)]],
       devise: [this.data.devise || 'EUR', Validators.required]
     });
   }
