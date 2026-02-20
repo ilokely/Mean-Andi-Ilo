@@ -1,0 +1,102 @@
+<h2 mat-dialog-title>
+  <mat-icon color="accent">add_shopping_cart</mat-icon>
+  Réapprovisionner : {{ data.nom }}
+</h2>
+
+<mat-dialog-content>
+  <div class="alert-stock">
+    @if (data.statut === 'rupture') {
+      <div class="alert alert-danger">
+        <mat-icon>warning</mat-icon>
+        <strong>Rupture de stock !</strong> Ce produit n'est plus disponible.
+      </div>
+    } @else if (data.statut === 'stock_bas') {
+      <div class="alert alert-warning">
+        <mat-icon>error_outline</mat-icon>
+        <strong>Stock bas !</strong> Il ne reste que {{ data.stockActuel }} unités.
+      </div>
+    }
+  </div>
+
+  <div class="stock-info">
+    <p><strong>Stock actuel :</strong> {{ data.stockActuel }} unités</p>
+    <!-- <p><strong>Stock minimum :</strong> {{ data.stockMinimum }} unités</p>
+    <p><strong>Quantité recommandée :</strong> {{ quantiteRecommandee }} unités</p> -->
+  </div>
+
+  <form [formGroup]="reapproForm">
+    <mat-form-field>
+      <mat-label>Quantité à commander</mat-label>
+      <input matInput 
+             type="number"
+             formControlName="quantite"
+             required
+             min="1">
+      @if (reapproForm.get('quantite')?.hasError('required')) {
+        <mat-error>La quantité est requise</mat-error>
+      }
+      @if (reapproForm.get('quantite')?.hasError('min')) {
+        <mat-error>La quantité doit être positive</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Prix d'achat unitaire</mat-label>
+      <input matInput 
+             type="number"
+             formControlName="prixAchat"
+             required
+             min="0"
+             step="0.01">
+      @if (reapproForm.get('prixAchat')?.hasError('required')) {
+        <mat-error>Le prix d'achat est requis</mat-error>
+      }
+    </mat-form-field>
+
+    <!-- <mat-form-field>
+      <mat-label>Fournisseur (optionnel)</mat-label>
+      <input matInput formControlName="fournisseur">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Notes (optionnel)</mat-label>
+      <textarea matInput 
+                formControlName="notes"
+                rows="2"
+                placeholder="Ex: Commande fournisseur XYZ"></textarea>
+    </mat-form-field> -->
+
+    @if (reapproForm.get('quantite')?.value && reapproForm.get('prixAchat')?.value) {
+      <div class="cout-total">
+        <strong>Coût total : </strong>
+        {{ reapproForm.get('quantite')?.value * reapproForm.get('prixAchat')?.value | number:'1.2-2' }} 
+        {{ data.devise }}
+      </div>
+    }
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-stroked-button 
+          type="button"
+          (click)="onCancel()">
+    Annuler
+  </button>
+
+  <button mat-flat-button 
+          color="accent"
+          type="button"
+          (click)="onSubmit()"
+          [disabled]="reapproForm.invalid || isLoading">
+    @if (isLoading) {
+      <ng-container>
+        <mat-spinner diameter="20"></mat-spinner>
+      </ng-container>
+    } @else {
+      <ng-container>
+        <mat-icon>add_shopping_cart</mat-icon>
+        <span>Commander</span>
+      </ng-container>
+    }
+  </button>
+</mat-dialog-actions>

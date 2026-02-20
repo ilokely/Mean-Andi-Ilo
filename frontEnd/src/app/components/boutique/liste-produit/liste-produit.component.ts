@@ -10,6 +10,7 @@ import { StorageService } from '../../../services/storage.service';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { EditProduitDialogComponent } from './edit-produit-dialog/edit-produit-dialog.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { ReapproProduitDialogComponent } from './reappro-produit-dialog/reappro-produit-dialog.component';
 
 @Component({
   selector: 'app-liste-produit',
@@ -105,6 +106,24 @@ export class ListeProduitComponent implements OnInit {
       }
     });
   }
+
+  openReapproDialog(produit: any): void {
+  const dialogRef = this.dialog.open(ReapproProduitDialogComponent, {
+    width: '500px',
+    data: produit
+  });
+
+  dialogRef.afterClosed().subscribe(result => {
+    if (result?.success) {
+      this.snackBar.open(
+        `${result.entree.quantite} unités ajoutées au stock !`, 
+        'Fermer', 
+        { duration: 3000 }
+      );
+      this.loadProduits();  // Recharger pour voir le stock mis à jour
+    }
+  });
+}
 
   loadProduits(): void {
     const boutiqueId = this.storageService.getItem('userId');

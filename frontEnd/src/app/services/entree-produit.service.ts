@@ -18,4 +18,8 @@ export class EntreeProduitService {
   getEntreeProduitByBoutique(boutiqueId: string): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/getStockByBoutique/${boutiqueId}`);
   }
+
+  addEntreeProduit(entreeProduit: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/addEntreeProduit`, entreeProduit);
+  }
 }
