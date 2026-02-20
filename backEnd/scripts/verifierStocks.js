@@ -9,11 +9,11 @@ async function verifierTousLesStocks() {
         const stockApres = produit.stockActuel;
         
         if (stockAvant !== stockApres) {
-            console.log(`⚠️ Stock corrigé pour ${produit.nom}: ${stockAvant} → ${stockApres}`);
+            console.log(`Stock corrigé pour ${produit.nom}: ${stockAvant} → ${stockApres}`);
         }
     }
     
-    console.log('✅ Vérification terminée');
+    console.log('Vérification terminée');
 }
 
 verifierTousLesStocks();
