@@ -40,6 +40,11 @@ router.post('/addSortieProduit', async(req,res) => {
             return res.status(404).json({ error: 'Ressource non trouvée' });
         }
 
+        if (produit.stockActuel < quantiteVente) {
+            return res.status(400).json({ 
+                error: `Stock insuffisant. Disponible: ${produit.stockActuel}, Demandé: ${quantiteVente}` 
+            });
+        }
         const nouvelleSortie = await SortieProduit.create({
             produit: {
                 id: produit._id,
