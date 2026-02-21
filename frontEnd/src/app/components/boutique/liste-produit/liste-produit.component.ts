@@ -1,5 +1,5 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { Component, inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { Component, inject, OnInit, PLATFORM_ID, ViewChild, viewChild } from '@angular/core';
 import { ProduitService } from '../../../services/produit.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -11,24 +11,38 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
 import { EditProduitDialogComponent } from './edit-produit-dialog/edit-produit-dialog.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ReapproProduitDialogComponent } from './reappro-produit-dialog/reappro-produit-dialog.component';
+import { DetailsProduitComponent } from './details-produit/details-produit.component';
+import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 
-@Component({
+@Component({ 
   selector: 'app-liste-produit',
   standalone: true,
-  imports: [CommonModule, MatButtonModule, MatIconModule,MatTooltipModule, MatDialogModule,MatSnackBarModule],
+  imports: [
+    CommonModule,
+    MatButtonModule, 
+    MatIconModule,
+    MatTooltipModule, 
+    MatDialogModule,
+    MatSnackBarModule,
+    DetailsProduitComponent,
+    MatSidenavModule
+  ],
   templateUrl: './liste-produit.component.html',
   styleUrl: './liste-produit.component.css'
 })
 export class ListeProduitComponent implements OnInit {
-  produits: any[] = [];
-  isLoading: boolean = false;
-
   readonly dialog = inject(MatDialog);
   private storageService = inject(StorageService);
   private platformId = inject(PLATFORM_ID);
   private snackBar = inject(MatSnackBar);
   private produitService = inject(ProduitService);
+
+  produits: any[] = [];
+  selectedProduit: any = null;
+  isLoading: boolean = false;
   
+  @ViewChild('detailsSidenav') detailsSidenav!: MatSidenav;
+
 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
@@ -74,8 +88,30 @@ export class ListeProduitComponent implements OnInit {
     });
   }
 
+  openReapproDialog(produit: any): void {
+    const dialogRef = this.dialog.open(ReapproProduitDialogComponent, {
+      width: '500px',
+      data: produit
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result?.success) {
+        this.snackBar.open(
+          `${result.entree.quantite} unités ajoutées au stock !`, 
+          'Fermer', 
+          { duration: 3000 }
+        );
+        this.loadProduits();  
+      }
+    });
+  }
+
+  openDetails(produit: any): void {
+    this.selectedProduit = produit;
+    this.detailsSidenav.open();
+  }
+
   deleteProduit(produit: any): void {
-    // 1️⃣ Ouvrir le dialog de confirmation
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '400px',
       data: {
@@ -107,23 +143,7 @@ export class ListeProduitComponent implements OnInit {
     });
   }
 
-  openReapproDialog(produit: any): void {
-  const dialogRef = this.dialog.open(ReapproProduitDialogComponent, {
-    width: '500px',
-    data: produit
-  });
-
-  dialogRef.afterClosed().subscribe(result => {
-    if (result?.success) {
-      this.snackBar.open(
-        `${result.entree.quantite} unités ajoutées au stock !`, 
-        'Fermer', 
-        { duration: 3000 }
-      );
-      this.loadProduits();  // Recharger pour voir le stock mis à jour
-    }
-  });
-}
+  
 
   loadProduits(): void {
     const boutiqueId = this.storageService.getItem('userId');

@@ -1,0 +1,145 @@
+<div class="details-header">
+  <h2>Détails du produit</h2>
+  <button mat-icon-button (click)="onClose()">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+
+<div class="details-content">
+  <!-- Image -->
+  <div class="product-image">
+    <img [src]="produit.imageProduit?.path || 'img/not-found.svg'" 
+         [alt]="produit.nom">
+  </div>
+
+  <!-- Informations principales -->
+  <div class="product-info">
+    <h3>{{ produit.nom }}</h3>
+    
+    @if (produit.marque) {
+      <p class="marque">{{ produit.marque }}</p>
+    }
+
+    <!-- Statut -->
+    <div class="status-badge">
+      @if (produit.statut === 'rupture') {
+        <mat-chip class="chip-danger">
+          <mat-icon>error</mat-icon>
+          Rupture de stock
+        </mat-chip>
+      } @else if (produit.statut === 'stock_bas') {
+        <mat-chip class="chip-warning">
+          <mat-icon>warning</mat-icon>
+          Stock bas
+        </mat-chip>
+      } @else {
+        <mat-chip class="chip-success">
+          <mat-icon>check_circle</mat-icon>
+          Disponible
+        </mat-chip>
+      }
+    </div>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <!-- Description -->
+  @if (produit.description) {
+    <div class="section">
+      <h4><mat-icon>description</mat-icon> Description</h4>
+      <p>{{ produit.description }}</p>
+    </div>
+    <mat-divider></mat-divider>
+  }
+
+  <!-- Prix et stock -->
+  <div class="section">
+    <h4><mat-icon>payments</mat-icon> Prix et stock</h4>
+    
+    <div class="info-grid">
+      <div class="info-item">
+        <span class="label">Prix d'achat :</span>
+        <span class="value">{{ produit.prixAchat }} {{ produit.devise }}</span>
+      </div>
+      
+      <div class="info-item">
+        <span class="label">Prix de vente :</span>
+        <span class="value price-vente">{{ produit.prixVente }} {{ produit.devise }}</span>
+      </div>
+      
+      <div class="info-item">
+        <span class="label">Marge :</span>
+        <span class="value marge">
+          {{ marge }} {{ produit.devise }} 
+          <small>({{ margePercentage | number:'1.0-1' }}%)</small>
+        </span>
+      </div>
+      
+      <div class="info-item">
+        <span class="label">Stock actuel :</span>
+        <span class="value" [class.stock-bas]="produit.statut === 'stock_bas'"
+                            [class.rupture]="produit.statut === 'rupture'">
+          {{ produit.stockActuel }} unités
+        </span>
+      </div>
+      
+      <div class="info-item">
+        <span class="label">Stock minimum :</span>
+        <span class="value">{{ produit.stockMinimum }} unités</span>
+      </div>
+      
+      @if (produit.nombreVentes) {
+        <div class="info-item">
+          <span class="label">Nombre de ventes :</span>
+          <span class="value">{{ produit.nombreVentes }} unités</span>
+        </div>
+      }
+    </div>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <!-- Catégorie -->
+  <div class="section">
+    <h4><mat-icon>category</mat-icon> Catégorie</h4>
+    <p>{{ produit.categorieProduit?.libelle }}</p>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <!-- Dates -->
+  <div class="section">
+    <h4><mat-icon>schedule</mat-icon> Dates</h4>
+    
+    <div class="info-grid">
+      <div class="info-item">
+        <span class="label">Créé le :</span>
+        <span class="value">{{ produit.createdAt | date:'dd/MM/yyyy HH:mm' }}</span>
+      </div>
+      
+      <div class="info-item">
+        <span class="label">Modifié le :</span>
+        <span class="value">{{ produit.updatedAt | date:'dd/MM/yyyy HH:mm' }}</span>
+      </div>
+    </div>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <!-- Actions -->
+  <div class="actions">
+    <button mat-flat-button 
+            color="primary"
+            (click)="onEdit()">
+      <mat-icon>edit</mat-icon>
+      Modifier
+    </button>
+
+    <button mat-stroked-button 
+            color="warn"
+            (click)="onDelete()">
+      <mat-icon>delete</mat-icon>
+      Supprimer
+    </button>
+  </div>
+</div>

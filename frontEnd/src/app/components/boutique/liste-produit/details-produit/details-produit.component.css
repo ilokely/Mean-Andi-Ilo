@@ -1,0 +1,164 @@
+:host {
+  display: block;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.details-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #f5f5f5;
+  border-bottom: 1px solid #ddd;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.details-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.details-content {
+  padding: 20px;
+}
+
+/* Image */
+.product-image {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.product-image img {
+  width: 100%;
+  max-height: 300px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* Infos principales */
+.product-info h3 {
+  font-size: 1.8rem;
+  margin: 0 0 10px 0;
+  color: #333;
+}
+
+.marque {
+  color: #666;
+  font-size: 1.1rem;
+  margin-bottom: 15px;
+}
+
+.status-badge {
+  margin-bottom: 20px;
+}
+
+.status-badge mat-chip {
+  font-weight: 600;
+}
+
+.chip-success {
+  background-color: #e8f5e9 !important;
+  color: #2e7d32 !important;
+}
+
+.chip-warning {
+  background-color: #fff3e0 !important;
+  color: #e65100 !important;
+}
+
+.chip-danger {
+  background-color: #ffebee !important;
+  color: #c62828 !important;
+}
+
+/* Sections */
+.section {
+  margin: 20px 0;
+}
+
+.section h4 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.1rem;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+.section h4 mat-icon {
+  color: #1976d2;
+}
+
+/* Grid d'informations */
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 4px;
+}
+
+.label {
+  font-weight: 600;
+  color: #666;
+}
+
+.value {
+  color: #333;
+  font-weight: 500;
+}
+
+.price-vente {
+  color: #2e7d32;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.marge {
+  color: #1976d2;
+  font-weight: 700;
+}
+
+.stock-bas {
+  color: #ff9800;
+  font-weight: 700;
+}
+
+.rupture {
+  color: #f44336;
+  font-weight: 700;
+}
+
+/* Actions */
+.actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 2px solid #e0e0e0;
+}
+
+.actions button {
+  flex: 1;
+}
+
+.actions button mat-icon {
+  margin-right: 5px;
+}
+
+/* Responsive */
+@media (min-width: 768px) {
+  .info-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
