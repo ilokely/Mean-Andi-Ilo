@@ -16,7 +16,7 @@ router.get('/getEntreeProduits', async(req,res) => {
 
 router.get('/getStockByBoutique/:boutiqueId', async(req,res) => {
     try{
-        const entreeProduit = await EntreeProduit.find({ 'boutique.id': req.params.boutiqueId });
+        const entreeProduit = await EntreeProduit.find({ 'boutique.id': req.params.boutiqueId }).sort({ date: -1});
         res.json(entreeProduit);
     }
     catch(error){

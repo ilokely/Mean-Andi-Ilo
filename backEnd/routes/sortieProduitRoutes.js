@@ -17,7 +17,7 @@ router.get('/getAllSortieProduits', async(req,res) => {
 router.get('/getSortieProduitByBoutique/:boutiqueId', async(req,res) => {
     try{
         const boutiqueId = req.params.boutiqueId;
-        const sortieProduitByBoutique = await SortieProduit.find({ 'boutique.id': boutiqueId });
+        const sortieProduitByBoutique = await SortieProduit.find({ 'boutique.id': boutiqueId }).sort({ date: -1 });
         res.json(sortieProduitByBoutique);
     }
     catch(error){
