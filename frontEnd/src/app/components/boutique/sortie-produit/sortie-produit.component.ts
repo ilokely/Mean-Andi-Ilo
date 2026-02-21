@@ -24,7 +24,7 @@ import { StorageService } from '../../../services/storage.service';
   styleUrl: './sortie-produit.component.css'
 })
 export class SortieProduitComponent {
-  displayedColumns: string[] = ['date', 'nom', 'quantite', 'prixVente', 'montantTotal','devise'];
+  displayedColumns: string[] = ['date', 'nom', 'quantiteVente', 'prixVente', 'montantTotal','devise'];
   dataSource = new MatTableDataSource<any>([]);
 
   private storageService = inject(StorageService)
@@ -44,7 +44,7 @@ export class SortieProduitComponent {
       const searchableFields = [
         data.produit?.nom || '',                    // Nom du produit
         data.boutique?.nomUtilisateur || '',        // Nom de la boutique
-        data.quantite?.toString() || '',            // Quantité
+        data.quantiteVente?.toString() || '',            // Quantité
         data.prixVente?.toString() || '',           // Prix vente
         data.montantTotal?.toString() || '',        // Montant total
       ];
