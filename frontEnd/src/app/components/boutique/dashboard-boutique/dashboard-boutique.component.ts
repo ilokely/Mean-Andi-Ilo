@@ -60,7 +60,7 @@ Chart.register(
     MatChipsModule,
     BaseChartDirective,
     DecimalPipe,
-    DatePipe
+    // DatePipe
   ],
   templateUrl: './dashboard-boutique.component.html',
   styleUrl: './dashboard-boutique.component.css'

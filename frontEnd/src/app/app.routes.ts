@@ -15,6 +15,7 @@ import { LogoutComponent } from './components/common/logout/logout.component';
 import { ListSubscriptionComponent } from './components/admin/list-subscription/list-subscription.component';
 import { StoreRegistrationComponent } from './components/utilisateur/auth/registration/store-registration/store-registration.component';
 import { CustomerRegistrationComponent } from './components/utilisateur/auth/registration/customer-registration/customer-registration.component';
+import { HistoriqueTransactionComponent } from './components/client/historique-transaction/historique-transaction.component';
 
 export const routes: Routes = [
      { path: '', redirectTo: 'login/client', pathMatch: 'full' },
@@ -32,6 +33,7 @@ export const routes: Routes = [
      { path: 'A_listSubscription', component: ListSubscriptionComponent, canActivate: [authGuard], data: { role: 'Admin' } },
 
      { path: 'C_accueil' , component: AccueilComponent, canActivate: [authGuard], data: { role: 'Client' } },
+     { path: 'C_historique_transaction' , component: HistoriqueTransactionComponent, canActivate: [authGuard], data: { role: 'Client' } },
 
      {
           path: 'B_dashboard',

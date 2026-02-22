@@ -1,0 +1,38 @@
+<app-menu-client></app-menu-client>
+<main id="main" class="main">
+    <section class="section">
+        <div class="row">
+            <h3>Historique des Transactions</h3>
+
+            <div class="col-lg-">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Transactions</h5>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Nom</th>
+                                    <th scope="col">Prix</th>
+                                    <th scope="col">Boutique</th>
+                                    <th scope="col">Date</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for(historique of historiqueTransactions ; track historique._id){
+                                <tr>
+                                    <td>{{ historique.produit.nom }}</td>
+                                    <td>{{ historique.prixVente }}</td>
+                                    <td>{{ historique.boutique.nomUtilisateur }}</td>
+                                    <td>{{ historique.date }}</td>
+                                </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<app-footer></app-footer>

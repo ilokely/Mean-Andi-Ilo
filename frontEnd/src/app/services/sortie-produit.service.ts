@@ -18,4 +18,9 @@ export class SortieProduitService {
   getSortieProduitByBoutique(boutiqueId: string): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/getSortieProduitByBoutique/${boutiqueId}`);
   }
+
+  addSortieProduit(sortieProduit: any) {
+    return this.http.post<any>(`${this.apiUrl}/addSortieProduit`, sortieProduit);
+  }
+
 }

@@ -42,7 +42,7 @@ router.post('/addSortieProduit', async(req,res) => {
 
         if (produit.stockActuel < quantiteVente) {
             return res.status(400).json({ 
-                error: `Stock insuffisant. Disponible: ${produit.stockActuel}, Demandé: ${quantiteVente}` 
+                error: `Stock insuffisant pour le produit ${produit.nom}.` 
             });
         }
         const nouvelleSortie = await SortieProduit.create({
