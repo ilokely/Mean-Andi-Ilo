@@ -13,19 +13,23 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { ReapproProduitDialogComponent } from './reappro-produit-dialog/reappro-produit-dialog.component';
 import { DetailsProduitComponent } from './details-produit/details-produit.component';
 import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
-@Component({ 
+@Component({
   selector: 'app-liste-produit',
   standalone: true,
   imports: [
     CommonModule,
-    MatButtonModule, 
+    MatButtonModule,
     MatIconModule,
-    MatTooltipModule, 
+    MatTooltipModule,
     MatDialogModule,
     MatSnackBarModule,
     DetailsProduitComponent,
-    MatSidenavModule
+    MatSidenavModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   templateUrl: './liste-produit.component.html',
   styleUrl: './liste-produit.component.css'
@@ -38,9 +42,33 @@ export class ListeProduitComponent implements OnInit {
   private produitService = inject(ProduitService);
 
   produits: any[] = [];
+  filteredProduits: any[] = [];
   selectedProduit: any = null;
   isLoading: boolean = false;
-  
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value.toLowerCase().trim();
+
+    if (!filterValue) {
+      this.filteredProduits = this.produits;
+      return;
+    }
+
+    this.filteredProduits = this.produits.filter(produit => {
+      const searchableFields = [
+        produit.nom || '',
+        produit.marque || '',
+        produit.description || '',
+        produit.prixAchat?.toString() || '',
+        produit.prixVente?.toString() || '',
+        produit.stockActuel?.toString() || ''
+      ];
+
+      const dataStr = searchableFields.join(' ').toLowerCase();
+      return dataStr.includes(filterValue);
+    });
+  }
+
   @ViewChild('detailsSidenav') detailsSidenav!: MatSidenav;
 
 
@@ -97,11 +125,11 @@ export class ListeProduitComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result?.success) {
         this.snackBar.open(
-          `${result.entree.quantite} unités ajoutées au stock !`, 
-          'Fermer', 
+          `${result.entree.quantite} unités ajoutées au stock !`,
+          'Fermer',
           { duration: 3000 }
         );
-        this.loadProduits();  
+        this.loadProduits();
       }
     });
   }
@@ -119,7 +147,7 @@ export class ListeProduitComponent implements OnInit {
         message: `Êtes-vous sûr de vouloir supprimer "${produit.nom}" ? Cette action est irréversible.`,
         confirmText: 'Supprimer',
         cancelText: 'Annuler',
-        type: 'danger'  
+        type: 'danger'
       }
     });
 
@@ -143,7 +171,7 @@ export class ListeProduitComponent implements OnInit {
     });
   }
 
-  
+
 
   loadProduits(): void {
     const boutiqueId = this.storageService.getItem('userId');
@@ -154,6 +182,7 @@ export class ListeProduitComponent implements OnInit {
     this.produitService.getProduitsByBoutique(boutiqueId).subscribe({
       next: (data) => {
         this.produits = data;
+        this.filteredProduits = data;
       },
       error: (error) => {
         console.error('Erreur:', error);
