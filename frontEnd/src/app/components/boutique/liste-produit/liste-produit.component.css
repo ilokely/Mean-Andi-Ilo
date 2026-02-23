@@ -1,3 +1,13 @@
+h3 {
+  margin: 0;
+  font-weight: 600;
+  font-size: 1.5rem;
+  color: #2c3e50;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 /* Container principal */
 .container-produits {
   padding: 20px;
@@ -11,10 +21,10 @@
   max-width: 100%;
 }
 
-.row > [class*='col-'] {
+.row>[class*='col-'] {
   padding-left: 10px;
   padding-right: 10px;
-} 
+}
 
 /* Bouton Ajouter */
 .btn-add-produit {
@@ -35,7 +45,8 @@
   flex-direction: column;
   position: relative;
   transition: transform 0.2s, box-shadow 0.2s;
-  overflow: hidden; /* ← Empêcher les images de déborder */
+  overflow: hidden;
+  /* ← Empêcher les images de déborder */
   max-width: 100%;
 }
 
@@ -89,7 +100,7 @@
   padding: 2px 8px;
   border-radius: 6px;
   font-size: 0.82rem;
-  
+
 }
 
 /* Description */
@@ -115,7 +126,7 @@
   padding: 6px 12px;
   border-radius: 10px;
   margin-top: 6px;
-  border: 1px solid rgba(46,125,50,0.15);
+  border: 1px solid rgba(46, 125, 50, 0.15);
 }
 
 .price-achat {
