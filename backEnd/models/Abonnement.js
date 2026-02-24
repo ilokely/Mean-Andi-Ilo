@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const TypeAbonnement = require('./TypeAbonnement'); // ✅ IMPORT DIRECT
+const TypeAbonnement = require('./TypeAbonnement');
 
 const AbonnementSchema = new mongoose.Schema({
     utilisateur: {
