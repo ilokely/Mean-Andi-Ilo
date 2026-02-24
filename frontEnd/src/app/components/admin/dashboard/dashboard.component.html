@@ -9,39 +9,35 @@
           <div class="col-xxl-3 col-md-6">
             <div class="card info-card sales-card">
               <div class="card-body">
-                <h5 class="card-title">Nombre de Boxes libres   </h5>
+                <h5 class="card-title">Nombre de Boxes libres</h5>
 
                 <div class="d-flex align-items-center">
                   <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                    <i class="ri-user-3-line"></i>
+                    <i class="ri-inbox-line"></i>
                   </div>
                   <div class="ps-3">
-                    <h6><!-- {{ nClient }} --> 1</h6>
-                    <span class="text-muted small pt-2 ps-1">Boxes</span>
-
+                    <h6>{{ nbFreeBoxes }}</h6>
+                    <span class="text-muted small pt-2 ps-1">Boxes disponibles</span>
                   </div>
                 </div>
               </div>
-
             </div>
-          </div><!-- End Sales Card -->
-          <div class="col-xxl-3 col-xl-12">
+          </div>
 
+          <div class="col-xxl-3 col-xl-12">
             <div class="card info-card customers-card">
               <div class="card-body">
-                <h5 class="card-title"> Nombre de Boxes occupée</h5>
+                <h5 class="card-title">Nombre de Boxes occupées</h5>
 
                 <div class="d-flex align-items-center">
                   <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                    <i class="ri-user-settings-line"></i>
+                    <i class="ri-lock-line"></i>
                   </div>
                   <div class="ps-3">
-                    <h6><!-- {{ nMecanicien }} -->2 </h6>
-                    <span class="text-muted small pt-2 ps-1">Boxes</span>
-
+                    <h6>{{ nbUnavailableBoxes }}</h6>
+                    <span class="text-muted small pt-2 ps-1">Boxes occupées</span>
                   </div>
                 </div>
-
               </div>
             </div>
           </div>
@@ -49,47 +45,67 @@
           <div class="col-xxl-3 col-md-6">
             <div class="card info-card revenue-card">
               <div class="card-body">
-                <h5 class="card-title">Abonnements expirés</h5>
+                <h5 class="card-title">Nombre d'abonnements</h5>
 
                 <div class="d-flex align-items-center">
                   <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                    <i class="ri-calendar-2-line"></i>
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <i class="ri-file-text-line"></i>
+                    </div>
                   </div>
                   <div class="ps-3">
-                    <h6><!-- {{ nRdvEnCours }} --> 3</h6>
-                    <span class="text-muted small pt-2 ps-1">Abonnements</span>
+                    <h6>{{ nbActiveAbonnements }}</h6>
+                    <span class="text-muted small pt-2 ps-1">Abonnements actifs</span>
 
                   </div>
                 </div>
               </div>
-
             </div>
           </div><!-- End Revenue Card -->
 
           <!-- Customers Card -->
           <div class="col-xxl-3 col-xl-12">
-
             <div class="card info-card revenue-card">
               <div class="card-body">
-                <h5 class="card-title">Chiffre d'affaire</h5>
+                <h5 class="card-title">Chiffre d'affaire par mois</h5>
 
                 <div class="d-flex align-items-center">
                   <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                    <i class="ri-calendar-check-line"></i>
+                    <i class="ri-money-dollar-circle-line"></i>
                   </div>
-                  <div class="ps-3">
-                    <h6><!-- {{ nRdvTermine }} --> 1000000</h6>
-                    <span class="text-muted small pt-2 ps-1">Ariary</span>
 
+                  <div class="ps-3">
+                    <h6>{{ chiffreAffaires }}</h6>
+                    <span class="text-muted small pt-2 ps-1">Ariary / mois</span>
                   </div>
                 </div>
-
               </div>
             </div>
           </div>
 
+          <div class="row mt-4">
+
+            <div class="col-md-8">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Évolution du Chiffre d'Affaire</h5>
+                  <canvas id="caChart"></canvas>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Type d'abonnement utilisé</h5>
+                  <canvas id="typeChart"></canvas>
+                </div>
+              </div>
+            </div>
+
+          </div>
           <!-- End Customers Card -->
-         <!--  <div class="row">
+          <!--  <div class="row">
             <div class="col-md-6">
               <div class="card">
                 <div class="card-body">
