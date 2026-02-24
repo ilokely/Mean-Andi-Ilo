@@ -10,7 +10,7 @@ export class ABoxService {
   private apiUrl = `${environment.apiUrl}/box`;
   
 
-  constructor(private http: HttpClient , private router: Router) { }
+  constructor(private http: HttpClient) { }
   
   getBusyBoxes(){
     return this.http.get(`${this.apiUrl}/unAvailable`);
