@@ -15,6 +15,16 @@ router.get('/', async (req, res) => {
     }
 });
 
+router.get('/getAbonnementByBoutique/:boutiqueId', async (req, res) => {
+    try {
+        const boutiqueId = req.params.boutiqueId;
+        const abonnementsByBoutique = await Abonnement.find({ 'utilisateur.id': boutiqueId }).sort({ dateDebut: -1 });
+        res.json(abonnementsByBoutique);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+})
+
 router.post('/add', async (req, res) => {
     try {
         const { utilisateur, box, typeAbonnement, dateDebut, prix } = req.body;

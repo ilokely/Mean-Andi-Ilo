@@ -3,7 +3,8 @@
 .table-container {
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 20px;
+  padding: 20px;
 }
 
 /* ===== TOOLBAR ===== */
@@ -12,85 +13,270 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 10px;
 }
 
 .table-toolbar h3 {
   margin: 0;
   font-weight: 600;
-  color: #333;
+  font-size: 1.5rem;
+  color: #2c3e50;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.table-toolbar h3 mat-icon {
+  color: #1976d2;
 }
 
 /* ===== FILTER FIELD ===== */
 
 .filter-field {
-  width: 260px;
+  width: 280px;
+}
+
+.filter-field mat-form-field {
+  width: 100%;
 }
 
 /* ===== TABLE CARD ===== */
 
 .table-card {
-  border-radius: 14px;
+  border-radius: 16px;
   overflow: hidden;
   background: white;
+  /* ✅ Ombres poussées et élégantes */
+  box-shadow: 
+    0 8px 24px rgba(0, 0, 0, 0.08),
+    0 2px 6px rgba(0, 0, 0, 0.04);
+  transition: box-shadow 0.3s ease;
+}
+
+.table-card:hover {
+  box-shadow: 
+    0 12px 32px rgba(0, 0, 0, 0.12),
+    0 4px 8px rgba(0, 0, 0, 0.06);
 }
 
 /* ===== TABLE ===== */
 
 table {
   width: 100%;
+  border-collapse: collapse;
 }
 
-/* Header */
+/* ===== HEADER ROW ===== */
+
 .mat-mdc-header-row {
-  background: #fafafa;
+  /* ✅ Fond doux pour l'en-tête */
+  background: linear-gradient(to bottom, #f8fafc, #f1f5f9);
+  border-bottom: 2px solid #e2e8f0;
 }
 
 .mat-mdc-header-cell {
-  font-weight: 600;
-  font-size: 0.9rem;
-  color: #444;
-  padding: 16px 14px;
+  /* ✅ En-têtes en majuscules légères avec espacement */
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: #475569;
+  padding: 18px 16px;
+  border-bottom: none;
 }
 
-/* Cells */
+/* ===== DATA ROWS ===== */
+
+.mat-mdc-row {
+  border-bottom: 1px solid #f1f5f9;
+  /* ✅ Transition douce pour le hover */
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+/* ✅ Effet de survol doux */
+.mat-mdc-row:hover {
+  background-color: #f8fafc;
+  transform: translateX(2px);
+}
+
+.mat-mdc-row:last-child {
+  border-bottom: none;
+}
+
+/* ===== CELLS ===== */
+
 .mat-mdc-cell {
-  padding: 14px;
-  font-size: 0.92rem;
+  padding: 16px;
+  font-size: 0.95rem;
+  color: #334155;
+  vertical-align: middle;
 }
 
-/* Hover row */
-.data-row {
-  transition: background 0.2s;
-}
+/* ===== SPECIFIC CELL STYLES ===== */
 
-.data-row:hover {
-  background: #f7f9fc;
-}
-
-/* Strong text (Nom produit) */
+/* Nom du produit (en gras) */
 .cell-strong {
   font-weight: 600;
-  color: #2c3e50;
+  color: #1e293b;
+  font-size: 1rem;
 }
 
-/* Numbers align right */
+/* Nombres alignés à droite */
 .cell-number {
   text-align: right;
   font-weight: 500;
+  color: #475569;
+  font-variant-numeric: tabular-nums;
 }
 
-/* Total highlight */
-.cell-total {
+/* Prix (mis en valeur) */
+.cell-price {
   text-align: right;
   font-weight: 600;
-  color: #2e7d32;
+  color: #0f172a;
+  font-size: 1.05rem;
+}
+
+/* ✅ Totaux mis en évidence */
+.cell-total {
+  text-align: right;
+  font-weight: 700;
+  color: #16a34a;
+  font-size: 1.1rem;
+  background-color: #f0fdf4;
+  border-left: 3px solid #22c55e;
+  padding-left: 12px !important;
+}
+
+/* Dates */
+.cell-date {
+  color: #64748b;
+  font-size: 0.9rem;
+}
+
+/* Badges de statut */
+.cell-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.badge-success {
+  background-color: #dcfce7;
+  color: #166534;
+}
+
+.badge-warning {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.badge-danger {
+  background-color: #fee2e2;
+  color: #991b1b;
 }
 
 /* ===== EMPTY ROW ===== */
 
+.mat-mdc-no-data-row td,
 .empty-row td {
   text-align: center;
-  padding: 40px;
-  color: #999;
+  padding: 60px 20px;
+  color: #94a3b8;
   font-style: italic;
+  font-size: 1rem;
+}
+
+.empty-row mat-icon {
+  font-size: 48px;
+  width: 48px;
+  height: 48px;
+  color: #cbd5e1;
+  display: block;
+  margin: 0 auto 16px;
+}
+
+/* ===== ACTIONS COLUMN ===== */
+
+.cell-actions {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.cell-actions button {
+  margin-left: 4px;
+}
+
+/* ===== PAGINATION ===== */
+
+.mat-mdc-paginator {
+  background: #fafafa;
+  border-top: 1px solid #e2e8f0;
+  border-radius: 0 0 16px 16px;
+}
+
+/* ===== RESPONSIVE ===== */
+
+@media (max-width: 768px) {
+  .table-toolbar {
+    flex-direction: column;
+    gap: 15px;
+    align-items: flex-start;
+  }
+
+  .filter-field {
+    width: 100%;
+  }
+
+  .mat-mdc-header-cell,
+  .mat-mdc-cell {
+    padding: 12px 8px;
+    font-size: 0.85rem;
+  }
+
+  .cell-total {
+    font-size: 1rem;
+  }
+}
+
+/* ===== ANIMATIONS ===== */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.mat-mdc-row {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* ===== SCROLLBAR CUSTOM (optionnel) ===== */
+
+.table-card::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.table-card::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 4px;
+}
+
+.table-card::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+.table-card::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
 }
