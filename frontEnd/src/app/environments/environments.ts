@@ -1,4 +1,4 @@
 export const environment = {
-    production: false,
-    apiUrl: 'http://localhost:5000'
+    production: true,
+    apiUrl: 'https://mean-andi-ilo.onrender.com/'
 };
