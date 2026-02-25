@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { UtilisateurService } from '../../../../../services/utilisateur.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -30,9 +30,9 @@ export class StoreRegistrationComponent {
   dateDebut: Date | null = null;
   dateDebutMin: string = '';
 
+  private aboService = inject(AAbonnementService);
 
-
-  constructor(private utilisateurService: UtilisateurService, private boxService: ABoxService, private typeAbonnementService: ATypeAbonnementService, private aboService: AAbonnementService, private route: ActivatedRoute , private router: Router) { }
+  constructor(private utilisateurService: UtilisateurService, private boxService: ABoxService, private typeAbonnementService: ATypeAbonnementService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     this.loadBoxes();
@@ -113,7 +113,7 @@ export class StoreRegistrationComponent {
                     this.router.navigate(['/login']);
                   },
 
-                  error: (err) => {
+                  error: () => {
                     this.utilisateurService.deleteUser(userId).subscribe(() => {
                       alert("Erreur abonnement. Création utilisateur annulée.");
                     });

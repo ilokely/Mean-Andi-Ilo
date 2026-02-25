@@ -16,6 +16,7 @@ import { ListSubscriptionComponent } from './components/admin/list-subscription/
 import { StoreRegistrationComponent } from './components/utilisateur/auth/registration/store-registration/store-registration.component';
 import { CustomerRegistrationComponent } from './components/utilisateur/auth/registration/customer-registration/customer-registration.component';
 import { HistoriqueTransactionComponent } from './components/client/historique-transaction/historique-transaction.component';
+import { AbonnementBoutiqueComponent } from './components/boutique/abonnement-boutique/abonnement-boutique.component';
 
 export const routes: Routes = [
      { path: '', redirectTo: 'login/client', pathMatch: 'full' },
@@ -45,7 +46,8 @@ export const routes: Routes = [
                { path: 'liste_produit', component: ListeProduitComponent },
                { path: 'infos_user', component: InfosUserComponent } , 
                { path: 'entreeProduit', component: EntreeProduitComponent },
-               { path: 'sortieProduit', component: SortieProduitComponent }
+               { path: 'sortieProduit', component: SortieProduitComponent },
+               { path: 'abonnement-boutique', component: AbonnementBoutiqueComponent }
           ]
      }
 
