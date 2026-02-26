@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const Abonnement = require('../models/Abonnement');
+const checkAbonnementExpiration = require('../middleware/checkAbonnementExpiration');
+
+router.use(checkAbonnementExpiration);
 
 router.get('/', async (req, res) => {
     try {
@@ -18,8 +21,34 @@ router.get('/', async (req, res) => {
 router.get('/getAbonnementByBoutique/:boutiqueId', async (req, res) => {
     try {
         const boutiqueId = req.params.boutiqueId;
-        const abonnementsByBoutique = await Abonnement.find({ 'utilisateur.id': boutiqueId }).sort({ dateDebut: -1 });
-        res.json(abonnementsByBoutique);
+        const abonnement = await Abonnement.findOne({
+            'utilisateur': boutiqueId,
+            'statut': 'En cours'
+        })
+            .sort({ dateDebut: -1 })
+            .populate('utilisateur')
+            .populate('box')
+            .populate('typeAbonnement');
+
+        if (!abonnement) {
+            abonnement = await Abonnement.findOne({
+                'utilisateur': boutiqueId,
+                'statut': 'Terminé'
+            })
+                .sort({ dateFin: -1 })
+                .populate('utilisateur')
+                .populate('box')
+                .populate('typeAbonnement');
+        }
+
+        if (!abonnement) {
+            console.log('Aucun abonnement actif trouvé');
+            return res.status(404).json({
+                message: 'Aucun abonnement actif trouvé pour cet utilisateur'
+            });
+        }
+
+        res.json(abonnement);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -41,7 +70,7 @@ router.post('/add', async (req, res) => {
             typeAbonnement,
             dateDebut,
             prix,
-            statut:'En cours'
+            statut: 'En cours'
         });
 
         await nouvelleAbo.save();
@@ -52,5 +81,75 @@ router.post('/add', async (req, res) => {
         res.status(500).json({ message: 'Erreur serveur' });
     }
 });
+
+router.post('/reabonner', async (req, res) => {
+    try {
+        const { utilisateurId, boxId, typeAbonnementId, dateDebut, prix } = req.body;
+
+        // Vérifications simples
+        if (!utilisateurId || !boxId || !typeAbonnementId || prix === undefined) {
+            return res.status(400).json({ message: 'Tous les champs obligatoires doivent être remplis' });
+        }
+
+        // Créer l’inscription
+        const nouvelleAbo = new Abonnement({
+            utilisateur: utilisateurId,
+            box: boxId,
+            typeAbonnement: typeAbonnementId,
+            dateDebut: dateDebut || new Date(),
+            prix: prix,
+            statut: 'En cours'
+        });
+
+        await nouvelleAbo.save();
+
+        await nouvelleAbo.populate('utilisateur');
+        await nouvelleAbo.populate('box');
+        await nouvelleAbo.populate('typeAbonnement');
+
+        console.log('Réabonnement créé:', nouvelleAbo._id, nouvelleAbo.dateDebut);
+
+        res.status(201).json({ message: 'Réabonnement effectué avec succès', abonnement: nouvelleAbo });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Erreur serveur' });
+    }
+});
+
+// router.post('/reabonner', async (req, res) => {
+//     try {
+//         const { utilisateurId, boxId, typeAbonnementId, prix } = req.body;
+
+//         // Calculer les dates
+//         const dateDebut = new Date();
+//         // const dateFin = new Date();
+//         // dateFin.setMonth(dateFin.getMonth() + dureeEnMois);
+
+//         const nouvelAbonnement = await Abonnement.create({
+//             utilisateur: utilisateurId,
+//             box: boxId,
+//             typeAbonnement: typeAbonnementId,
+//             dateDebut,
+//             // dateFin,
+//             prix,
+//             statut: 'En cours'
+//         });
+
+//         await nouvelAbonnement.populate('utilisateur');
+//         await nouvelAbonnement.populate('box');
+//         await nouvelAbonnement.populate('typeAbonnement');
+
+//         console.log('✅ Réabonnement créé:', nouvelAbonnement._id);
+
+//         res.status(201).json({
+//             message: 'Réabonnement effectué avec succès',
+//             abonnement: nouvelAbonnement
+//         });
+
+//     } catch (error) {
+//         console.error('❌ Erreur réabonnement:', error);
+//         res.status(500).json({ message: error.message });
+//     }
+// });
 
 module.exports = router;

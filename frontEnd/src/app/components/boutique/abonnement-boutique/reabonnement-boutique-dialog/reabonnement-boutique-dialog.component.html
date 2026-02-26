@@ -1,0 +1,73 @@
+<h2 mat-dialog-title>
+    <mat-icon color="primary">autorenew</mat-icon>
+    Renouveler votre abonnement
+</h2>
+
+<mat-dialog-content>
+    <div class="ancien-abo-info">
+        <p><strong>Ancien abonnement expiré le :</strong> {{ data.ancienAbonnement?.dateFin | date:'dd/MM/yyyy' }}</p>
+    </div>
+
+    <form [formGroup]="reabonnementForm">
+        <mat-form-field>
+            <mat-label>Box</mat-label>
+            <mat-select formControlName="boxId" required>
+                @for (box of boxes; track box._id) {
+                <mat-option [value]="box._id">
+                    {{ box.nom }} - {{ box.surface }}m² - {{ box.prix | currency:'EUR':'symbol':'1.2-2' }}
+                </mat-option>
+                }
+            </mat-select>
+            @if (reabonnementForm.get('boxId')?.hasError('required')) {
+            <mat-error>La box est requise</mat-error>
+            }
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Type d'abonnement</mat-label>
+            <mat-select formControlName="typeAbonnementId" required>
+                @for (type of typesAbonnement; track type._id) {
+                <mat-option [value]="type._id">
+                    {{ type.type }} - remise:{{ type.reduction }}%
+                </mat-option>
+                }
+            </mat-select>
+            @if (reabonnementForm.get('typeAbonnementId')?.hasError('required')) {
+            <mat-error>Le type est requis</mat-error>
+            }
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Prix par mois (avec remise)</mat-label>
+            <input matInput formControlName="prix" type="number">
+        </mat-form-field>
+
+        <!-- Récapitulatif -->
+        <div class="recap">
+            <h4>Récapitulatif</h4>
+            <p><strong>Date de début :</strong> {{ today | date:'dd/MM/yyyy' }}</p>
+            <p><strong>Date de fin estimée :</strong> {{ dateFin ? (dateFin | date:'dd/MM/yyyy') : 'Non définie' }}</p>
+            <p class="prix-total"><strong>A payer par mois :</strong> {{ reabonnementForm.get('prix')?.value |
+                currency:'EUR':'symbol':'1.2-2' }}</p>
+        </div>
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-stroked-button type="button" (click)="onCancel()">
+        Annuler
+    </button>
+
+    <button mat-flat-button color="primary" type="button" (click)="onSubmit()"
+        [disabled]="reabonnementForm.invalid || isLoading">
+        @if (isLoading) {
+        <mat-spinner diameter="20"></mat-spinner>
+        }
+        @if (!isLoading) {
+        <mat-icon>check</mat-icon>
+        }
+        @if (!isLoading) {
+        <span>Confirmer le réabonnement</span>
+        }
+    </button>
+</mat-dialog-actions>

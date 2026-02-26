@@ -1,15 +1,127 @@
 <div class="contenu-abonnement-boutique">
-    <div class="card">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="card-body">
-                    <h5 class="card-title"><strong>Informations sur l'abonnement</strong></h5>
-                    <p class="card-text"><strong>Nom:</strong> {{ user.nomUtilisateur }}</p>
-                    <p class="card-text"><strong>Email:</strong> {{ user.email }}</p>
-                    <p class="card-text"><strong>Téléphone:</strong> {{ user.numero }}</p>
-                    <p class="card-text"><strong>Rôle:</strong> {{ user.role?.libelle }}</p>
-                </div>
-            </div>
-        </div>
+  @if (isLoading) {
+  <div class="loading-container">
+    <p>Chargement de l'abonnement...</p>
+  </div>
+  }
+  @if (!isLoading && errorMessage) {
+  <div class="alert alert-warning">
+    <mat-icon>warning</mat-icon>
+    {{ errorMessage }}
+  </div>
+  }
+
+  @if (!isLoading && abonnement && abonnement.utilisateur) {
+  <!-- Alerte si abonnement expiré -->
+  @if (abonnement.statut === 'Terminé') {
+  <mat-card class="alert-card expired">
+    <mat-icon>error</mat-icon>
+    <div class="alert-content">
+      <h3>Abonnement expiré</h3>
+      <p>Votre abonnement a pris fin le {{ abonnement.dateFin | date:'dd/MM/yyyy' }}</p>
+      <button mat-raised-button color="primary" (click)="openReabonnementDialog()">
+        <mat-icon>autorenew</mat-icon>
+        Se réabonner maintenant
+      </button>
     </div>
-</div>  `
+  </mat-card>
+  }
+
+  <!-- Alerte si bientôt expiré (7 jours avant) -->
+  @if (abonnement.statut === 'En cours' && abonnement.dateFin) {
+  @if ((abonnement.dateFin | date:'yyyy-MM-dd')! <= (sevenDaysFromNow | date:'yyyy-MM-dd')!) { <mat-card
+    class="alert-card warning">
+    <mat-icon>warning</mat-icon>
+    <div class="alert-content">
+      <h3>Abonnement bientôt expiré</h3>
+      <p>Votre abonnement expire le {{ abonnement.dateFin | date:'dd/MM/yyyy' }}</p>
+      <button mat-stroked-button color="primary" (click)="openReabonnementDialog()">
+        <mat-icon>autorenew</mat-icon>
+        Renouveler dès maintenant
+      </button>
+    </div>
+    </mat-card>
+    }
+    }
+
+    <!-- <mat-card class="alert-card expired">
+    <mat-icon>error</mat-icon>
+    <div class="alert-content">
+      <h3>Abonnement expiré</h3>
+      <p>Votre abonnement a pris fin le {{ abonnement.dateFin | date:'dd/MM/yyyy' }}</p>
+      <button mat-raised-button color="primary" (click)="openReabonnementDialog()">
+        <mat-icon>autorenew</mat-icon>
+        Se réabonner maintenant
+      </button>
+    </div>
+  </mat-card> -->
+  
+    <div class="abonnement-card">
+      <div class="card">
+        <div class="row">
+          
+          <!-- Colonne droite -->
+          <div class="col-md-6">
+            <div class="card-body">
+              <h5 class="card-title">
+                <mat-icon>subscriptions</mat-icon>
+                Détails de l'abonnement
+              </h5>
+
+              @if (abonnement.box) {
+              <p class="card-text">
+                <strong>Box:</strong> {{ abonnement.box.nom }}
+              </p>
+              }
+
+              @if (abonnement.typeAbonnement) {
+              <p class="card-text">
+                <strong>Type:</strong> {{ abonnement.typeAbonnement.type }}
+              </p>
+              }
+
+              <p class="card-text">
+                <strong>Prix par mois:</strong> {{ abonnement.prix | currency:'EUR':'symbol':'1.2-2' }}
+              </p>
+
+              <p class="card-text">
+                <strong>Date début:</strong> {{ abonnement.dateDebut | date:'dd/MM/yyyy' }}
+              </p>
+
+              @if (abonnement.dateFin) {
+              <p class="card-text">
+                <strong>Date fin:</strong> {{ abonnement.dateFin | date:'dd/MM/yyyy' }}
+              </p>
+              }
+
+              <p class="card-text">
+                <strong>Statut:</strong>
+                <span [class.badge-success]="abonnement.statut === 'En cours'"
+                  [class.badge-danger]="abonnement.statut === 'Terminé'" class="badge">
+                  @if (abonnement.statut === 'En cours') {
+                  <mat-icon>check_circle</mat-icon>
+                  }
+                  @if (abonnement.statut === 'Terminé') {
+                  <mat-icon>cancel</mat-icon>
+                  }
+                  {{ abonnement.statut }}
+                </span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    }
+
+    @if (!isLoading && !errorMessage && !abonnement) {
+    <div class="no-data">
+      <mat-icon>subscriptions</mat-icon>
+      <p>Aucun abonnement trouvé</p>
+      <button mat-raised-button color="primary" (click)="openReabonnementDialog()">
+        <mat-icon>add</mat-icon>
+        S'abonner maintenant
+      </button>
+    </div>
+    }
+</div>
