@@ -23,4 +23,8 @@ export class AAbonnementService {
   getAbonnementByBoutique(boutiqueId: string): Observable<any>{
     return this.http.get(`${this.apiUrl}/getAbonnementByBoutique/${boutiqueId}`);
   }
+
+  reabonner(abonnement: any) {
+    return this.http.post(`${this.apiUrl}/reabonner`, abonnement);
+  }
 }

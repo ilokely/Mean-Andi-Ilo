@@ -1,0 +1,45 @@
+mat-form-field {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.ancien-abo-info {
+  background-color: #fff3cd;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  border-left: 4px solid #ffc107;
+}
+
+.ancien-abo-info p {
+  margin: 0;
+  color: #856404;
+}
+
+.recap {
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+.recap h4 {
+  margin-top: 0;
+  color: #333;
+}
+
+.recap p {
+  margin: 10px 0;
+}
+
+.prix-total {
+  font-size: 1.2rem;
+  color: #2e7d32;
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 2px solid #e0e0e0;
+}
+
+mat-dialog-actions button mat-icon {
+  margin-right: 5px;
+}

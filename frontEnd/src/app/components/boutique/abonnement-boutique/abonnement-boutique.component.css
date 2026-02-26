@@ -1,106 +1,111 @@
 .contenu-abonnement-boutique {
-  padding: 30px;
-  display: flex;
-  justify-content: center;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-/* ===== CARD PRINCIPALE ===== */
-
-.abonnement-card {
-  width: 100%;
-  max-width: 650px;
-  background: white;
-  border-radius: 16px;
-  padding: 24px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+/* Alert Cards */
+.alert-card {
   display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-/* ===== HEADER ===== */
-
-.card-header {
-  display: flex;
-  justify-content: space-between;
   align-items: center;
+  gap: 20px;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 12px;
 }
 
-.card-header h4 {
-  margin: 0;
-  font-weight: 600;
-  color: #2c3e50;
+.alert-card mat-icon {
+  font-size: 48px;
+  width: 48px;
+  height: 48px;
 }
 
-.subtitle {
-  font-size: 0.9rem;
-  color: #777;
+.alert-card.expired {
+  background-color: #ffebee;
+  border-left: 5px solid #f44336;
 }
 
-/* ===== STATUS BADGE ===== */
-
-.status-badge {
-  padding: 6px 14px;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  font-weight: 600;
+.alert-card.expired mat-icon {
+  color: #f44336;
 }
 
-.status-badge.active {
-  background: #e8f5e9;
-  color: #2e7d32;
+.alert-card.warning {
+  background-color: #fff3e0;
+  border-left: 5px solid #ff9800;
 }
 
-.status-badge.ended {
-  background: #fdecea;
-  color: #c62828;
+.alert-card.warning mat-icon {
+  color: #ff9800;
 }
 
-/* ===== BODY ===== */
-
-.info-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 18px;
-}
-
-.info-item {
-  display: flex;
-  flex-direction: column;
-}
-
-.label {
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  color: #888;
-  margin-bottom: 4px;
-}
-
-.value {
-  font-size: 0.95rem;
-  font-weight: 500;
-  color: #333;
-}
-
-/* Prix mis en avant */
-
-.price .highlight {
+.alert-content h3 {
+  margin: 0 0 10px 0;
   font-size: 1.3rem;
-  font-weight: 700;
-  color: #2e7d32;
 }
 
-/* ===== ERROR & NO DATA ===== */
+.alert-content p {
+  margin: 0 0 15px 0;
+  color: #666;
+}
 
-.alert {
-  padding: 16px;
-  border-radius: 10px;
+.alert-content button mat-icon {
+  margin-right: 8px;
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+}
+
+/* Card styles */
+.card {
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
   display: flex;
   align-items: center;
   gap: 10px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #e0e0e0;
 }
 
+.card-text {
+  margin-bottom: 12px;
+  color: #555;
+}
+
+/* Badge */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.badge mat-icon {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+}
+
+.badge-success {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.badge-danger {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+/* Loading & No data */
+.loading-container,
 .no-data {
   text-align: center;
   padding: 80px 20px;
@@ -108,7 +113,29 @@
 }
 
 .no-data mat-icon {
-  font-size: 60px;
-  margin-bottom: 15px;
+  font-size: 64px;
+  width: 64px;
+  height: 64px;
   color: #ccc;
+  margin-bottom: 20px;
+}
+
+.no-data button {
+  margin-top: 20px;
+}
+
+/* Alert warning */
+.alert {
+  padding: 15px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.alert-warning {
+  background-color: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeaa7;
 }
