@@ -28,7 +28,7 @@
             <mat-select formControlName="typeAbonnementId" required>
                 @for (type of typesAbonnement; track type._id) {
                 <mat-option [value]="type._id">
-                    {{ type.type }}
+                    {{ type.type }} - remise:{{ type.reduction }}%
                 </mat-option>
                 }
             </mat-select>
@@ -38,7 +38,7 @@
         </mat-form-field>
 
         <mat-form-field>
-            <mat-label>Prix (€)</mat-label>
+            <mat-label>Prix par mois (avec remise)</mat-label>
             <input matInput formControlName="prix" type="number">
         </mat-form-field>
 
@@ -47,7 +47,7 @@
             <h4>Récapitulatif</h4>
             <p><strong>Date de début :</strong> {{ today | date:'dd/MM/yyyy' }}</p>
             <p><strong>Date de fin estimée :</strong> {{ dateFin ? (dateFin | date:'dd/MM/yyyy') : 'Non définie' }}</p>
-            <p class="prix-total"><strong>Prix total :</strong> {{ reabonnementForm.get('prix')?.value |
+            <p class="prix-total"><strong>A payer par mois :</strong> {{ reabonnementForm.get('prix')?.value |
                 currency:'EUR':'symbol':'1.2-2' }}</p>
         </div>
     </form>

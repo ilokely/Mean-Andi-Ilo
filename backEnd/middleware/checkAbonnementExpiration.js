@@ -3,7 +3,7 @@ const Abonnement = require('../models/Abonnement');
 const checkAbonnementExpiration = async (req, res, next) => {
     try {
         const today = new Date();
-        today.setHours(0, 0, 0, 0); // Début de la journée
+        today.setHours(23, 59, 59, 999); // Fin de la journée
 
         const abonnementsExpires = await Abonnement.updateMany(
             {

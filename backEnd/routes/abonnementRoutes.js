@@ -15,36 +15,36 @@ router.get('/', async (req, res) => {
         res.json(abonnements);
     } catch (error) {
         res.status(500).json({ message: error.message });
-    }   
+    }
 });
 
 router.get('/getAbonnementByBoutique/:boutiqueId', async (req, res) => {
     try {
         const boutiqueId = req.params.boutiqueId;
-        const abonnement = await Abonnement.findOne({ 
+        const abonnement = await Abonnement.findOne({
             'utilisateur': boutiqueId,
-            'statut': 'En cours'  
+            'statut': 'En cours'
         })
-        .sort({ dateDebut: -1 }) 
-        .populate('utilisateur')
-        .populate('box')
-        .populate('typeAbonnement');
-
-        if (!abonnement) {
-            abonnement = await Abonnement.findOne({ 
-                'utilisateur': boutiqueId,
-                'statut': 'Terminé'
-            })
-            .sort({ dateFin: -1 })
+            .sort({ dateDebut: -1 })
             .populate('utilisateur')
             .populate('box')
             .populate('typeAbonnement');
+
+        if (!abonnement) {
+            abonnement = await Abonnement.findOne({
+                'utilisateur': boutiqueId,
+                'statut': 'Terminé'
+            })
+                .sort({ dateFin: -1 })
+                .populate('utilisateur')
+                .populate('box')
+                .populate('typeAbonnement');
         }
 
         if (!abonnement) {
             console.log('Aucun abonnement actif trouvé');
-            return res.status(404).json({ 
-                message: 'Aucun abonnement actif trouvé pour cet utilisateur' 
+            return res.status(404).json({
+                message: 'Aucun abonnement actif trouvé pour cet utilisateur'
             });
         }
 
@@ -70,7 +70,7 @@ router.post('/add', async (req, res) => {
             typeAbonnement,
             dateDebut,
             prix,
-            statut:'En cours'
+            statut: 'En cours'
         });
 
         await nouvelleAbo.save();
@@ -84,35 +84,37 @@ router.post('/add', async (req, res) => {
 
 router.post('/reabonner', async (req, res) => {
     try {
-        const { utilisateur, box, typeAbonnement, prix } = req.body;
+        const { utilisateurId, boxId, typeAbonnementId, dateDebut, prix } = req.body;
 
         // Vérifications simples
-        if (!utilisateur || !box || !typeAbonnement || !dateDebut || !prix) {
+        if (!utilisateurId || !boxId || !typeAbonnementId || prix === undefined) {
             return res.status(400).json({ message: 'Tous les champs obligatoires doivent être remplis' });
         }
 
-        const prixFinal = box.prix - (box.prix * (typeAbonnement.reduction / 100));
         // Créer l’inscription
         const nouvelleAbo = new Abonnement({
-            utilisateur,
-            box,
-            typeAbonnement,
-            dateDebut: new Date(),
-            prix: prixFinal,
-            statut:'En cours'
+            utilisateur: utilisateurId,
+            box: boxId,
+            typeAbonnement: typeAbonnementId,
+            dateDebut: dateDebut || new Date(),
+            prix: prix,
+            statut: 'En cours'
         });
 
         await nouvelleAbo.save();
 
+        await nouvelleAbo.populate('utilisateur');
+        await nouvelleAbo.populate('box');
+        await nouvelleAbo.populate('typeAbonnement');
+
         console.log('Réabonnement créé:', nouvelleAbo._id, nouvelleAbo.dateDebut);
 
-
-        res.status(201).json({ message: 'Réabonnement effectué avec succès', nouvelleAbo });
+        res.status(201).json({ message: 'Réabonnement effectué avec succès', abonnement: nouvelleAbo });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Erreur serveur' });
     }
-});     
+});
 
 // router.post('/reabonner', async (req, res) => {
 //     try {

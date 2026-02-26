@@ -44,6 +44,18 @@
     }
     }
 
+    <!-- <mat-card class="alert-card expired">
+    <mat-icon>error</mat-icon>
+    <div class="alert-content">
+      <h3>Abonnement expiré</h3>
+      <p>Votre abonnement a pris fin le {{ abonnement.dateFin | date:'dd/MM/yyyy' }}</p>
+      <button mat-raised-button color="primary" (click)="openReabonnementDialog()">
+        <mat-icon>autorenew</mat-icon>
+        Se réabonner maintenant
+      </button>
+    </div>
+  </mat-card> -->
+  
     <div class="abonnement-card">
       <div class="card">
         <div class="row">
@@ -69,7 +81,7 @@
               }
 
               <p class="card-text">
-                <strong>Prix:</strong> {{ abonnement.prix | currency:'EUR':'symbol':'1.2-2' }}
+                <strong>Prix par mois:</strong> {{ abonnement.prix | currency:'EUR':'symbol':'1.2-2' }}
               </p>
 
               <p class="card-text">

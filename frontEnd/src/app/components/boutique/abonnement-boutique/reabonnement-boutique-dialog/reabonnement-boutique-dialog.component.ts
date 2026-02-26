@@ -90,7 +90,7 @@ export class ReabonnementBoutiqueDialogComponent implements OnInit {
     this.reabonnementForm = this.fb.group({
       boxId: [this.data.ancienAbonnement?.box?._id || '', Validators.required],
       typeAbonnementId: [this.data.ancienAbonnement?.typeAbonnement?._id || '', Validators.required],
-      dateDebut: [this.data.ancienAbonnement?.dateDebut || '', [Validators.required]],
+      dateDebut: [this.data.ancienAbonnement?.dateDebut || ''],
       prix: [{ value: this.data.ancienAbonnement?.box?.prix || 0, disabled: true }]
     });
   }
@@ -135,7 +135,7 @@ export class ReabonnementBoutiqueDialogComponent implements OnInit {
 
     const reabonnementData = {
       utilisateurId: this.data.utilisateurId,
-      ...this.reabonnementForm.getRawValue()
+      ...this.reabonnementForm.getRawValue(),
     };
 
     console.log('Données réabonnement:', reabonnementData);
