@@ -1,0 +1,114 @@
+.contenu-abonnement-boutique {
+  padding: 30px;
+  display: flex;
+  justify-content: center;
+}
+
+/* ===== CARD PRINCIPALE ===== */
+
+.abonnement-card {
+  width: 100%;
+  max-width: 650px;
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ===== HEADER ===== */
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-header h4 {
+  margin: 0;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.subtitle {
+  font-size: 0.9rem;
+  color: #777;
+}
+
+/* ===== STATUS BADGE ===== */
+
+.status-badge {
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.status-badge.active {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.status-badge.ended {
+  background: #fdecea;
+  color: #c62828;
+}
+
+/* ===== BODY ===== */
+
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #888;
+  margin-bottom: 4px;
+}
+
+.value {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #333;
+}
+
+/* Prix mis en avant */
+
+.price .highlight {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #2e7d32;
+}
+
+/* ===== ERROR & NO DATA ===== */
+
+.alert {
+  padding: 16px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.no-data {
+  text-align: center;
+  padding: 80px 20px;
+  color: #999;
+}
+
+.no-data mat-icon {
+  font-size: 60px;
+  margin-bottom: 15px;
+  color: #ccc;
+}

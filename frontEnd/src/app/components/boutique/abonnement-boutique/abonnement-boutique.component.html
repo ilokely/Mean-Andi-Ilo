@@ -1,15 +1,57 @@
-<div class="contenu-abonnement-boutique">
-    <div class="card">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="card-body">
-                    <h5 class="card-title"><strong>Informations sur l'abonnement</strong></h5>
-                    <p class="card-text"><strong>Nom:</strong> {{ user.nomUtilisateur }}</p>
-                    <p class="card-text"><strong>Email:</strong> {{ user.email }}</p>
-                    <p class="card-text"><strong>Téléphone:</strong> {{ user.numero }}</p>
-                    <p class="card-text"><strong>Rôle:</strong> {{ user.role?.libelle }}</p>
-                </div>
-            </div>
-        </div>
+@if (!isLoading && abonnement && abonnement.utilisateur) {
+  <div class="abonnement-card">
+
+    <div class="card-header">
+      <div>
+        <h4>Mon abonnement</h4>
+        <span class="subtitle">
+          {{ abonnement.box?.nom }}
+        </span>
+      </div>
+
+      <span 
+        class="status-badge"
+        [class.active]="abonnement.statut === 'En cours'"
+        [class.ended]="abonnement.statut === 'Terminé'">
+        {{ abonnement.statut }}
+      </span>
     </div>
-</div>  `
+
+    <div class="card-body">
+
+      <div class="info-grid">
+
+        <div class="info-item">
+          <span class="label">Type</span>
+          <span class="value">{{ abonnement.typeAbonnement?.type }}</span>
+        </div>
+
+        <div class="info-item price">
+          <span class="label">Prix</span>
+          <span class="value highlight">
+            {{ abonnement.prix }} €
+          </span>
+        </div>
+
+        <div class="info-item">
+          <span class="label">Date début</span>
+          <span class="value">
+            {{ abonnement.dateDebut | date:'dd/MM/yyyy' }}
+          </span>
+        </div>
+
+        @if (abonnement.dateFin) {
+          <div class="info-item">
+            <span class="label">Date fin</span>
+            <span class="value">
+              {{ abonnement.dateFin | date:'dd/MM/yyyy' }}
+            </span>
+          </div>
+        }
+
+      </div>
+
+    </div>
+
+  </div>
+}
