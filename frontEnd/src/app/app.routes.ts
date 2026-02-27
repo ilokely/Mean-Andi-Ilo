@@ -17,6 +17,8 @@ import { StoreRegistrationComponent } from './components/utilisateur/auth/regist
 import { CustomerRegistrationComponent } from './components/utilisateur/auth/registration/customer-registration/customer-registration.component';
 import { HistoriqueTransactionComponent } from './components/client/historique-transaction/historique-transaction.component';
 import { AbonnementBoutiqueComponent } from './components/boutique/abonnement-boutique/abonnement-boutique.component';
+import { TypeAbonnementComponent } from './components/admin/type-abonnement/type-abonnement.component';
+import { CategorieProduitComponent } from './components/admin/categorie-produit/categorie-produit.component';
 
 export const routes: Routes = [
      { path: '', redirectTo: 'login/client', pathMatch: 'full' },
@@ -32,6 +34,8 @@ export const routes: Routes = [
      { path: 'A_listUser', component: ListUserComponent, canActivate: [authGuard], data: { role: 'Admin' } },
      { path: 'A_listBoxes', component: ListBoxesComponent, canActivate: [authGuard], data: { role: 'Admin' } },
      { path: 'A_listSubscription', component: ListSubscriptionComponent, canActivate: [authGuard], data: { role: 'Admin' } },
+     { path: 'A_Categories', component: CategorieProduitComponent, canActivate: [authGuard], data: { role: 'Admin' } },
+     { path: 'A_TypeAbonnement', component: TypeAbonnementComponent, canActivate: [authGuard], data: { role: 'Admin' } },
 
      { path: 'C_accueil' , component: AccueilComponent, canActivate: [authGuard], data: { role: 'Client' } },
      { path: 'C_historique_transaction' , component: HistoriqueTransactionComponent, canActivate: [authGuard], data: { role: 'Client' } },

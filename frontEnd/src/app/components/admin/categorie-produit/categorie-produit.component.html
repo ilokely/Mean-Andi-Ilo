@@ -1,0 +1,157 @@
+<app-menuAdmin></app-menuAdmin>
+<main id="main" class="main">
+    <section class="section">
+        <!-- Header avec bouton d'ajout -->
+        <div class="row mb-3">
+            <div class="col-12 d-flex justify-content-between align-items-center">
+                <h3>Gestion des catégories de produit</h3>
+
+                <!-- Bouton Ouvrir Modal Ajout -->
+                <button type="button" 
+                        class="btn btn-success d-flex align-items-center" 
+                        data-bs-toggle="modal"
+                        data-bs-target="#CategorieModal">
+                    <i class="bi bi-card-list me-2"></i>
+                    Ajouter une catégorie
+                </button>
+            </div>
+        </div>
+
+        <div class="modal fade" id="CategorieModal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">
+                            <i class="bi bi-plus-circle me-2"></i>
+                            Ajouter une catégorie
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+
+                    <div class="modal-body">
+                        <form (ngSubmit)="addCategorie()" #addForm="ngForm">
+                            <div class="mb-3">
+                                <label class="form-label">Libellé de la catégorie</label>
+                                <input type="text" 
+                                       class="form-control" 
+                                       [(ngModel)]="newCategorie.libelle"
+                                       name="libelle" 
+                                       placeholder="Ex: Électronique, Vêtements..."
+                                       required>
+                            </div>
+                            
+                            <div class="d-flex justify-content-end gap-2">
+                                <button type="button" 
+                                        class="btn btn-secondary" 
+                                        data-bs-dismiss="modal">
+                                    Annuler
+                                </button>
+                                <button type="submit" 
+                                        class="btn btn-success"
+                                        [disabled]="!addForm.valid">
+                                    <i class="bi bi-check-lg me-1"></i>
+                                    Ajouter
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="EditCategorieModal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">
+                            <i class="bi bi-pencil me-2"></i>
+                            Modifier la catégorie
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+
+                    <div class="modal-body">
+                        <form (ngSubmit)="updateCategorie()" #editForm="ngForm" *ngIf="editingCategorie">
+                            <div class="mb-3">
+                                <label class="form-label">Libellé de la catégorie</label>
+                                <input type="text" 
+                                       class="form-control" 
+                                       [(ngModel)]="editingCategorie.libelle"
+                                       name="libelle" 
+                                       required>
+                            </div>
+                            
+                            <div class="d-flex justify-content-end gap-2">
+                                <button type="button" 
+                                        class="btn btn-secondary" 
+                                        data-bs-dismiss="modal">
+                                    Annuler
+                                </button>
+                                <button type="submit" 
+                                        class="btn btn-primary"
+                                        [disabled]="!editForm.valid">
+                                    <i class="bi bi-check-lg me-1"></i>
+                                    Enregistrer
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            Liste des catégories
+                            <span class="badge bg-primary ms-2">{{ categories.length }}</span>
+                        </h5>
+                        
+                        <div class="table-responsive">
+                            <table class="table table-hover table-striped">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th style="width: 60px;">#</th>
+                                        <th>Libellé</th>
+                                        <th style="width: 150px;">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let cat of categories; let i = index">
+                                        <td>{{ i + 1 }}</td>
+                                        <td>
+                                            <strong>{{ cat.libelle }}</strong>
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-primary me-2"
+                                                    (click)="editCategorie(cat)"
+                                                    title="Modifier">
+                                                <i class="bi bi-pencil"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-outline-danger"
+                                                    (click)="deleteCategorie(cat)"
+                                                    title="Supprimer">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    
+                                    <!-- Message si vide -->
+                                    <tr *ngIf="categories.length === 0">
+                                        <td colspan="3" class="text-center text-muted py-4">
+                                            <i class="bi bi-inbox fs-1 d-block mb-2"></i>
+                                            Aucune catégorie trouvée
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<app-footer></app-footer>
