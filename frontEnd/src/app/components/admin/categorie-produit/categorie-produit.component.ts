@@ -71,15 +71,13 @@ export class CategorieProduitComponent implements OnInit {
   editCategorie(categorie: any): void {
     console.log('✏️ Édition catégorie:', categorie);
     
-    // ✅ Créer une copie profonde de l'objet
     this.editingCategorie = {
       _id: categorie._id,
       libelle: categorie.libelle
     };
     
-    console.log('📝 Objet à éditer:', this.editingCategorie);
+    console.log('Objet à éditer:', this.editingCategorie);
     
-    // Ouvrir le modal
     this.openModal('EditCategorieModal');
   }
 
@@ -89,28 +87,25 @@ export class CategorieProduitComponent implements OnInit {
       return;
     }
 
-    console.log('💾 Mise à jour catégorie:', this.editingCategorie);
+    console.log('Mise à jour catégorie:', this.editingCategorie);
 
     this.categorieService.updateCategorie(
       this.editingCategorie._id, 
       this.editingCategorie.libelle
     ).subscribe({
       next: (response) => {
-        console.log('✅ Réponse mise à jour:', response);
+        console.log('Réponse mise à jour:', response);
         
-        // ✅ IMPORTANT : Recharger TOUTE la liste
         this.loadCategories();
         
-        // Fermer le modal
         this.closeModal('EditCategorieModal');
         
-        // Réinitialiser
         this.editingCategorie = null;
         
         alert('Catégorie modifiée avec succès !');
       },
       error: (error) => {
-        console.error('❌ Erreur modification:', error);
+        console.error('Erreur modification:', error);
         alert(error.error?.message || 'Erreur lors de la modification');
       }
     });

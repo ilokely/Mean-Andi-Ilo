@@ -1,0 +1,31 @@
+.table-hover tbody tr:hover {
+    background-color: #f8f9fa;
+    cursor: pointer;
+}
+
+.btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+}
+
+.card-title {
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+}
+
+.badge {
+    font-size: 0.85rem;
+    padding: 0.4rem 0.8rem;
+}
+
+/* Badge avec icône */
+.badge i {
+    margin-right: 4px;
+}
+
+/* Input number sans flèches */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    opacity: 1;
+}
