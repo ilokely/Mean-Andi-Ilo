@@ -1,1 +1,200 @@
-<p>type-abonnement works!</p>
+<app-menuAdmin></app-menuAdmin>
+<main id="main" class="main">
+    <section class="section">
+        <!-- Header avec bouton d'ajout -->
+        <div class="row mb-3">
+            <div class="col-12 d-flex justify-content-between align-items-center">
+                <h3>
+                    <i class="bi bi-card-checklist me-2"></i>
+                    Gestion des types d'abonnement
+                </h3>
+
+                <!-- Bouton Ouvrir Modal Ajout -->
+                <button type="button" 
+                        class="btn btn-success d-flex align-items-center" 
+                        data-bs-toggle="modal"
+                        data-bs-target="#TypeAbonnementModal">
+                    <i class="bi bi-plus-circle me-2"></i>
+                    Ajouter un type
+                </button>
+            </div>
+        </div>
+
+        <!-- ✅ MODAL AJOUT TYPE -->
+        <div class="modal fade" id="TypeAbonnementModal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">
+                            <i class="bi bi-plus-circle me-2"></i>
+                            Ajouter un type d'abonnement
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+
+                    <div class="modal-body">
+                        <form (ngSubmit)="addType()" #addForm="ngForm">
+                            <div class="mb-3">
+                                <label class="form-label">Type d'abonnement</label>
+                                <input type="text" 
+                                       class="form-control" 
+                                       [(ngModel)]="newType.type"
+                                       name="type" 
+                                       placeholder="Ex: Mensuel, Annuel, Trimestriel..."
+                                       required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Réduction (%)</label>
+                                <input type="number" 
+                                       class="form-control" 
+                                       [(ngModel)]="newType.reduction"
+                                       name="reduction" 
+                                       min="0"
+                                       max="100"
+                                       step="0.01"
+                                       placeholder="Ex: 10 pour 10% de réduction">
+                                <small class="text-muted">
+                                    Laissez à 0 si pas de réduction
+                                </small>
+                            </div>
+                            
+                            <div class="d-flex justify-content-end gap-2">
+                                <button type="button" 
+                                        class="btn btn-secondary" 
+                                        data-bs-dismiss="modal">
+                                    Annuler
+                                </button>
+                                <button type="submit" 
+                                        class="btn btn-success"
+                                        [disabled]="!addForm.valid">
+                                    <i class="bi bi-check-lg me-1"></i>
+                                    Ajouter
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ✅ MODAL ÉDITION TYPE -->
+        <div class="modal fade" id="EditTypeAbonnementModal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">
+                            <i class="bi bi-pencil me-2"></i>
+                            Modifier le type d'abonnement
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+
+                    <div class="modal-body">
+                        <form (ngSubmit)="updateType()" #editForm="ngForm" *ngIf="editingType">
+                            <div class="mb-3">
+                                <label class="form-label">Type d'abonnement</label>
+                                <input type="text" 
+                                       class="form-control" 
+                                       [(ngModel)]="editingType.type"
+                                       name="type" 
+                                       required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Réduction (%)</label>
+                                <input type="number" 
+                                       class="form-control" 
+                                       [(ngModel)]="editingType.reduction"
+                                       name="reduction" 
+                                       min="0"
+                                       max="100"
+                                       step="0.01">
+                            </div>
+                            
+                            <div class="d-flex justify-content-end gap-2">
+                                <button type="button" 
+                                        class="btn btn-secondary" 
+                                        data-bs-dismiss="modal">
+                                    Annuler
+                                </button>
+                                <button type="submit" 
+                                        class="btn btn-primary"
+                                        [disabled]="!editForm.valid">
+                                    <i class="bi bi-check-lg me-1"></i>
+                                    Enregistrer
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ✅ TABLEAU DES TYPES -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            Liste des types d'abonnement
+                            <span class="badge bg-primary ms-2">{{ typesAbonnement.length }}</span>
+                        </h5>
+                        
+                        <div class="table-responsive">
+                            <table class="table table-hover table-striped">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th style="width: 60px;">#</th>
+                                        <th>Type</th>
+                                        <th style="width: 150px;">Réduction</th>
+                                        <th style="width: 150px;">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let type of typesAbonnement; let i = index">
+                                        <td>{{ i + 1 }}</td>
+                                        <td>
+                                            <strong>{{ type.type }}</strong>
+                                        </td>
+                                        <td>
+                                            <span class="badge" 
+                                                  [class.bg-success]="type.reduction > 0"
+                                                  [class.bg-secondary]="type.reduction === 0">
+                                                <i class="bi" 
+                                                   [class.bi-percent]="type.reduction > 0"
+                                                   [class.bi-dash]="type.reduction === 0"></i>
+                                                {{ type.reduction }}%
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-primary me-2"
+                                                    (click)="editType(type)"
+                                                    title="Modifier">
+                                                <i class="bi bi-pencil"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-outline-danger"
+                                                    (click)="deleteType(type)"
+                                                    title="Supprimer">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    
+                                    <!-- Message si vide -->
+                                    <tr *ngIf="typesAbonnement.length === 0">
+                                        <td colspan="4" class="text-center text-muted py-4">
+                                            <i class="bi bi-inbox fs-1 d-block mb-2"></i>
+                                            Aucun type d'abonnement trouvé
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<app-footer></app-footer>

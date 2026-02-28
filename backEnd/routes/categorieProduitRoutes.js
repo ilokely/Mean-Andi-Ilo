@@ -27,13 +27,12 @@ router.put('/updateCategorie/:id', async (req, res) => {
         const { id } = req.params;
         const { libelle } = req.body;
 
-        console.log('📝 Mise à jour catégorie:', { id, libelle });
+        console.log('Mise à jour catégorie:', { id, libelle });
 
         if (!libelle || libelle.trim() === '') {
             return res.status(400).json({ message: 'Le libellé est requis' });
         }
 
-        // ✅ IMPORTANT : Mettre à jour la catégorie
         const categorie = await CategorieProduit.findByIdAndUpdate(
             id,
             { libelle: libelle.trim() },
@@ -44,9 +43,8 @@ router.put('/updateCategorie/:id', async (req, res) => {
             return res.status(404).json({ message: 'Catégorie non trouvée' });
         }
 
-        console.log('✅ Catégorie mise à jour:', categorie);
+        console.log('Catégorie mise à jour:', categorie);
 
-        // ✅ NOUVEAU : Mettre à jour tous les produits qui utilisent cette catégorie
         const updateResult = await Produit.updateMany(
             { 'categorieProduit.id': id },
             { 
@@ -56,16 +54,16 @@ router.put('/updateCategorie/:id', async (req, res) => {
             }
         );
 
-        console.log(`✅ ${updateResult.modifiedCount} produit(s) mis à jour`);
+        console.log(`${updateResult.modifiedCount} produit(s) mis à jour`);
 
         res.status(200).json({
             message: 'Catégorie modifiée avec succès',
-            categorie,  // ✅ Retourner l'objet complet
+            categorie,  // Retourner l'objet complet
             produitsModifies: updateResult.modifiedCount
         });
 
     } catch (error) {
-        console.error('❌ Erreur mise à jour:', error);
+        console.error('Erreur mise à jour:', error);
         res.status(500).json({ message: error.message });
     }
 });
