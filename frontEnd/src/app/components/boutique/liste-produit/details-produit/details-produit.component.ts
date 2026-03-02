@@ -21,7 +21,7 @@ import { MatChipsModule } from '@angular/material/chips';
 export class DetailsProduitComponent {
   @Input() produit: any;
   
-  // ✅ Événements pour communiquer avec le parent
+  // Événements pour communiquer avec le parent
   @Output() close = new EventEmitter<void>();
   @Output() edit = new EventEmitter<any>();
   @Output() delete = new EventEmitter<any>();
