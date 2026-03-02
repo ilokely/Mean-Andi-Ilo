@@ -142,7 +142,7 @@
   color: #1b5e20;
 }
 
-/* ✅ BOUTONS D'ACTION EN BAS À DROITE */
+/*  BOUTONS D'ACTION EN BAS À DROITE */
 .card-actions {
   position: absolute;
   bottom: 10px;
@@ -361,7 +361,7 @@
   margin: 0;
 }
 
-/* ✅ Zone principale des produits */
+/*  Zone principale des produits */
 .products-main {
   min-width: 0;
 }
@@ -419,7 +419,7 @@
   margin-right: 8px;
 }
 
-/* ✅ RESPONSIVE */
+/*  RESPONSIVE */
 @media (max-width: 1200px) {
   .content-wrapper {
     grid-template-columns: 240px 1fr;

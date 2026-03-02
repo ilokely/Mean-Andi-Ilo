@@ -71,7 +71,7 @@ export class ListeProduitComponent implements OnInit {
   applyFilter(event?: Event): void {
     let filtered = [...this.produits];
 
-    // 1️⃣ Filtrer par texte de recherche
+    //Filtrer par texte de recherche
     if (event) {
       this.searchText = (event.target as HTMLInputElement).value.toLowerCase().trim();
     }
@@ -93,7 +93,7 @@ export class ListeProduitComponent implements OnInit {
       });
     }
 
-    // 2️⃣ Filtrer par catégories sélectionnées
+    // Filtrer par catégories sélectionnées
     if (this.selectedCategories.size > 0) {
       filtered = filtered.filter(produit => 
         this.selectedCategories.has(produit.categorieProduit?.id)
@@ -117,7 +117,7 @@ export class ListeProduitComponent implements OnInit {
       this.selectedCategories.delete(categorieId);
     }
 
-    console.log('📋 Catégories sélectionnées:', Array.from(this.selectedCategories));
+    console.log('Catégories sélectionnées:', Array.from(this.selectedCategories));
     this.applyFilter();
   }
 
@@ -125,14 +125,14 @@ export class ListeProduitComponent implements OnInit {
     this.selectedCategories.clear();
     this.searchText = '';
     this.filteredProduits = this.produits;
-    console.log('🔄 Filtres réinitialisés');
+    console.log('Filtres réinitialisés');
   }
 
   getProductCountForCategory(categorieId: string): number {
     return this.produits.filter(p => p.categorieProduit?.id === categorieId).length;
   }
 
-  // ✅ NOUVEAU : Vérifier si une catégorie est sélectionnée
+  // NOUVEAU : Vérifier si une catégorie est sélectionnée
   isCategorieSelected(categorieId: string): boolean {
     return this.selectedCategories.has(categorieId);
   }

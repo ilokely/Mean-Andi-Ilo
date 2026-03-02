@@ -46,7 +46,7 @@
   border-radius: 16px;
   overflow: hidden;
   background: white;
-  /* ✅ Ombres poussées et élégantes */
+  /* Ombres poussées et élégantes */
   box-shadow: 
     0 8px 24px rgba(0, 0, 0, 0.08),
     0 2px 6px rgba(0, 0, 0, 0.04);
@@ -69,13 +69,13 @@ table {
 /* ===== HEADER ROW ===== */
 
 .mat-mdc-header-row {
-  /* ✅ Fond doux pour l'en-tête */
+  /* Fond doux pour l'en-tête */
   background: linear-gradient(to bottom, #f8fafc, #f1f5f9);
   border-bottom: 2px solid #e2e8f0;
 }
 
 .mat-mdc-header-cell {
-  /* ✅ En-têtes en majuscules légères avec espacement */
+  /* En-têtes en majuscules légères avec espacement */
   text-transform: uppercase;
   letter-spacing: 0.8px;
   font-weight: 700;
@@ -89,11 +89,11 @@ table {
 
 .mat-mdc-row {
   border-bottom: 1px solid #f1f5f9;
-  /* ✅ Transition douce pour le hover */
+  /* Transition douce pour le hover */
   transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
-/* ✅ Effet de survol doux */
+/* Effet de survol doux */
 .mat-mdc-row:hover {
   background-color: #f8fafc;
   transform: translateX(2px);
@@ -137,7 +137,7 @@ table {
   font-size: 1.05rem;
 }
 
-/* ✅ Totaux mis en évidence */
+/* Totaux mis en évidence */
 .cell-total {
   text-align: right;
   font-weight: 700;
