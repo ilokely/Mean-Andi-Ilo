@@ -283,10 +283,33 @@ table {
 
 .page-header {
   display: grid;
-  grid-template-columns: 200px 1fr 200px;
+  grid-template-columns: 250px 1fr 300px; /* On laisse de la place à droite */
   align-items: center;
-  padding: 20px 0;
-  margin-bottom: 30px;
+  padding: 10px 20px;
+  gap: 20px;
+}
+
+.header-right {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.date-filter-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* On réduit la taille du champ date pour qu'il soit discret */
+.date-filter-wrapper mat-form-field {
+  width: 180px;
+  font-size: 0.85rem;
+}
+
+/* Supprimer l'espace sous l'input mat-form-field pour l'alignement */
+::v-deep .mat-mdc-form-field-subscript-wrapper {
+  display: none !important;
 }
 
 .content-layout {

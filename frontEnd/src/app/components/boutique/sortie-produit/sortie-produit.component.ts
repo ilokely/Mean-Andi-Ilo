@@ -8,11 +8,17 @@ import { MatInputModule } from '@angular/material/input';
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { SortieProduitService } from '../../../services/sortie-produit.service';
 import { StorageService } from '../../../services/storage.service';
+import { FormsModule } from '@angular/forms';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 @Component({
   selector: 'app-sortie-produit',
   imports: [
     MatFormFieldModule, 
+    MatDatepickerModule,
+    MatNativeDateModule,
+    FormsModule, 
     MatInputModule, 
     MatTableModule, 
     CommonModule,
@@ -27,6 +33,12 @@ export class SortieProduitComponent {
   displayedColumns: string[] = ['date', 'nom', 'quantiteVente', 'prixVente', 'montantTotal','devise'];
   dataSource = new MatTableDataSource<any>([]);
 
+  filterValues = {
+    text: '',
+    date: ''
+  };
+  selectedDate: Date | null = null;
+
   private storageService = inject(StorageService)
   private SortieProduitService = inject(SortieProduitService);
   private platformId = inject(PLATFORM_ID);
@@ -40,22 +52,28 @@ export class SortieProduitComponent {
 
   setupFilter(): void {
     this.dataSource.filterPredicate = (data: any, filter: string) => {
-
+      const searchTerms = JSON.parse(filter);
+      
+      // 1. Logique du filtre texte
       const searchableFields = [
-        data.produit?.nom || '',                    // Nom du produit
-        data.boutique?.nomUtilisateur || '',        // Nom de la boutique
-        data.quantiteVente?.toString() || '',            // Quantité
-        data.prixVente?.toString() || '',           // Prix vente
-        data.montantTotal?.toString() || '',        // Montant total
-      ];
+        data.produit?.nom || '',
+        data.quantite?.toString() || '',
+        data.prixAchat?.toString() || '',
+      ].join(' ').toLowerCase();
+      const textMatch = searchableFields.includes(searchTerms.text.toLowerCase());
 
-      // Combiner tous les champs en une seule chaîne
-      const dataStr = searchableFields.join(' ').toLowerCase();
+      // 2. Logique du filtre date
+      let dateMatch = true;
+      if (searchTerms.date) {
+        const rowDate = new Date(data.date).setHours(0,0,0,0);
+        const filterDate = new Date(searchTerms.date).setHours(0,0,0,0);
+        dateMatch = rowDate === filterDate;
+      }
 
-      // Vérifier si le filtre est présent
-      return dataStr.includes(filter);
+      return textMatch && dateMatch;
     };
   }
+
 
   getSortieProduitByBoutique() {
     const boutiqueId = this.storageService.getItem('userId');
@@ -74,8 +92,21 @@ export class SortieProduitComponent {
     );
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+  applyTextFilter(event: Event) {
+    const value = (event.target as HTMLInputElement).value;
+    this.filterValues.text = value;
+    this.dataSource.filter = JSON.stringify(this.filterValues);
+  }
+
+  applyDateFilter(date: Date | null) {
+    this.selectedDate = date;
+    this.filterValues.date = date ? date.toISOString() : '';
+    this.dataSource.filter = JSON.stringify(this.filterValues);
+  }
+
+  resetDateFilter() {
+    this.selectedDate = null;
+    this.filterValues.date = '';
+    this.dataSource.filter = JSON.stringify(this.filterValues);
   }
 }

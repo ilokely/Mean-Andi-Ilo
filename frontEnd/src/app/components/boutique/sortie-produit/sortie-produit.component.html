@@ -9,14 +9,28 @@
       <div class="search-wrapper">
         <mat-icon matPrefix>search</mat-icon>
         <input type="text" 
-               (keyup)="applyFilter($event)" 
+               (keyup)="applyTextFilter($event)" 
                placeholder="Rechercher un produit..."
                #input>
-        <!-- @if (searchText) {
-          <button mat-icon-button (click)="searchText=''; applyFilter()">
-            <mat-icon>close</mat-icon>
+      </div>
+    </div>
+
+    <div class="header-right">
+      <div class="date-filter-wrapper">
+        <mat-form-field appearance="outline" subsriptSizing="dynamic">
+          <mat-label>Filtrer par date</mat-label>
+          <input matInput [matDatepicker]="picker" 
+                 (dateChange)="applyDateFilter($event.value)"
+                 placeholder="Choisir une date">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        
+        @if (selectedDate) {
+          <button mat-icon-button color="warn" (click)="resetDateFilter()" matTooltip="Effacer la date">
+            <mat-icon>event_busy</mat-icon>
           </button>
-        } -->
+        }
       </div>
     </div>
   </header>

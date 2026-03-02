@@ -1,5 +1,4 @@
 <div class="table-container">
-
   <header class="page-header">   
     <div class="header-left">
       <h3>Entrées Produits</h3>
@@ -9,43 +8,34 @@
       <div class="search-wrapper">
         <mat-icon matPrefix>search</mat-icon>
         <input type="text" 
-               (keyup)="applyFilter($event)" 
+               (keyup)="applyTextFilter($event)" 
                placeholder="Rechercher un produit..."
                #input>
-        <!-- @if (searchText) {
-          <button mat-icon-button (click)="searchText=''; applyFilter()">
-            <mat-icon>close</mat-icon>
+      </div>
+    </div>
+
+    <div class="header-right">
+      <div class="date-filter-wrapper">
+        <mat-form-field appearance="outline" subsriptSizing="dynamic">
+          <mat-label>Filtrer par date</mat-label>
+          <input matInput [matDatepicker]="picker" 
+                 (dateChange)="applyDateFilter($event.value)"
+                 placeholder="Choisir une date">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        
+        @if (selectedDate) {
+          <button mat-icon-button color="warn" (click)="resetDateFilter()" matTooltip="Effacer la date">
+            <mat-icon>event_busy</mat-icon>
           </button>
-        } -->
+        }
       </div>
     </div>
   </header>
 
-  <!-- Toolbar -->
-  <!-- <div class="table-toolbar">
-
-    <div class="toolbar-left">
-      <h3>Entrées Produits</h3>
-    </div>
-
-    <div class="toolbar-right">
-      <mat-form-field appearance="outline" class="filter-field">
-        <mat-label>Rechercher</mat-label>
-        <input matInput 
-               (keyup)="applyFilter($event)" 
-               placeholder="Nom produit, Marque..."
-               #input>
-        <mat-icon matPrefix>search</mat-icon>
-      </mat-form-field>
-    </div>
-
-  </div> -->
-
-  <!-- Table -->
   <div class="table-card mat-elevation-z4">
     <table mat-table [dataSource]="dataSource">
-
-      <!-- Date -->
       <ng-container matColumnDef="date">
         <th mat-header-cell *matHeaderCellDef> Date entrée </th>
         <td mat-cell *matCellDef="let element" class="cell-strong">
@@ -53,7 +43,6 @@
         </td>
       </ng-container>
 
-      <!-- Nom -->
       <ng-container matColumnDef="nom">
         <th mat-header-cell *matHeaderCellDef> Produit </th>
         <td mat-cell *matCellDef="let element" class="cell-strong">
@@ -61,36 +50,24 @@
         </td>
       </ng-container>
 
-      <!-- Prix -->
       <ng-container matColumnDef="prixAchat">
         <th mat-header-cell *matHeaderCellDef> Prix achat </th>
-        <td mat-cell *matCellDef="let element">
-          {{element.prixAchat}}
-        </td>
+        <td mat-cell *matCellDef="let element"> {{element.prixAchat}} </td>
       </ng-container>
 
-      <!-- Quantité -->
       <ng-container matColumnDef="quantite">
         <th mat-header-cell *matHeaderCellDef> Quantité </th>
-        <td mat-cell *matCellDef="let element" class="cell-number">
-          {{element.quantite}}
-        </td>
+        <td mat-cell *matCellDef="let element" class="cell-number"> {{element.quantite}} </td>
       </ng-container>
 
-      <!-- Total -->
       <ng-container matColumnDef="montantTotal">
         <th mat-header-cell *matHeaderCellDef> Montant total </th>
-        <td mat-cell *matCellDef="let element" class="cell-total">
-          {{ element.montantTotal }}
-        </td>
+        <td mat-cell *matCellDef="let element" class="cell-total"> {{ element.montantTotal }} </td>
       </ng-container>
 
-      <!-- Devise -->
       <ng-container matColumnDef="devise">
         <th mat-header-cell *matHeaderCellDef> Devise </th>
-        <td mat-cell *matCellDef="let element">
-          {{element.produit.devise}}
-        </td>
+        <td mat-cell *matCellDef="let element"> {{element.produit.devise}} </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -98,11 +75,9 @@
 
       <tr class="mat-row empty-row" *matNoDataRow>
         <td class="mat-cell" colspan="6">
-          Aucun résultat pour "{{input.value}}"
+          Aucun résultat correspondant.
         </td>
       </tr>
-
     </table>
   </div>
-
 </div>
