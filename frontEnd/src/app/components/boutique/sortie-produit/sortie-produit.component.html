@@ -1,7 +1,28 @@
 <div class="table-container">
 
+  <header class="page-header">   
+    <div class="header-left">
+      <h3>Sorties Produits</h3>
+    </div>
+    
+    <div class="header-center">
+      <div class="search-wrapper">
+        <mat-icon matPrefix>search</mat-icon>
+        <input type="text" 
+               (keyup)="applyFilter($event)" 
+               placeholder="Rechercher un produit..."
+               #input>
+        <!-- @if (searchText) {
+          <button mat-icon-button (click)="searchText=''; applyFilter()">
+            <mat-icon>close</mat-icon>
+          </button>
+        } -->
+      </div>
+    </div>
+  </header>
+
   <!-- Toolbar -->
-  <div class="table-toolbar">
+  <!-- <div class="table-toolbar">
 
     <div class="toolbar-left">
       <h3>Sortie Produits</h3>
@@ -18,7 +39,7 @@
       </mat-form-field>
     </div>
 
-  </div>
+  </div> -->
 
   <!-- Table -->
   <div class="table-card mat-elevation-z4">

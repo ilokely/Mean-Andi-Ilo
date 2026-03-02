@@ -280,3 +280,44 @@ table {
 .table-card::-webkit-scrollbar-thumb:hover {
   background: #94a3b8;
 }
+
+.page-header {
+  display: grid;
+  grid-template-columns: 200px 1fr 200px;
+  align-items: center;
+  padding: 20px 0;
+  margin-bottom: 30px;
+}
+
+.content-layout {
+  display: grid;
+  grid-template-columns: 220px 1fr; /* Sidebar rétrécie */
+  gap: 40px;
+  align-items: start;
+}
+
+.search-wrapper {
+  background: #f1f3f4;
+  border-radius: 12px;
+  padding: 8px 15px;
+  display: flex;
+  align-items: center;
+  max-width: 600px;
+  margin: 0 auto;
+  transition: all 0.3s;
+}
+
+.search-wrapper:focus-within {
+  background: white;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  border: 1px solid #1976d2;
+}
+
+.search-wrapper input {
+  border: none;
+  background: transparent;
+  width: 100%;
+  padding: 8px;
+  outline: none;
+  font-size: 1rem;
+}

@@ -15,6 +15,10 @@ import { DetailsProduitComponent } from './details-produit/details-produit.compo
 import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { CategorieService } from '../../../services/categorie.service';
+import { FormsModule } from '@angular/forms';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-liste-produit',
@@ -28,8 +32,11 @@ import { MatInputModule } from '@angular/material/input';
     MatSnackBarModule,
     DetailsProduitComponent,
     MatSidenavModule,
+    FormsModule,
+    MatCheckboxModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatProgressSpinnerModule
   ],
   templateUrl: './liste-produit.component.html',
   styleUrl: './liste-produit.component.css'
@@ -40,42 +47,106 @@ export class ListeProduitComponent implements OnInit {
   private platformId = inject(PLATFORM_ID);
   private snackBar = inject(MatSnackBar);
   private produitService = inject(ProduitService);
+  private categorieService =inject(CategorieService);
 
   produits: any[] = [];
   filteredProduits: any[] = [];
   selectedProduit: any = null;
+
+  categories: any[] = [];
+  selectedCategories: Set<string> = new Set();  
+  searchText: string = '';
+
   isLoading: boolean = false;
-
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value.toLowerCase().trim();
-
-    if (!filterValue) {
-      this.filteredProduits = this.produits;
-      return;
-    }
-
-    this.filteredProduits = this.produits.filter(produit => {
-      const searchableFields = [
-        produit.nom || '',
-        produit.marque || '',
-        produit.description || '',
-        produit.prixAchat?.toString() || '',
-        produit.prixVente?.toString() || '',
-        produit.stockActuel?.toString() || ''
-      ];
-
-      const dataStr = searchableFields.join(' ').toLowerCase();
-      return dataStr.includes(filterValue);
-    });
-  }
 
   @ViewChild('detailsSidenav') detailsSidenav!: MatSidenav;
 
-
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
+      this.loadCategories();
       this.loadProduits();
     }
+  }
+
+  applyFilter(event?: Event): void {
+    let filtered = [...this.produits];
+
+    // 1️⃣ Filtrer par texte de recherche
+    if (event) {
+      this.searchText = (event.target as HTMLInputElement).value.toLowerCase().trim();
+    }
+
+    if (this.searchText) {
+      filtered = filtered.filter(produit => {
+        const searchableFields = [
+          produit.nom || '',
+          produit.marque || '',
+          produit.description || '',
+          produit.categorieProduit?.libelle || '',
+          produit.prixAchat?.toString() || '',
+          produit.prixVente?.toString() || '',
+          produit.stockActuel?.toString() || ''
+        ];
+
+        const dataStr = searchableFields.join(' ').toLowerCase();
+        return dataStr.includes(this.searchText);
+      });
+    }
+
+    // 2️⃣ Filtrer par catégories sélectionnées
+    if (this.selectedCategories.size > 0) {
+      filtered = filtered.filter(produit => 
+        this.selectedCategories.has(produit.categorieProduit?.id)
+      );
+    }
+
+    this.filteredProduits = filtered;
+
+    console.log('🔍 Filtrage:', {
+      total: this.produits.length,
+      recherche: this.searchText,
+      categoriesSelectionnees: this.selectedCategories.size,
+      resultats: filtered.length
+    });
+  }
+
+  toggleCategorie(categorieId: string, checked: boolean): void {
+    if (checked) {
+      this.selectedCategories.add(categorieId);
+    } else {
+      this.selectedCategories.delete(categorieId);
+    }
+
+    console.log('📋 Catégories sélectionnées:', Array.from(this.selectedCategories));
+    this.applyFilter();
+  }
+
+  resetFilters(): void {
+    this.selectedCategories.clear();
+    this.searchText = '';
+    this.filteredProduits = this.produits;
+    console.log('🔄 Filtres réinitialisés');
+  }
+
+  getProductCountForCategory(categorieId: string): number {
+    return this.produits.filter(p => p.categorieProduit?.id === categorieId).length;
+  }
+
+  // ✅ NOUVEAU : Vérifier si une catégorie est sélectionnée
+  isCategorieSelected(categorieId: string): boolean {
+    return this.selectedCategories.has(categorieId);
+  }
+
+  loadCategories(): void {
+    this.categorieService.getCategories().subscribe({
+      next: (data: any) => {
+        this.categories = Array.isArray(data) ? data : [];
+        console.log('Catégories chargées:', this.categories);
+      },
+      error: (error) => {
+        console.error('Erreur chargement catégories:', error);
+      }
+    });
   }
 
   openAddDialog(): void {
@@ -103,7 +174,7 @@ export class ListeProduitComponent implements OnInit {
     const dialogRef = this.dialog.open(EditProduitDialogComponent, {
       width: '700px',
       disableClose: false,
-      data: produit  // ✅ Passer le produit au dialog
+      data: produit  
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -179,13 +250,16 @@ export class ListeProduitComponent implements OnInit {
       console.error('Boutique ID not found');
       return;
     }
+    this.isLoading = true;
     this.produitService.getProduitsByBoutique(boutiqueId).subscribe({
       next: (data) => {
         this.produits = data;
         this.filteredProduits = data;
+        this.isLoading = false;
       },
       error: (error) => {
         console.error('Erreur:', error);
+        this.isLoading = false;
       }
     });
   }

@@ -43,7 +43,7 @@ export class EntreeProduitComponent {
     this.dataSource.filterPredicate = (data: any, filter: string) => {
 
       const searchableFields = [
-        data.produit?.nom || '',                    // Nom du produit
+        data.produit?.nom || '',  
         data.boutique?.nomUtilisateur || '',        // Nom de la boutique
         data.quantite?.toString() || '',            // Quantité
         data.prixAchat?.toString() || '',           // Prix d'achat
