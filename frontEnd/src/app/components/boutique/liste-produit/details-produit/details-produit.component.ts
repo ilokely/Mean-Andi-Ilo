@@ -4,6 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatChipsModule } from '@angular/material/chips';
+import { ImageUrlPipe } from '../../../../pipes/image-url.pipe';
 
 @Component({
   selector: 'app-details-produit',
@@ -13,7 +14,8 @@ import { MatChipsModule } from '@angular/material/chips';
     MatButtonModule,
     MatIconModule,
     MatDividerModule,
-    MatChipsModule
+    MatChipsModule,
+    ImageUrlPipe
   ],
   templateUrl: './details-produit.component.html',
   styleUrl: './details-produit.component.css'

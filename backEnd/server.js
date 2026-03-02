@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const path = require('path');
 require('dotenv').config();
 
 const app = express();
@@ -29,6 +30,7 @@ app.use('/image' , require('./routes/imageRoutes'));
 app.use('/dashboardBoutique' , require('./routes/dashboardBoutiqueRoutes'));
 app.use('/dashboardAdmin' , require('./routes/dashboardAdminRoutes'));
 
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 
 

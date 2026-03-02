@@ -117,7 +117,7 @@
                 </td>
             </tr>
             
-            <tr>
+            <!-- <tr>
                 <td colspan="2">
                     <input type="file" 
                            #fileInput
@@ -132,15 +132,54 @@
                         Choisir une image
                     </button>
                     
-                    <!-- Afficher le nom du fichier sélectionné -->
                     @if (selectedFileName) {
                         <span class="file-name">
                             {{ selectedFileName }}
                         </span>
                     }
                 </td>
-            </tr>
+            </tr> -->
         </table>
+        <div class="image-upload-section">
+            <!-- Aperçu de l'image -->
+            
+            <!-- Bouton sélection -->
+            <input type="file" 
+                    #fileInput
+                    accept="image/*"
+                    (change)="onFileSelected($event)"
+                    style="display: none">
+            
+            <button mat-stroked-button 
+                    type="button"
+                    (click)="fileInput.click()"
+                    class="btn-select-image">
+                <mat-icon>add_photo_alternate</mat-icon>
+                {{ selectedFileName ? 'Changer l\'image' : 'Choisir une image' }}
+            </button>
+
+            @if (imagePreview) {
+                <div class="image-preview">
+                <img [src]="imagePreview" alt="Aperçu">
+                <button mat-icon-button 
+                        class="btn-remove-image"
+                        (click)="removeImage()"
+                        type="button">
+                    <mat-icon>close</mat-icon>
+                </button>
+                </div>
+            } @else {
+                <div class="image-placeholder">
+                <mat-icon>image</mat-icon>
+                <p>Aucune image sélectionnée</p>
+                </div>
+            }
+
+            
+            @if (selectedFileName) {
+                <p class="file-name">{{ selectedFileName }}</p>
+            }
+        </div>
     </form>
 </mat-dialog-content>
 

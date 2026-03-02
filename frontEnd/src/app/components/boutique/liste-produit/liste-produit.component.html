@@ -1,24 +1,22 @@
 <div class="container-produits">
-  <header class="page-header">   
+  <header class="page-header">
     <div class="header-left">
       <h3>Mes Produits</h3>
     </div>
-    
+
     <div class="header-center">
       <div class="search-wrapper">
         <mat-icon matPrefix>search</mat-icon>
-        <input type="text" 
-               [(ngModel)]="searchText" 
-               (keyup)="applyFilter($event)" 
-               placeholder="Rechercher un produit, une marque...">
+        <input type="text" [(ngModel)]="searchText" (keyup)="applyFilter($event)"
+          placeholder="Rechercher un produit, une marque...">
         @if (searchText) {
-          <button mat-icon-button (click)="searchText=''; applyFilter()">
-            <mat-icon>close</mat-icon>
-          </button>
+        <button mat-icon-button (click)="searchText=''; applyFilter()">
+          <mat-icon>close</mat-icon>
+        </button>
         }
       </div>
     </div>
-  
+
     <div class="header-right">
       <button mat-flat-button color="primary" class="btn-add-main" (click)="openAddDialog()">
         <mat-icon>add</mat-icon>
@@ -26,205 +24,180 @@
       </button>
     </div>
   </header>
-  
+
 
   @if (!isLoading && produits.length > 0) {
-    <mat-sidenav-container class="sidenav-container">
-      <mat-sidenav-content>
-        <div class="content-layout">
-          
-          <aside class="filters-sidebar-v2">
-        <div class="sidebar-section">
-          <h4>Catégories</h4>
-          <div class="category-list">
-            @for (categorie of categories; track categorie._id) {
-              <mat-checkbox class="filter-check"
-                [checked]="isCategorieSelected(categorie._id)"
+  <mat-sidenav-container class="sidenav-container">
+    <mat-sidenav-content>
+      <div class="content-layout">
+
+        <aside class="filters-sidebar-v2">
+          <div class="sidebar-section">
+            <h4>Catégories</h4>
+            <div class="category-list">
+              @for (categorie of categories; track categorie._id) {
+              <mat-checkbox class="filter-check" [checked]="isCategorieSelected(categorie._id)"
                 (change)="toggleCategorie(categorie._id, $event.checked)">
                 <span class="cat-name">{{ categorie.libelle }}</span>
                 <span class="cat-count">{{ getProductCountForCategory(categorie._id) }}</span>
               </mat-checkbox>
-            }
+              }
+            </div>
           </div>
-        </div>
 
-        @if (selectedCategories.size > 0) {
+          @if (selectedCategories.size > 0) {
           <button mat-stroked-button color="warn" class="btn-reset-full" (click)="resetFilters()">
             Effacer les filtres
           </button>
-        }
-      </aside>
+          }
+        </aside>
 
-          <!-- Liste des produits -->
-          <main class="products-main">
-            <!-- Info résultats -->
-            <div class="results-info">
-              <p>
-                <strong>{{ filteredProduits.length }}</strong> produit(s) 
-                @if (produits.length !== filteredProduits.length) {
-                  sur {{ produits.length }}
-                }
-              </p>
-            </div>
+        <!-- Liste des produits -->
+        <main class="products-main">
+          <!-- Info résultats -->
+          <div class="results-info">
+            <p>
+              <strong>{{ filteredProduits.length }}</strong> produit(s)
+              @if (produits.length !== filteredProduits.length) {
+              sur {{ produits.length }}
+              }
+            </p>
+          </div>
 
-            <!-- Grille de produits -->
-            <div class="row">
-              @for (produit of filteredProduits; track produit._id) {
-                <div class="col-xxl-3 col-xl-4 col-md-6 col-sm-12 mb-4">
-                  <div class="card product-card" (click)="openDetails(produit)">
-                    <!-- Image du produit -->
-                    <div class="image-container">
-                      <img [src]="produit.imageProduit?.path || 'img/not-found.svg'" 
-                           class="card-img-top" 
-                           [alt]="produit.nom">
+          <!-- Grille de produits -->
+          <div class="row">
+            @for (produit of filteredProduits; track produit._id) {
+            <div class="col-xxl-3 col-xl-4 col-md-6 col-sm-12 mb-4">
+              <div class="card product-card" (click)="openDetails(produit)">
+                <!-- Image du produit -->
+                <div class="image-container">
+                  <img [src]="produit.imageProduit?.path | imageUrl" class="card-img-top" [alt]="produit.nom">
 
-                      <!-- Badge catégorie -->
-                      <div class="category-badge">
-                        {{ produit.categorieProduit?.libelle }}
-                      </div>
+                  <!-- Badge catégorie -->
+                  <div class="category-badge">
+                    {{ produit.categorieProduit?.libelle }}
+                  </div>
 
-                      <div class="image-actions">
-                        <button mat-icon-button 
-                                color="primary" 
-                                class="action-btn" 
-                                (click)="openReapproDialog(produit); $event.stopPropagation()"
-                                matTooltip="Réapprovisionner">
-                          <mat-icon>add_shopping_cart</mat-icon>
-                        </button>
+                  <div class="image-actions">
+                    <button mat-icon-button color="primary" class="action-btn"
+                      (click)="openReapproDialog(produit); $event.stopPropagation()" matTooltip="Réapprovisionner">
+                      <mat-icon>add_shopping_cart</mat-icon>
+                    </button>
 
-                        <button mat-icon-button 
-                                color="accent" 
-                                class="action-btn"
-                                (click)="openDetails(produit); $event.stopPropagation()" 
-                                matTooltip="Voir détails">
-                          <mat-icon>visibility</mat-icon>
-                        </button>
+                    <button mat-icon-button color="accent" class="action-btn"
+                      (click)="openDetails(produit); $event.stopPropagation()" matTooltip="Voir détails">
+                      <mat-icon>visibility</mat-icon>
+                    </button>
 
-                        <button mat-icon-button 
-                                color="primary" 
-                                class="action-btn" 
-                                (click)="openEditDialog(produit); $event.stopPropagation()"
-                                matTooltip="Modifier">
-                          <mat-icon>edit</mat-icon>
-                        </button>
+                    <button mat-icon-button color="primary" class="action-btn"
+                      (click)="openEditDialog(produit); $event.stopPropagation()" matTooltip="Modifier">
+                      <mat-icon>edit</mat-icon>
+                    </button>
 
-                        <button mat-icon-button 
-                                color="warn" 
-                                class="action-btn" 
-                                (click)="deleteProduit(produit); $event.stopPropagation()"
-                                matTooltip="Supprimer">
-                          <mat-icon>delete</mat-icon>
-                        </button>
-                      </div>
+                    <button mat-icon-button color="warn" class="action-btn"
+                      (click)="deleteProduit(produit); $event.stopPropagation()" matTooltip="Supprimer">
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Corps de la card -->
+                <div class="card-body">
+                  <h5 class="card-title">{{ produit.nom }}</h5>
+
+                  @if (produit.marque) {
+                  <h6 class="card-subtitle mb-2 text-muted">
+                    <strong>{{ produit.marque }}</strong>
+                  </h6>
+                  }
+
+                  @if (produit.description) {
+                  <p class="card-text description">{{ produit.description }}</p>
+                  }
+
+                  <div class="product-meta">
+                    @if (produit.stockActuel !== undefined) {
+                    <p class="meta-item">
+                      <strong>Stock :</strong> {{ produit.stockActuel }}
+                    </p>
+                    }
+
+                    @if (produit.nombreVentes !== undefined) {
+                    <p class="meta-item">
+                      <strong>Ventes :</strong> {{ produit.nombreVentes }}
+                    </p>
+                    }
+
+                    @if (produit.statut === 'rupture') {
+                    <p class="meta-item">
+                      <span class="badge bg-danger">Rupture de stock</span>
+                    </p>
+                    } @else if (produit.statut === 'stock_bas') {
+                    <p class="meta-item">
+                      <span class="badge bg-warning">Stock bas: ({{ produit.stockActuel }})</span>
+                    </p>
+                    } @else {
+                    <p class="meta-item">
+                      <span class="badge bg-success">Disponible: ({{ produit.stockActuel }})</span>
+                    </p>
+                    }
+                  </div>
+
+                  <div class="price-box">
+                    <div class="price-achat">
+                      Achat : {{ produit.prixAchat }} {{ produit.devise }}
                     </div>
 
-                    <!-- Corps de la card -->
-                    <div class="card-body">
-                      <h5 class="card-title">{{ produit.nom }}</h5>
-
-                      @if (produit.marque) {
-                        <h6 class="card-subtitle mb-2 text-muted">
-                          <strong>{{ produit.marque }}</strong>
-                        </h6>
-                      }
-
-                      @if (produit.description) {
-                        <p class="card-text description">{{ produit.description }}</p>
-                      }
-
-                      <div class="product-meta">
-                        @if (produit.stockActuel !== undefined) {
-                          <p class="meta-item">
-                            <strong>Stock :</strong> {{ produit.stockActuel }}
-                          </p>
-                        }
-
-                        @if (produit.nombreVentes !== undefined) {
-                          <p class="meta-item">
-                            <strong>Ventes :</strong> {{ produit.nombreVentes }}
-                          </p>
-                        }
-
-                        @if (produit.statut === 'rupture') {
-                          <p class="meta-item">
-                            <span class="badge bg-danger">Rupture de stock</span>
-                          </p>
-                        } @else if (produit.statut === 'stock_bas') {
-                          <p class="meta-item">
-                            <span class="badge bg-warning">Stock bas: ({{ produit.stockActuel }})</span>
-                          </p>
-                        } @else {
-                          <p class="meta-item">
-                            <span class="badge bg-success">Disponible: ({{ produit.stockActuel }})</span>
-                          </p>
-                        }
-                      </div>
-
-                      <div class="price-box">
-                        <div class="price-achat">
-                          Achat : {{ produit.prixAchat }} {{ produit.devise }}
-                        </div>
-
-                        <div class="price-vente">
-                          {{ produit.prixVente }} {{ produit.devise }}
-                        </div>
-                      </div>
+                    <div class="price-vente">
+                      {{ produit.prixVente }} {{ produit.devise }}
                     </div>
                   </div>
                 </div>
-              } @empty {
-                <div class="no-results">
-                  <mat-icon class="no-results-icon">search_off</mat-icon>
-                  <p>Aucun produit ne correspond aux critères de recherche</p>
-                  <button mat-stroked-button 
-                          color="primary" 
-                          (click)="resetFilters()">
-                    <mat-icon>refresh</mat-icon>
-                    Réinitialiser les filtres
-                  </button>
-                </div>
-              }
+              </div>
             </div>
-          </main>
-        </div>
-      </mat-sidenav-content>
+            } @empty {
+            <div class="no-results">
+              <mat-icon class="no-results-icon">search_off</mat-icon>
+              <p>Aucun produit ne correspond aux critères de recherche</p>
+              <button mat-stroked-button color="primary" (click)="resetFilters()">
+                <mat-icon>refresh</mat-icon>
+                Réinitialiser les filtres
+              </button>
+            </div>
+            }
+          </div>
+        </main>
+      </div>
+    </mat-sidenav-content>
 
-      <!-- Side Panel pour les détails -->
-      <mat-sidenav #detailsSidenav 
-                   position="end" 
-                   mode="over" 
-                   [fixedInViewport]="true" 
-                   class="details-sidenav">
-        @if (selectedProduit) {
-          <app-details-produit 
-            [produit]="selectedProduit" 
-            (close)="detailsSidenav.close()"
-            (edit)="openEditDialog($event); detailsSidenav.close()"
-            (delete)="deleteProduit($event); detailsSidenav.close()">
-          </app-details-produit>
-        }
-      </mat-sidenav>
-    </mat-sidenav-container>
+    <!-- Side Panel pour les détails -->
+    <mat-sidenav #detailsSidenav position="end" mode="over" [fixedInViewport]="true" class="details-sidenav">
+      @if (selectedProduit) {
+      <app-details-produit [produit]="selectedProduit" (close)="detailsSidenav.close()"
+        (edit)="openEditDialog($event); detailsSidenav.close()"
+        (delete)="deleteProduit($event); detailsSidenav.close()">
+      </app-details-produit>
+      }
+    </mat-sidenav>
+  </mat-sidenav-container>
   }
 
   <!-- Message si aucun produit -->
   @if (!isLoading && produits.length === 0) {
-    <div class="no-products">
-      <mat-icon class="no-products-icon">inventory_2</mat-icon>
-      <p>Aucun produit trouvé</p>
-      <button mat-raised-button 
-              color="primary" 
-              (click)="openAddDialog()">
-        <mat-icon>add</mat-icon>
-        Ajouter votre premier produit
-      </button>
-    </div>
+  <div class="no-products">
+    <mat-icon class="no-products-icon">inventory_2</mat-icon>
+    <p>Aucun produit trouvé</p>
+    <button mat-raised-button color="primary" (click)="openAddDialog()">
+      <mat-icon>add</mat-icon>
+      Ajouter votre premier produit
+    </button>
+  </div>
   }
 
   <!-- Spinner -->
   @if (isLoading) {
-    <div class="loading-container">
-      <p>Chargement des produits...</p>
-    </div>
+  <div class="loading-container">
+    <p>Chargement des produits...</p>
+  </div>
   }
 </div>

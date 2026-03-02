@@ -2,10 +2,11 @@ const express = require('express');
 const router = express.Router();
 const Boutique = require('../models/Utilisateur'); // Boutique is a user
 const CategorieProduit = require('../models/CategorieProduit');
-const Image = require('../models/ImageProduit');
+const ImageProduit = require('../models/ImageProduit');
 const Produit = require('../models/Produit');
 const EntreeProduit = require('../models/EntreeProduit');
 const SortieProduit = require('../models/SortieProduit');
+const upload = require('../config/multer.config');
 
 router.get('/getProduits', async (req, res) => {   
     try {
@@ -26,12 +27,11 @@ router.get('/getProduitsByBoutique/:boutiqueId', async (req, res) => {
 });
 
 
-router.post('/addProduit', async (req, res) => {
+router.post('/addProduit', upload.single('image'), async (req, res) => {
     try {
         const {
             boutiqueId,
             categorieId,
-            imageId,
             nom,
             marque,
             description,
@@ -43,22 +43,25 @@ router.post('/addProduit', async (req, res) => {
 
         const boutique = await Boutique.findById(boutiqueId);
         const categorie = await CategorieProduit.findById(categorieId);
-        // const image = await Image.findById(imageId);
-
-        // if (!mongoose.Types.ObjectId.isValid(boutiqueId)) {
-        //     return res.status(400).json({ error: 'ID boutique invalide' });
-        // }
 
         if (!boutique || !categorie) {
             return res.status(404).json({ error: 'Ressource non trouvée' });
         }
 
-        let image = null;
-        if(imageId){
-            image = await Image.findById(imageId);
-            if(!image){
-                return res.status(404).json({ error: 'Image non trouvée' });
-            }
+        let imageProduitData = null;
+        if (req.file) {
+            const imagePath = `/uploads/produits/${req.file.filename}`;
+            
+            const imageProduit = await ImageProduit.create({
+                path: imagePath
+            });
+
+            imageProduitData = {
+                id: imageProduit._id,
+                path: imagePath
+            };
+
+            console.log('Image créée:', imageProduitData);
         }
 
         const nouveauProduit = await Produit.create({
@@ -76,12 +79,7 @@ router.post('/addProduit', async (req, res) => {
                 id: categorie._id,
                 libelle: categorie.libelle
             },
-            ...(image && {
-                imageProduit: {
-                    id: image._id,
-                    path: image.path
-                }
-            })
+            imageProduit: imageProduitData
         });
 
         const entreeStock = await EntreeProduit.create({
@@ -106,6 +104,15 @@ router.post('/addProduit', async (req, res) => {
         });
 
     } catch (error) {
+        console.error('Erreur création produit:', error);
+        if (req.file) {
+            const fs = require('fs');
+            const filePath = req.file.path;
+            if (fs.existsSync(filePath)) {
+                fs.unlinkSync(filePath);
+                console.log('Fichier supprimé après erreur');
+            }
+        }
         res.status(500).json({ error: error.message });
     }
 });

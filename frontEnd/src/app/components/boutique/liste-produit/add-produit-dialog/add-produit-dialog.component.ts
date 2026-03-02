@@ -26,8 +26,11 @@ export class AddProduitDialogComponent implements OnInit {
 
   produitForm!: FormGroup;
   categories: any[] = [];
+
   selectedFile: File | null = null;
   selectedFileName: string = '';
+  imagePreview: string | null = null;
+
   isLoading: boolean = false;
 
   ngOnInit(): void {
@@ -62,11 +65,35 @@ export class AddProduitDialogComponent implements OnInit {
 
   onFileSelected(event: any): void {
     const file = event.target.files[0];
+    
     if (file) {
+      if (!file.type.startsWith('image/')) {
+        alert('Veuillez sélectionner une image valide');
+        return;
+      }
+      if (file.size > 5 * 1024 * 1024) {
+        alert('L\'image ne doit pas dépasser 5MB');
+        return;
+      }
+
       this.selectedFile = file;
       this.selectedFileName = file.name;
-      console.log('Fichier selectionne : ', file.name);
+
+      // Créer un aperçu de l'image
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.imagePreview = e.target.result;
+      };
+      reader.readAsDataURL(file);
+
+      console.log('Fichier sélectionné:', file.name, `(${(file.size / 1024).toFixed(2)} KB)`);
     }
+  }
+
+  removeImage(): void {
+    this.selectedFile = null;
+    this.selectedFileName = '';
+    this.imagePreview = null;
   }
 
   onSubmit(): void {
@@ -87,11 +114,16 @@ export class AddProduitDialogComponent implements OnInit {
       return;
     }
 
-    const formData = {
-      ...this.produitForm.value,
-      boutiqueId: boutiqueId
-      // imageId: '000000000000000'
-    };
+    const formData = new FormData();
+
+    Object.keys(this.produitForm.value).forEach(key => {
+      formData.append(key, this.produitForm.value[key]);
+    });
+
+    formData.append('boutiqueId', boutiqueId);
+    if (this.selectedFile) {
+      formData.append('image', this.selectedFile, this.selectedFile.name);
+    }
 
     console.log('Données à envoyer', formData);
 
