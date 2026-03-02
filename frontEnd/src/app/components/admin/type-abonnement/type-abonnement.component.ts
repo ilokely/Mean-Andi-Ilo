@@ -31,16 +31,16 @@ export class TypeAbonnementComponent implements OnInit {
   }
 
   loadTypes(): void {
-    console.log('📥 Chargement des types d\'abonnement...');
+    console.log('Chargement des types d\'abonnement...');
     
     this.typeAbonnementService.getTypeAbonnements().subscribe({
       next: (data: any) => {
-        console.log('✅ Données reçues:', data);
+        console.log('Données reçues:', data);
         this.typesAbonnement = Array.isArray(data) ? data : [];
-        console.log('📋 Types chargés:', this.typesAbonnement);
+        console.log(' Types chargés:', this.typesAbonnement);
       },
       error: (error) => {
-        console.error('❌ Erreur chargement:', error);
+        console.error(' Erreur chargement:', error);
         alert('Erreur lors du chargement des types d\'abonnement');
         this.typesAbonnement = [];
       }
@@ -58,11 +58,11 @@ export class TypeAbonnementComponent implements OnInit {
       return;
     }
 
-    console.log('➕ Ajout type:', this.newType);
+    console.log('Ajout type:', this.newType);
 
     this.typeAbonnementService.addTypeAbonnement(this.newType).subscribe({
       next: (response) => {
-        console.log('✅ Réponse backend:', response);
+        console.log('Réponse backend:', response);
         
         // Recharger la liste
         this.loadTypes();
@@ -76,7 +76,7 @@ export class TypeAbonnementComponent implements OnInit {
         alert('Type d\'abonnement ajouté avec succès !');
       },
       error: (error) => {
-        console.error('❌ Erreur ajout:', error);
+        console.error('Erreur ajout:', error);
         alert(error.error?.message || 'Erreur lors de l\'ajout');
       }
     });
@@ -92,7 +92,7 @@ export class TypeAbonnementComponent implements OnInit {
       reduction: type.reduction
     };
     
-    console.log('📝 Objet à éditer:', this.editingType);
+    console.log('Objet à éditer:', this.editingType);
     
     // Ouvrir le modal
     this.openModal('EditTypeAbonnementModal');
@@ -109,7 +109,7 @@ export class TypeAbonnementComponent implements OnInit {
       return;
     }
 
-    console.log('💾 Mise à jour type:', this.editingType);
+    console.log('Mise à jour type:', this.editingType);
 
     this.typeAbonnementService.updateTypeAbonnement(
       this.editingType._id,
@@ -119,7 +119,7 @@ export class TypeAbonnementComponent implements OnInit {
       }
     ).subscribe({
       next: (response) => {
-        console.log('✅ Réponse mise à jour:', response);
+        console.log('Réponse mise à jour:', response);
         
         // Recharger la liste
         this.loadTypes();
@@ -133,7 +133,7 @@ export class TypeAbonnementComponent implements OnInit {
         alert('Type d\'abonnement modifié avec succès !');
       },
       error: (error) => {
-        console.error('❌ Erreur modification:', error);
+        console.error('Erreur modification:', error);
         alert(error.error?.message || 'Erreur lors de la modification');
       }
     });
@@ -144,11 +144,11 @@ export class TypeAbonnementComponent implements OnInit {
       return;
     }
 
-    console.log('🗑️ Suppression type:', type);
+    console.log('Suppression type:', type);
 
     this.typeAbonnementService.deleteTypeAbonnement(type._id).subscribe({
       next: (response) => {
-        console.log('✅ Type supprimé');
+        console.log('Type supprimé');
         
         // Recharger la liste
         this.loadTypes();
@@ -156,7 +156,7 @@ export class TypeAbonnementComponent implements OnInit {
         alert('Type d\'abonnement supprimé avec succès !');
       },
       error: (error) => {
-        console.error('❌ Erreur suppression:', error);
+        console.error('Erreur suppression:', error);
         alert(error.error?.message || 'Erreur lors de la suppression');
       }
     });

@@ -108,9 +108,20 @@ export class StoreRegistrationComponent {
                 this.aboService.addAbonnement(abonnement).subscribe({
 
                   next: () => {
-                    alert("Inscription boutique réussie !");
-                    this.resetForm();
-                    this.router.navigate(['/login']);
+                    // Update box availability
+                    this.boxService.updateBox(this.boxSelectionne, { isAvailable: false }).subscribe({
+                      next: () => {
+                        alert("Inscription boutique réussie !");
+                        this.resetForm();
+                        this.router.navigate(['/login']);
+                      },
+                      error: (err) => {
+                        console.error("Erreur lors de la mise à jour de la box", err);
+                        alert("Inscription boutique réussie !");
+                        this.resetForm();
+                        this.router.navigate(['/login']);
+                      }
+                    });
                   },
 
                   error: () => {
