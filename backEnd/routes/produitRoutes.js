@@ -10,7 +10,7 @@ const upload = require('../config/multer.config');
 
 router.get('/getProduits', async (req, res) => {   
     try {
-        const produits = await Produit.find();
+        const produits = await Produit.find().populate('imageProduit');
         res.json(produits);
     } catch (error) {
         res.status(500).json({ message: error.message });
