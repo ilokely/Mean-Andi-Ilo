@@ -4,33 +4,28 @@ import { Observable } from 'rxjs';
 import { environment } from '../environments/environments';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class ProduitService {
-    private apiUrl = `${environment.apiUrl}/produit`;
+  private apiUrl = `${environment.apiUrl}/produit`;
 
-    constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
 
-    getProduits(): Observable<any[]> {
-        return this.http.get<any[]>(`${this.apiUrl}/getProduits`);
-    }
+  getProduits(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/getProduits`);
+  }
 
-    getProduitsByBoutique(boutiqueId: string): Observable<any[]> {
-        return this.http.get<any[]>(`${this.apiUrl}/getProduitsByBoutique/${boutiqueId}`);
-    }
+  getProduitsByBoutique(boutiqueId: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/getProduitsByBoutique/${boutiqueId}`);
+  }
 
-    addProduit(produitData: any): Observable<any> {
-        return this.http.post<any>(
-        `${this.apiUrl}/addProduit`,  // URL de l'endpoint
-        produitData,                   // Corps de la requête (body)
-        {
-            headers: {
-            'Content-Type': 'application/json'
-            }
-        }
-        );
-    }
+  addProduit(produitData: any): Observable<any> {
+    return this.http.post<any>(
+      `${this.apiUrl}/addProduit`,
+      produitData
+    );
+  }
 
   updateProduit(id: string, produitData: any): Observable<any> {
     return this.http.put<any>(`${this.apiUrl}/updateProduit/${id}`, produitData);
@@ -39,5 +34,5 @@ export class ProduitService {
   deleteProduit(id: string): Observable<any> {
     return this.http.delete<any>(`${this.apiUrl}/deleteProduit/${id}`);
   }
-  
+
 }

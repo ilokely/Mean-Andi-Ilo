@@ -19,6 +19,7 @@ import { CategorieService } from '../../../services/categorie.service';
 import { FormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ImageUrlPipe } from '../../../pipes/image-url.pipe';
 
 @Component({
   selector: 'app-liste-produit',
@@ -36,7 +37,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatCheckboxModule,
     MatFormFieldModule,
     MatInputModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    ImageUrlPipe  
   ],
   templateUrl: './liste-produit.component.html',
   styleUrl: './liste-produit.component.css'
@@ -152,7 +154,7 @@ export class ListeProduitComponent implements OnInit {
   openAddDialog(): void {
     const dialogRef = this.dialog.open(AddProduitDialogComponent, {
       width: '600px',
-      height: '550px',
+      height: '600px',
       disableClose: false  // Empêche la fermeture en cliquant à l'extérieur
     });
 
