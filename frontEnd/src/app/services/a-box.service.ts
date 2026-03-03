@@ -1,38 +1,38 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { environment } from '../environments/environments';
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ABoxService {
   private apiUrl = `${environment.apiUrl}/box`;
-  
+
 
   constructor(private http: HttpClient) { }
-  
-  getBusyBoxes(){
-    return this.http.get(`${this.apiUrl}/unAvailable`);
-  } 
 
-  getFreeBoxes(){
+  getBusyBoxes() {
+    return this.http.get(`${this.apiUrl}/unAvailable`);
+  }
+
+  getFreeBoxes() {
     return this.http.get(`${this.apiUrl}/available`);
   }
 
-  createBox(box: any){
+  createBox(box: any) {
     return this.http.post(`${this.apiUrl}`, box);
   }
 
-  updateBox(id: string, box: any){
+  updateBox(id: string, box: any) {
     return this.http.put(`${this.apiUrl}/${id}`, box);
   }
 
-  deleteBox(id: string){
+  deleteBox(id: string) {
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
 
-  getById(id: string){
+  getById(id: string) {
     return this.http.get(`${this.apiUrl}/${id}`);
   }
 }

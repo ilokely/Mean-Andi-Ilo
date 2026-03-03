@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { environment } from '../environments/environments';
+import { environment } from '../environments/environment';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -30,12 +30,12 @@ export class DashboardAdminService {
     return this.http.get(`${this.apiUrl}/ca/mois`);
   }
 
-getStatCaMois() {
-  return this.http.get<any[]>(`${this.apiUrl}/stat/caMensuel`);
-}
+  getStatCaMois() {
+    return this.http.get<any[]>(`${this.apiUrl}/stat/caMensuel`);
+  }
 
-getStatTypesPlusUtilise() {
-  return this.http.get<any>(`${this.apiUrl}/stat/typePlusUtilise`);
-}
+  getStatTypesPlusUtilise() {
+    return this.http.get<any>(`${this.apiUrl}/stat/typePlusUtilise`);
+  }
 
 }
