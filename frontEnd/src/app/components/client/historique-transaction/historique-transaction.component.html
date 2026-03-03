@@ -12,7 +12,8 @@
                             <thead>
                                 <tr>
                                     <th scope="col">Nom</th>
-                                    <th scope="col">Prix</th>
+                                    <th scope="col">Quantité</th>
+                                    <th scope="col">Prix Total</th>
                                     <th scope="col">Boutique</th>
                                     <th scope="col">Date</th>
 
@@ -22,7 +23,8 @@
                                 @for(historique of historiqueTransactions ; track historique._id){
                                 <tr>
                                     <td>{{ historique.produit.nom }}</td>
-                                    <td>{{ historique.prixVente }}</td>
+                                    <td>{{ historique.quantiteVente }}</td>
+                                    <td>{{ historique.prixVente * historique.quantiteVente }}</td>
                                     <td>{{ historique.boutique.nomUtilisateur }}</td>
                                     <td>{{ historique.date }}</td>
                                 </tr>
