@@ -22,7 +22,7 @@
             @for(produit of produitsFiltres ; track produit._id){
             <div class="col-lg-3 mb-4">
                 <div class="card h-100 shadow-sm">
-                    <img src="{{ produit.imageProduit?.path }}" class="card-img-top" alt="Card image">
+                    <img [src]="produit.imageProduit?.path | imageUrl" class="card-img-top" alt="produit.nom">
                     <div class="card-body">
                         <h5 class="card-title">{{ produit.nom }}</h5>
                         <p class="card-text">
