@@ -23,7 +23,7 @@
           </div>
           <div class="stat-info">
             <p class="stat-label">Chiffre d'affaires</p>
-            <h3 class="stat-value">{{ stats.chiffreAffaires | number:'1.2-2' }} Ar</h3>
+            <h3 class="stat-value">{{ stats.chiffreAffaires | number:'1.2-2' }} Ariary</h3>
             <p class="stat-subtitle">Total des ventes</p>
           </div>
         </mat-card-content>
@@ -37,7 +37,7 @@
           </div>
           <div class="stat-info">
             <p class="stat-label">Bénéfices</p>
-            <h3 class="stat-value">{{ stats.benefices | number:'1.2-2' }} Ar</h3>
+            <h3 class="stat-value">{{ stats.benefices | number:'1.2-2' }} Ariary</h3>
             <p class="stat-subtitle">Marge : {{ tauxMarge | number:'1.1-1' }}%</p>
           </div>
         </mat-card-content>
@@ -163,7 +163,7 @@
           <div class="metrics-grid">
             <div class="metric-item">
               <span class="metric-label">Panier moyen</span>
-              <span class="metric-value">{{ panierMoyen | number:'1.2-2' }} €</span>
+              <span class="metric-value">{{ panierMoyen | number:'1.2-2' }} Ar</span>
             </div>
             <div class="metric-item">
               <span class="metric-label">Taux de marge</span>
@@ -171,7 +171,7 @@
             </div>
             <div class="metric-item">
               <span class="metric-label">Valeur stock</span>
-              <span class="metric-value">{{ stats.stockTotal * panierMoyen | number:'1.2-2' }} €</span>
+              <span class="metric-value">{{ stats.stockTotal * panierMoyen | number:'1.2-2' }} Ar</span>
             </div>
           </div>
         </mat-card-content>
