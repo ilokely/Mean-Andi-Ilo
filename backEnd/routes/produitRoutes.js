@@ -7,10 +7,11 @@ const Produit = require('../models/Produit');
 const EntreeProduit = require('../models/EntreeProduit');
 const SortieProduit = require('../models/SortieProduit');
 const upload = require('../middleware/upload');
+const cloudinary = require('../config/cloudinary');
 
 router.get('/getProduits', async (req, res) => {   
     try {
-        const produits = await Produit.find().populate('imageProduit');
+        const produits = await Produit.find();
         res.json(produits);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -160,8 +161,17 @@ router.put('/updateProduit/:id', async(req,res) => {
 
 router.delete('/deleteProduit/:id', async (req, res) => {
     try {
-        const produit = await Produit.findByIdAndDelete(req.params.id);
-        const deleteImg = await cloudinary.uploader.destroy(produit.imageProduit.id);
+        const produit = await Produit.findById(req.params.id);
+        if (!produit) {
+            return res.status(404).json({ message: 'Produit non trouvé' });
+        }
+
+        if (produit.imageProduit && produit.imageProduit.public_id) {
+            await cloudinary.uploader.destroy(produit.imageProduit.public_id);
+            console.log("Image supprimée de Cloudinary");
+        }
+
+        await Produit.findByIdAndDelete(req.params.id);
 
         res.status(200).json({
             message: 'Produit supprimé avec succès',
