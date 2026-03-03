@@ -71,7 +71,7 @@
               <div class="card product-card" (click)="openDetails(produit)">
                 <!-- Image du produit -->
                 <div class="image-container">
-                  <img [src]="produit.imageProduit?.path | imageUrl" class="card-img-top" [alt]="produit.nom">
+                  <img [src]="produit.imageProduit?.url" class="card-img-top" [alt]="produit.id">
 
                   <!-- Badge catégorie -->
                   <div class="category-badge">

@@ -19,7 +19,7 @@ import { CategorieService } from '../../../services/categorie.service';
 import { FormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { ImageUrlPipe } from '../../../pipes/image-url.pipe';
+// import { ImageUrlPipe } from '../../../pipes/image-url.pipe';
 
 @Component({
   selector: 'app-liste-produit',
@@ -38,7 +38,7 @@ import { ImageUrlPipe } from '../../../pipes/image-url.pipe';
     MatFormFieldModule,
     MatInputModule,
     MatProgressSpinnerModule,
-    ImageUrlPipe  
+    // ImageUrlPipe  
   ],
   templateUrl: './liste-produit.component.html',
   styleUrl: './liste-produit.component.css'

@@ -10,8 +10,8 @@ const ProduitSchema = new mongoose.Schema({
         libelle: { type: String, required: true }
     },
     imageProduit: {
-        id: { type: mongoose.Schema.Types.ObjectId , ref: 'ImageProduit'},
-        path: { type: String }
+        public_id: { type: String },
+        url: { type: String }
     },
     nom: { type: String, required: true },
     marque: {type: String },

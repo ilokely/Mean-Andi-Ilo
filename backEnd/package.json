@@ -12,11 +12,13 @@
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^6.0.0",
+    "cloudinary": "^1.41.3",
     "cors": "^2.8.6",
     "dotenv": "^17.2.3",
     "express": "^4.17.1",
     "mongoose": "^9.1.5",
-    "multer": "^2.1.0"
+    "multer": "^2.1.0",
+    "multer-storage-cloudinary": "^4.0.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.11"
