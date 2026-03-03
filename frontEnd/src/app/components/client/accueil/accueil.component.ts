@@ -5,10 +5,11 @@ import { ProduitService } from '../../../services/produit.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SortieProduitService } from '../../../services/sortie-produit.service';
+import { ImageUrlPipe } from '../../../pipes/image-url.pipe';
 
 @Component({
   selector: 'app-accueil',
-  imports: [FooterComponent, MenuClientComponent, FormsModule, CommonModule],
+  imports: [FooterComponent, MenuClientComponent, FormsModule, CommonModule,ImageUrlPipe],
   templateUrl: './accueil.component.html',
   styleUrl: './accueil.component.css'
 })
