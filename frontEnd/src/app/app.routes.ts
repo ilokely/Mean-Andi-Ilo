@@ -31,7 +31,6 @@ export const routes: Routes = [
 
      { path: 'A_dashboard', component: DashboardComponent, canActivate: [authGuard], data: { role: 'Admin' } },
      { path: 'A_listUser', component: ListUserComponent, canActivate: [authGuard], data: { role: 'Admin' } },
-     { path: 'A_listUser', component: ListUserComponent, canActivate: [authGuard], data: { role: 'Admin' } },
      { path: 'A_listBoxes', component: ListBoxesComponent, canActivate: [authGuard], data: { role: 'Admin' } },
      { path: 'A_listSubscription', component: ListSubscriptionComponent, canActivate: [authGuard], data: { role: 'Admin' } },
      { path: 'A_Categories', component: CategorieProduitComponent, canActivate: [authGuard], data: { role: 'Admin' } },
@@ -39,6 +38,7 @@ export const routes: Routes = [
 
      { path: 'C_accueil' , component: AccueilComponent, canActivate: [authGuard], data: { role: 'Client' } },
      { path: 'C_historique_transaction' , component: HistoriqueTransactionComponent, canActivate: [authGuard], data: { role: 'Client' } },
+     { path: 'C_infos_user', component: InfosUserComponent, canActivate: [authGuard], data: { role: 'Client' } },
 
      {
           path: 'B_dashboard',
