@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Abonnement = require('../models/Abonnement');
 const checkAbonnementExpiration = require('../middleware/checkAbonnementExpiration');
+const Box = require('../models/Box');
 
 router.use(checkAbonnementExpiration);
 
@@ -74,6 +75,10 @@ router.post('/add', async (req, res) => {
         });
 
         await nouvelleAbo.save();
+         await Box.findByIdAndUpdate(
+            box,
+            { isAvailable: false }
+        );
 
         res.status(201).json(nouvelleAbo);
     } catch (error) {
