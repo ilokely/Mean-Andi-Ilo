@@ -178,4 +178,13 @@ voirDetails(produit: any): void {
         modal.show();
     }
 }
+
+fermerDetail(): void {
+    const modalElement = document.getElementById('detailProduitModal');
+
+    if (modalElement) {
+        const modal = new (window as any).bootstrap.Modal(modalElement);
+        modal.hide();
+    }
+}
 }
