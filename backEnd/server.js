@@ -26,7 +26,6 @@ app.use('/entreeProduit' , require('./routes/entreeProduitRoutes'));
 app.use('/sortieProduit' , require('./routes/sortieProduitRoutes'));
 app.use('/produit' , require('./routes/produitRoutes'));
 app.use('/panier' , require('./routes/panierRoutes'));
-app.use('/image' , require('./routes/imageRoutes'));
 app.use('/dashboardBoutique' , require('./routes/dashboardBoutiqueRoutes'));
 app.use('/dashboardAdmin' , require('./routes/dashboardAdminRoutes'));
 
