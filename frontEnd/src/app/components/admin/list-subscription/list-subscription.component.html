@@ -9,7 +9,7 @@
                 <!-- Bouton Ouvrir Modal Types d'Abonnement -->
                 <button type="button" class="btn btn-success d-flex align-items-center" data-bs-toggle="modal"
                     data-bs-target="#typeAbonnementModal">
-                    <i class="bi bi-card-list me-2"></i>Gérer les Types d'Abonnement
+                    <i class="bi bi-card-list me-2"></i> Types d'Abonnement
                 </button>
 
                 <!-- Modal Liste & Création Type d'Abonnement -->
@@ -26,25 +26,6 @@
 
                             <!-- Body -->
                             <div class="modal-body">
-
-                                <!-- Formulaire Ajouter Type -->
-                                <form (ngSubmit)="addTypeAbonnement()" #typeForm="ngForm" class="mb-4">
-                                    <div class="row g-3 align-items-end">
-                                        <div class="col-md-6">
-                                            <label class="form-label">Nom du type</label>
-                                            <input type="text" class="form-control" [(ngModel)]="newType.type"
-                                                name="type" required>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label class="form-label">Réduction (%)</label>
-                                            <input type="number" class="form-control" [(ngModel)]="newType.reduction"
-                                                name="reduction" min="0" max="100">
-                                        </div>
-                                        <div class="col-md-2">
-                                            <button type="submit" class="btn btn-success w-100">Ajouter</button>
-                                        </div>
-                                    </div>
-                                </form>
 
                                 <!-- Tableau des types existants -->
                                 <table class="table table-striped">
