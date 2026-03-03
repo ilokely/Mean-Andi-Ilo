@@ -21,7 +21,7 @@ router.get('/', async (req, res) => {
 router.get('/getAbonnementByBoutique/:boutiqueId', async (req, res) => {
     try {
         const boutiqueId = req.params.boutiqueId;
-        const abonnement = await Abonnement.findOne({
+        let abonnement = await Abonnement.findOne({
             'utilisateur': boutiqueId,
             'statut': 'En cours'
         })
