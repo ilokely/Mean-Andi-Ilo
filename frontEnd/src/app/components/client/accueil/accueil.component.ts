@@ -22,6 +22,7 @@ export class AccueilComponent {
     boutiqueId: null,
     quantite: 0,
   };
+  produitSelectionne: any = null;
 
   constructor(private produitService: ProduitService, private sortieProduitService: SortieProduitService) { }
 
@@ -165,4 +166,16 @@ export class AccueilComponent {
     this.panier = [];
     this.fermerConfirmation();
   }
+
+voirDetails(produit: any): void {
+
+    this.produitSelectionne = produit;
+
+    const modalElement = document.getElementById('detailProduitModal');
+
+    if (modalElement) {
+        const modal = new (window as any).bootstrap.Modal(modalElement);
+        modal.show();
+    }
+}
 }
