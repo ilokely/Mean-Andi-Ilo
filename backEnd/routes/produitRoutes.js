@@ -6,7 +6,7 @@ const ImageProduit = require('../models/ImageProduit');
 const Produit = require('../models/Produit');
 const EntreeProduit = require('../models/EntreeProduit');
 const SortieProduit = require('../models/SortieProduit');
-const upload = require('../config/multer.config');
+const upload = require('../middleware/upload');
 
 router.get('/getProduits', async (req, res) => {   
     try {
@@ -50,15 +50,9 @@ router.post('/addProduit', upload.single('image'), async (req, res) => {
 
         let imageProduitData = null;
         if (req.file) {
-            const imagePath = `/uploads/produits/${req.file.filename}`;
-            
-            const imageProduit = await ImageProduit.create({
-                path: imagePath
-            });
-
             imageProduitData = {
-                id: imageProduit._id,
-                path: imagePath
+                public_id: req.file.filename,
+                url: req.file.path
             };
 
             console.log('Image créée:', imageProduitData);
@@ -105,14 +99,6 @@ router.post('/addProduit', upload.single('image'), async (req, res) => {
 
     } catch (error) {
         console.error('Erreur création produit:', error);
-        if (req.file) {
-            const fs = require('fs');
-            const filePath = req.file.path;
-            if (fs.existsSync(filePath)) {
-                fs.unlinkSync(filePath);
-                console.log('Fichier supprimé après erreur');
-            }
-        }
         res.status(500).json({ error: error.message });
     }
 });
@@ -175,6 +161,7 @@ router.put('/updateProduit/:id', async(req,res) => {
 router.delete('/deleteProduit/:id', async (req, res) => {
     try {
         const produit = await Produit.findByIdAndDelete(req.params.id);
+        const deleteImg = await cloudinary.uploader.destroy(produit.imageProduit.id);
 
         res.status(200).json({
             message: 'Produit supprimé avec succès',

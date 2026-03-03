@@ -30,7 +30,7 @@ app.use('/image' , require('./routes/imageRoutes'));
 app.use('/dashboardBoutique' , require('./routes/dashboardBoutiqueRoutes'));
 app.use('/dashboardAdmin' , require('./routes/dashboardAdminRoutes'));
 
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+// app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 
 
