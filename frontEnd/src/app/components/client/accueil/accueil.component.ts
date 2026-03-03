@@ -180,11 +180,8 @@ voirDetails(produit: any): void {
 }
 
 fermerDetail(): void {
-    const modalElement = document.getElementById('detailProduitModal');
-
-    if (modalElement) {
-        const modal = new (window as any).bootstrap.Modal(modalElement);
-        modal.hide();
-    }
+    const modalEl = document.getElementById('detailProduitModal');
+    const modal = (window as any).bootstrap.Modal.getInstance(modalEl);
+    modal.hide();
 }
 }
