@@ -19,6 +19,7 @@ import { HistoriqueTransactionComponent } from './components/client/historique-t
 import { AbonnementBoutiqueComponent } from './components/boutique/abonnement-boutique/abonnement-boutique.component';
 import { TypeAbonnementComponent } from './components/admin/type-abonnement/type-abonnement.component';
 import { CategorieProduitComponent } from './components/admin/categorie-produit/categorie-produit.component';
+import { CInfosUserComponent } from './components/client/c-infos-user/c-infos-user.component';
 
 export const routes: Routes = [
      { path: '', redirectTo: 'login/client', pathMatch: 'full' },
@@ -38,7 +39,7 @@ export const routes: Routes = [
 
      { path: 'C_accueil' , component: AccueilComponent, canActivate: [authGuard], data: { role: 'Client' } },
      { path: 'C_historique_transaction' , component: HistoriqueTransactionComponent, canActivate: [authGuard], data: { role: 'Client' } },
-     { path: 'C_infos_user', component: InfosUserComponent, canActivate: [authGuard], data: { role: 'Client' } },
+     { path: 'C_infos_user', component: CInfosUserComponent, canActivate: [authGuard], data: { role: 'Client' } },
 
      {
           path: 'B_dashboard',
