@@ -1,7 +1,7 @@
-import { isPlatformBrowser } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Component, inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { UtilisateurService } from '../../../services/utilisateur.service';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -13,7 +13,7 @@ import { FooterComponent } from '../../common/footer/footer.component';
 
 @Component({
   selector: 'app-infos-user',
-  imports: [MatFormFieldModule, MatInputModule, ReactiveFormsModule, MatProgressSpinnerModule, MatButtonModule , MenuClientComponent , FooterComponent],
+  imports: [MatFormFieldModule, MatInputModule, ReactiveFormsModule, MatProgressSpinnerModule, MatButtonModule , MenuClientComponent , FooterComponent , FormsModule ,CommonModule],
   templateUrl: './c-infos-user.component.html',
   styleUrl: './c-infos-user.component.css'
 })

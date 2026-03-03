@@ -1,49 +1,78 @@
 <app-menu-client></app-menu-client>
-<main id="main" class="main">
-    <section class="section">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="card-body">
-                    <h5 class="card-title"><strong>Informations sur l'utilisateur</strong></h5>
-                    <p class="card-text"><strong>Nom:</strong> {{ user.nomUtilisateur }}</p>
-                    <p class="card-text"><strong>Email:</strong> {{ user.email }}</p>
-                    <p class="card-text"><strong>Téléphone:</strong> {{ user.numero }}</p>
-                    <p class="card-text"><strong>Rôle:</strong> {{ user.role?.libelle }}</p>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card-body"> <br>
-                    <form [formGroup]="userForm">
-                        <mat-form-field>
-                            <mat-label>Nom</mat-label>
-                            <input matInput formControlName="nom">
-                        </mat-form-field>
-                        <mat-form-field class="inp-inf-usr">
-                            <mat-label>Email</mat-label>
-                            <input matInput formControlName="email">
-                        </mat-form-field>
-                        <mat-form-field>
-                            <mat-label>Téléphone</mat-label>
-                            <input matInput formControlName="telephone">
-                        </mat-form-field>
-                        <mat-form-field class="inp-inf-usr">
-                            <mat-label>Rôle</mat-label>
-                            <input matInput formControlName="role">
-                        </mat-form-field> <br>
-                        <button mat-flat-button color="primary" type="button" (click)="onSubmit()"
-                            [disabled]="userForm.invalid || isLoading">
 
-                            @if (isLoading) {
-                            <mat-spinner diameter="20"></mat-spinner>
-                            }
-                            @if (!isLoading) {
-                            <span>Enregistrer</span>
-                            }
-                        </button>
-                    </form>
-                </div>
-            </div>
+<main id="main" class="main container-fluid">
+  <section class="section">
+    <div class="row">
+
+      <!-- Infos utilisateur -->
+      <div class="col-12 mb-4">
+        <div class="card p-4 shadow-sm">
+          <h5 class="card-title"><strong>Informations sur l'utilisateur</strong></h5>
+          <p class="card-text"><strong>Nom:</strong> {{ user.nomUtilisateur }}</p>
+          <p class="card-text"><strong>Email:</strong> {{ user.email }}</p>
+          <p class="card-text"><strong>Téléphone:</strong> {{ user.numero }}</p>
+          <p class="card-text"><strong>Rôle:</strong> {{ user.role?.libelle }}</p>
         </div>
+      </div>
+
+      <!-- Formulaire -->
+      <div class="col-12">
+        <div class="card p-4 shadow-sm">
+          <form [formGroup]="userForm">
+
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <mat-form-field class="w-100">
+                  <mat-label>Nom</mat-label>
+                  <input matInput formControlName="nom">
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <mat-form-field class="w-100">
+                  <mat-label>Email</mat-label>
+                  <input matInput formControlName="email">
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <mat-form-field class="w-100">
+                  <mat-label>Téléphone</mat-label>
+                  <input matInput formControlName="telephone">
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <mat-form-field class="w-100">
+                  <mat-label>Rôle</mat-label>
+                  <input matInput formControlName="role">
+                </mat-form-field>
+              </div>
+            </div>
+
+            <button
+              mat-flat-button
+              color="primary"
+              type="button"
+              (click)="onSubmit()"
+              [disabled]="userForm.invalid || isLoading">
+
+              <ng-container *ngIf="isLoading; else btnText">
+                <mat-spinner diameter="20"></mat-spinner>
+              </ng-container>
+
+              <ng-template #btnText>
+                Enregistrer
+              </ng-template>
+
+            </button>
+
+          </form>
+        </div>
+      </div>
+
+    </div>
   </section>
 </main>
+
 <app-footer></app-footer>
